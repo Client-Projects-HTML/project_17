@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Aisle Not Found (404) — FreshBasket</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = { darkMode: 'class', theme: { extend: { colors: { brand: { 600: '#16a34a' } } } } }
+  </script>
+  <link rel="stylesheet" href="../assets/css/style.css" />
+  <link rel="stylesheet" href="../assets/css/dark-mode.css" />
+  <link rel="stylesheet" href="../assets/css/rtl.css" />
+</head>
+<body class="bg-slate-50 dark:bg-slate-900 text-slate-900 dark:text-slate-100 min-h-screen flex items-center justify-center p-4">
+
+  <div class="max-w-md w-full text-center bg-white dark:bg-slate-800 rounded-3xl border border-slate-200 dark:border-slate-700 p-8 shadow-xl space-y-6">
+    <div class="w-24 h-24 bg-amber-50 dark:bg-amber-950/40 text-amber-500 rounded-full flex items-center justify-center mx-auto text-4xl shadow-inner">
+      <i class="fa-solid fa-basket-shopping"></i>
+    </div>
+
+    <div class="space-y-2">
+      <span class="text-xs font-extrabold text-amber-600 uppercase tracking-widest">Error 404</span>
+      <h1 class="text-2xl font-extrabold text-slate-900 dark:text-white">Oops! This aisle doesn't exist.</h1>
+      <p class="text-xs text-slate-500">The grocery item or page you are looking for has been moved or restocked elsewhere.</p>
+    </div>
+
+    <div class="flex flex-col sm:flex-row gap-3 pt-2">
+      <a href="../index.html" class="btn-primary flex-1 py-3 text-xs font-bold">Back to Home</a>
+      <a href="shop.html" class="btn-secondary flex-1 py-3 text-xs font-bold">Start Shopping</a>
+    </div>
+  </div>
+
+  <script src="../assets/js/theme.js"></script>
+</body>
+</html>

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Feature Coming Soon — FreshBasket Supermarket</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = { darkMode: 'class', theme: { extend: { colors: { brand: { 600: '#16a34a' } } } } }
+  </script>
+  <link rel="stylesheet" href="../assets/css/style.css" />
+  <link rel="stylesheet" href="../assets/css/dark-mode.css" />
+  <link rel="stylesheet" href="../assets/css/rtl.css" />
+</head>
+<body class="bg-slate-900 text-white min-h-screen flex items-center justify-center p-4">
+
+  <div class="max-w-lg w-full text-center space-y-8">
+    <div class="w-20 h-20 bg-green-600 rounded-3xl flex items-center justify-center mx-auto text-3xl font-extrabold shadow-2xl shadow-green-600/40">
+      <i class="fa-solid fa-basket-shopping"></i>
+    </div>
+
+    <div class="space-y-3">
+      <span class="text-xs font-extrabold text-green-400 uppercase tracking-widest bg-green-500/20 px-3 py-1 rounded-full border border-green-500/30">Feature Under Development</span>
+      <h1 class="text-3xl sm:text-4xl font-extrabold">Fresh Experience Arriving Soon</h1>
+      <p class="text-sm text-slate-400">Our engineering team is building this new service module for your neighborhood supermarket.</p>
+    </div>
+
+    <!-- Countdown Timer Placeholder -->
+    <div class="grid grid-cols-4 gap-4 text-center">
+      <div class="bg-slate-800 p-4 rounded-2xl border border-slate-700">
+        <span class="text-2xl font-extrabold text-green-400">14</span>
+        <span class="text-[10px] text-slate-400 block uppercase">Days</span>
+      </div>
+      <div class="bg-slate-800 p-4 rounded-2xl border border-slate-700">
+        <span class="text-2xl font-extrabold text-green-400">08</span>
+        <span class="text-[10px] text-slate-400 block uppercase">Hours</span>
+      </div>
+      <div class="bg-slate-800 p-4 rounded-2xl border border-slate-700">
+        <span class="text-2xl font-extrabold text-green-400">45</span>
+        <span class="text-[10px] text-slate-400 block uppercase">Mins</span>
+      </div>
+      <div class="bg-slate-800 p-4 rounded-2xl border border-slate-700">
+        <span class="text-2xl font-extrabold text-green-400">12</span>
+        <span class="text-[10px] text-slate-400 block uppercase">Secs</span>
+      </div>
+    </div>
+
+    <a href="../index.html" class="btn-primary inline-flex px-8 py-3.5 text-sm font-bold">
+      Back to FreshBasket Home
+    </a>
+  </div>
+
+  <script src="../assets/js/theme.js"></script>
+</body>
+</html>

@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Grocery Categories — FreshBasket Supermarket</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = { darkMode: 'class', theme: { extend: { colors: { brand: { 600: '#16a34a' } } } } }
+  </script>
+  <link rel="stylesheet" href="../assets/css/style.css" />
+  <link rel="stylesheet" href="../assets/css/dark-mode.css" />
+  <link rel="stylesheet" href="../assets/css/rtl.css" />
+</head>
+<body class="bg-slate-50 dark:bg-slate-900 text-slate-900 dark:text-slate-100 transition-colors duration-200">
+
+  <!-- COMBINED FIXED HEADER (TOP UTILITY BAR + MAIN NAVBAR) -->
+  <header class="fixed top-0 left-0 right-0 z-50 w-full shadow-sm">
+    
+    <!-- TOP UTILITY BAR -->
+    <div class="bg-slate-900 text-slate-300 text-xs py-2 border-b border-slate-800">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between">
+        <div class="flex items-center gap-4">
+          <button class="location-modal-trigger hover:text-green-400 flex items-center gap-1">
+            <i class="fa-solid fa-location-dot text-green-500"></i>
+            <span>Delivering to: <strong class="current-location-text text-white">Downtown 10001</strong></span>
+          </button>
+        </div>
+        <div class="flex items-center gap-4">
+          <a href="tel:18005553737" class="hover:text-white flex items-center gap-1">
+            <i class="fa-solid fa-phone text-slate-400"></i>
+            <span class="hidden sm:inline">Support: 1-800-FRESH</span>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- MAIN NAVBAR -->
+    <div class="bg-white/95 dark:bg-slate-900/95 backdrop-blur border-b border-slate-200/80 dark:border-slate-800 transition-colors duration-200">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex items-center justify-between h-20 gap-4">
+
+          <!-- Mobile Left: Hamburger Toggle & Logo -->
+          <div class="flex items-center gap-3 lg:hidden">
+            <button id="mobile-menu-toggle"
+              class="p-2 rounded-xl text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
+              aria-label="Open Navigation">
+              <i class="fa-solid fa-bars text-xl"></i>
+            </button>
+            <a href="../index.html" class="flex items-center gap-2">
+              <div class="w-9 h-9 bg-green-600 text-white rounded-xl flex items-center justify-center font-extrabold text-lg shadow-md shadow-green-600/30">
+                <i class="fa-solid fa-basket-shopping"></i>
+              </div>
+              <span class="font-extrabold text-lg tracking-tight text-slate-900 dark:text-white">Fresh<span class="text-green-600">Basket</span></span>
+            </a>
+          </div>
+
+          <!-- Desktop Unified Single-Row Main Navbar -->
+          <div class="hidden lg:flex items-center justify-between w-full gap-4 xl:gap-6">
+            
+            <!-- 1. FRESHBASKET LOGO / BRAND POSITION -->
+            <a href="../index.html" class="flex items-center gap-2.5 flex-shrink-0 group">
+              <div class="w-11 h-11 bg-green-600 text-white rounded-2xl flex items-center justify-center font-extrabold text-xl shadow-lg shadow-green-600/30 group-hover:scale-105 transition-transform">
+                <i class="fa-solid fa-basket-shopping"></i>
+              </div>
+              <div>
+                <span class="font-extrabold text-xl tracking-tight text-slate-900 dark:text-white">Fresh<span class="text-green-600">Basket</span></span>
+                <span class="block text-[10px] uppercase font-bold tracking-widest text-slate-400 -mt-1">Supermarket</span>
+              </div>
+            </a>
+
+            <!-- Navigation Links (2 to 6) & Action Buttons (7 to 10) -->
+            <nav class="flex items-center gap-5 xl:gap-7 text-sm font-semibold text-slate-700 dark:text-slate-200">
+              <!-- 2. Home -->
+              <a href="../index.html" class="hover:text-green-600 dark:hover:text-green-400 transition-colors flex items-center gap-1.5">
+                <i class="fa-solid fa-house text-xs"></i> Home
+              </a>
+              <!-- 3. Shop -->
+              <a href="shop.html" class="hover:text-green-600 dark:hover:text-green-400 transition-colors">Shop</a>
+              <!-- 4. Categories -->
+              <a href="categories.html" class="text-green-600 dark:text-green-400 font-bold transition-colors">Categories</a>
+              <!-- 5. Deals -->
+              <a href="deals.html" class="text-amber-600 dark:text-amber-400 hover:text-amber-500 transition-colors flex items-center gap-1">
+                <i class="fa-solid fa-fire text-xs"></i> Deals
+              </a>
+              <!-- 6. Blog -->
+              <a href="blog.html" class="hover:text-green-600 dark:hover:text-green-400 transition-colors">Blog</a>
+
+              <!-- 7. Cart Icon -->
+              <button type="button" class="cart-drawer-trigger relative p-2 text-slate-700 dark:text-slate-200 hover:text-green-600 dark:hover:text-green-400 transition-colors" aria-label="Shopping Cart">
+                <i class="fa-solid fa-basket-shopping text-xl"></i>
+                <span class="cart-count-badge absolute -top-1 -right-1.5 w-5 h-5 bg-green-600 text-white rounded-full text-[11px] font-extrabold flex items-center justify-center border-2 border-white dark:border-slate-900">0</span>
+              </button>
+
+              <!-- 8. RTL Button -->
+              <button type="button" onclick="event.preventDefault(); event.stopPropagation(); event.stopImmediatePropagation(); if(window.themeController) window.themeController.toggleRTL(); return false;" class="rtl-toggle-btn w-9 h-9 flex items-center justify-center bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-200 border border-slate-200 dark:border-slate-700 rounded-xl hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors" title="Toggle RTL/LTR" aria-label="Toggle RTL/LTR">
+                <i class="fa-solid fa-globe text-base"></i>
+              </button>
+
+              <!-- 9. Theme Button -->
+              <button type="button" onclick="event.preventDefault(); event.stopPropagation(); event.stopImmediatePropagation(); if(window.themeController) window.themeController.toggleDarkMode(); return false;" class="theme-toggle-btn w-9 h-9 flex items-center justify-center bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-200 border border-slate-200 dark:border-slate-700 rounded-xl hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors" title="Toggle Light/Dark Theme" aria-label="Toggle Light/Dark Theme">
+                <i class="fa-solid fa-moon text-base"></i>
+              </button>
+
+              <!-- 10. Admin Portal -->
+              <a href="../admin/index.html" class="text-xs font-semibold bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-200 border border-slate-200 dark:border-slate-700 px-3.5 py-1.5 rounded-full hover:bg-green-600 hover:text-white dark:hover:bg-green-600 dark:hover:text-white transition-colors flex items-center gap-1.5 flex-shrink-0">
+                <i class="fa-solid fa-user-gear"></i> Admin Portal
+              </a>
+            </nav>
+
+          </div>
+
+          <!-- Mobile Right Controls -->
+          <div class="flex lg:hidden items-center gap-2">
+            <button type="button" class="cart-drawer-trigger relative p-2 text-slate-700 dark:text-slate-200 hover:text-green-600 transition-colors" aria-label="Shopping Cart">
+              <i class="fa-solid fa-basket-shopping text-lg"></i>
+              <span class="cart-count-badge absolute -top-1 -right-1.5 w-4 h-4 bg-green-600 text-white rounded-full text-[10px] font-extrabold flex items-center justify-center">0</span>
+            </button>
+            <button type="button" onclick="event.preventDefault(); event.stopPropagation(); event.stopImmediatePropagation(); if(window.themeController) window.themeController.toggleRTL(); return false;" class="rtl-toggle-btn w-9 h-9 flex items-center justify-center bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-200 border border-slate-200 dark:border-slate-700 rounded-xl" title="Toggle RTL/LTR" aria-label="Toggle RTL/LTR">
+              <i class="fa-solid fa-globe text-base"></i>
+            </button>
+            <button type="button" onclick="event.preventDefault(); event.stopPropagation(); event.stopImmediatePropagation(); if(window.themeController) window.themeController.toggleDarkMode(); return false;" class="theme-toggle-btn w-9 h-9 flex items-center justify-center bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-200 border border-slate-200 dark:border-slate-700 rounded-xl" title="Toggle Theme" aria-label="Toggle Theme">
+              <i class="fa-solid fa-moon text-base"></i>
+            </button>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+  </header>
+
+  <!-- MOBILE NAVIGATION DRAWER -->
+  <div id="mobile-menu-overlay" class="hidden fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 transition-opacity lg:hidden"></div>
+  <div id="mobile-menu-drawer" class="fixed top-0 left-0 w-4/5 max-w-xs h-full bg-white dark:bg-slate-900 z-50 shadow-2xl transform -translate-x-full transition-transform duration-300 flex flex-col lg:hidden">
+    <div class="p-5 border-b border-slate-200 dark:border-slate-800 flex items-center justify-between">
+      <a href="../index.html" class="flex items-center gap-2">
+        <div class="w-9 h-9 bg-green-600 text-white rounded-xl flex items-center justify-center font-extrabold text-lg">
+          <i class="fa-solid fa-basket-shopping"></i>
+        </div>
+        <span class="font-extrabold text-lg text-slate-900 dark:text-white">Fresh<span class="text-green-600">Basket</span></span>
+      </a>
+      <button id="mobile-menu-close" class="p-2 text-slate-400 hover:text-slate-600 dark:hover:text-white" aria-label="Close Menu">
+        <i class="fa-solid fa-xmark text-lg"></i>
+      </button>
+    </div>
+    <div class="p-5 space-y-4 flex-1 overflow-y-auto font-semibold text-sm">
+      <a href="../index.html" class="block py-2 text-slate-700 dark:text-slate-200 hover:text-green-600 flex items-center gap-2">
+        <i class="fa-solid fa-house text-xs"></i> Home
+      </a>
+      <a href="shop.html" class="block py-2 text-slate-700 dark:text-slate-200 hover:text-green-600">Shop</a>
+      <a href="categories.html" class="block py-2 text-green-600 dark:text-green-400 font-bold">Categories</a>
+      <a href="deals.html" class="block py-2 text-amber-600 dark:text-amber-400 flex items-center gap-2">
+        <i class="fa-solid fa-fire text-xs"></i> Deals
+      </a>
+      <a href="blog.html" class="block py-2 text-slate-700 dark:text-slate-200 hover:text-green-600">Blog</a>
+      <hr class="border-slate-200 dark:border-slate-800 my-2" />
+      <a href="../admin/index.html" class="block py-2.5 px-4 bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200 rounded-xl text-xs font-bold text-center border border-slate-200 dark:border-slate-700">
+        <i class="fa-solid fa-user-gear mr-1"></i> Admin Portal
+      </a>
+    </div>
+  </div>
+
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-[140px] pb-12">
+    <div class="mb-10 text-center max-w-xl mx-auto">
+      <span class="text-xs font-bold text-green-600 uppercase tracking-widest block mb-1">Departments</span>
+      <h1 class="text-3xl sm:text-4xl font-extrabold text-slate-900 dark:text-white">Explore All Supermarket Aisles</h1>
+      <p class="text-xs text-slate-500 mt-2">Discover farm fresh produce, organic dairy, bakery goods, pantry staples & household essentials.</p>
+    </div>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+      
+      <a href="shop.html?category=fruits-veggies" class="bg-white dark:bg-slate-800 rounded-3xl border border-slate-200 dark:border-slate-700 p-6 flex flex-col justify-between group hover:border-green-500 hover:shadow-lg transition-all">
+        <div class="h-40 rounded-2xl overflow-hidden mb-4 relative">
+          <img src="https://images.unsplash.com/photo-1610832958506-aa56368176cf?auto=format&fit=crop&w=400&q=80" alt="Fruits & Veggies" class="w-full h-full object-cover group-hover:scale-105 transition-transform" />
+        </div>
+        <div class="flex items-center justify-between">
+          <div>
+            <h3 class="font-bold text-slate-900 dark:text-white text-base">Fruits & Vegetables</h3>
+            <span class="text-xs text-slate-400">9 Fresh Products</span>
+          </div>
+          <div class="w-9 h-9 bg-green-50 dark:bg-green-950/50 text-green-600 rounded-xl flex items-center justify-center font-bold">
+            <i class="fa-solid fa-arrow-right text-xs"></i>
+          </div>
+        </div>
+      </a>
+
+      <a href="shop.html?category=dairy-eggs" class="bg-white dark:bg-slate-800 rounded-3xl border border-slate-200 dark:border-slate-700 p-6 flex flex-col justify-between group hover:border-green-500 hover:shadow-lg transition-all">
+        <div class="h-40 rounded-2xl overflow-hidden mb-4 relative">
+          <img src="https://images.unsplash.com/photo-1628088062854-d1870b4553da?auto=format&fit=crop&w=400&q=80" alt="Dairy & Eggs" class="w-full h-full object-cover group-hover:scale-105 transition-transform" />
+        </div>
+        <div class="flex items-center justify-between">
+          <div>
+            <h3 class="font-bold text-slate-900 dark:text-white text-base">Dairy & Eggs</h3>
+            <span class="text-xs text-slate-400">7 Products</span>
+          </div>
+          <div class="w-9 h-9 bg-green-50 dark:bg-green-950/50 text-green-600 rounded-xl flex items-center justify-center font-bold">
+            <i class="fa-solid fa-arrow-right text-xs"></i>
+          </div>
+        </div>
+      </a>
+
+      <a href="shop.html?category=meat-seafood" class="bg-white dark:bg-slate-800 rounded-3xl border border-slate-200 dark:border-slate-700 p-6 flex flex-col justify-between group hover:border-green-500 hover:shadow-lg transition-all">
+        <div class="h-40 rounded-2xl overflow-hidden mb-4 relative">
+          <img src="https://images.unsplash.com/photo-1607623814075-e51df1bdc82f?auto=format&fit=crop&w=400&q=80" alt="Meat & Seafood" class="w-full h-full object-cover group-hover:scale-105 transition-transform" />
+        </div>
+        <div class="flex items-center justify-between">
+          <div>
+            <h3 class="font-bold text-slate-900 dark:text-white text-base">Meat & Seafood</h3>
+            <span class="text-xs text-slate-400">5 Products</span>
+          </div>
+          <div class="w-9 h-9 bg-green-50 dark:bg-green-950/50 text-green-600 rounded-xl flex items-center justify-center font-bold">
+            <i class="fa-solid fa-arrow-right text-xs"></i>
+          </div>
+        </div>
+      </a>
+
+      <a href="shop.html?category=bakery" class="bg-white dark:bg-slate-800 rounded-3xl border border-slate-200 dark:border-slate-700 p-6 flex flex-col justify-between group hover:border-green-500 hover:shadow-lg transition-all">
+        <div class="h-40 rounded-2xl overflow-hidden mb-4 relative">
+          <img src="https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&w=400&q=80" alt="Fresh Bakery" class="w-full h-full object-cover group-hover:scale-105 transition-transform" />
+        </div>
+        <div class="flex items-center justify-between">
+          <div>
+            <h3 class="font-bold text-slate-900 dark:text-white text-base">Fresh Bakery</h3>
+            <span class="text-xs text-slate-400">5 Products</span>
+          </div>
+          <div class="w-9 h-9 bg-green-50 dark:bg-green-950/50 text-green-600 rounded-xl flex items-center justify-center font-bold">
+            <i class="fa-solid fa-arrow-right text-xs"></i>
+          </div>
+        </div>
+      </a>
+
+    </div>
+  </main>
+
+  <!-- CART DRAWER OVERLAY & PANEL -->
+  <div id="cart-drawer-overlay" class="hidden fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-[60] transition-opacity">
+  </div>
+  <div id="cart-drawer"
+    class="fixed top-0 right-0 w-full max-w-md h-full bg-white dark:bg-slate-900 z-[60] shadow-2xl transform translate-x-full transition-transform duration-300 flex flex-col">
+    <div class="p-6 border-b border-slate-200 dark:border-slate-800 flex items-center justify-between">
+      <div class="flex items-center gap-2">
+        <div class="w-8 h-8 bg-green-100 dark:bg-green-950/50 text-green-600 rounded-lg flex items-center justify-center font-bold">
+          <i class="fa-solid fa-basket-shopping text-sm"></i>
+        </div>
+        <h3 class="font-bold text-lg text-slate-900 dark:text-white">Your Cart</h3>
+      </div>
+      <button id="cart-drawer-close" class="p-2 text-slate-400 hover:text-slate-600 dark:hover:text-white" aria-label="Close Cart">
+        <i class="fa-solid fa-xmark text-lg"></i>
+      </button>
+    </div>
+
+    <!-- Free Delivery Progress Bar -->
+    <div class="bg-slate-50 dark:bg-slate-800/80 p-4 border-b border-slate-200 dark:border-slate-700">
+      <p id="cart-free-shipping-text" class="text-xs text-slate-600 dark:text-slate-300 mb-2">Calculating shipping free delivery...</p>
+      <div class="w-full bg-slate-200 dark:bg-slate-700 h-2 rounded-full overflow-hidden">
+        <div id="cart-free-shipping-bar" class="bg-green-600 h-2 rounded-full transition-all duration-300" style="width: 0%;"></div>
+      </div>
+    </div>
+
+    <!-- Items Container -->
+    <div id="cart-drawer-items" class="flex-1 overflow-y-auto p-6 space-y-4"></div>
+
+    <!-- Footer Summary -->
+    <div class="p-6 border-t border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900 space-y-4">
+      <div class="flex items-center justify-between text-sm">
+        <span class="text-slate-500">Subtotal</span>
+        <span id="cart-drawer-subtotal" class="font-bold text-slate-900 dark:text-white">$0.00</span>
+      </div>
+      <div class="flex items-center justify-between text-base">
+        <span class="font-bold text-slate-900 dark:text-white">Total</span>
+        <span id="cart-drawer-total" class="font-extrabold text-green-600 dark:text-green-400">$0.00</span>
+      </div>
+      <div class="grid grid-cols-2 gap-3 pt-2">
+        <a href="cart.html" class="btn-secondary text-center text-xs py-3">View Cart</a>
+        <a href="checkout.html" class="btn-primary text-center text-xs py-3">Checkout</a>
+      </div>
+    </div>
+  </div>
+
+  <script src="../assets/js/data/products.js"></script>
+  <script src="../assets/js/theme.js"></script>
+  <script src="../assets/js/cart.js"></script>
+  <script src="../assets/js/wishlist.js"></script>
+  <script src="../assets/js/main.js"></script>
+</body>
+</html>

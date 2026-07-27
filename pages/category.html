@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Fruits & Vegetables — FreshBasket Department</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = { darkMode: 'class', theme: { extend: { colors: { brand: { 600: '#16a34a' } } } } }
+  </script>
+  <link rel="stylesheet" href="../assets/css/style.css" />
+  <link rel="stylesheet" href="../assets/css/dark-mode.css" />
+  <link rel="stylesheet" href="../assets/css/rtl.css" />
+</head>
+<body class="bg-slate-50 dark:bg-slate-900 text-slate-900 dark:text-slate-100 transition-colors duration-200">
+
+  <header class="bg-white dark:bg-slate-800 border-b border-slate-200 dark:border-slate-700 py-4">
+    <div class="max-w-7xl mx-auto px-4 flex items-center justify-between">
+      <a href="../index.html" class="flex items-center gap-2">
+        <div class="w-9 h-9 bg-green-600 text-white rounded-xl flex items-center justify-center font-extrabold text-lg">
+          <i class="fa-solid fa-basket-shopping"></i>
+        </div>
+        <span class="font-extrabold text-xl dark:text-white">Fresh<span class="text-green-600">Basket</span> Category</span>
+      </a>
+      <a href="categories.html" class="text-xs font-bold text-green-600 hover:underline">All Departments</a>
+    </div>
+  </header>
+
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+    <div class="bg-green-600 text-white rounded-3xl p-8 mb-10 shadow-lg">
+      <div class="flex items-center gap-4">
+        <div class="w-14 h-14 bg-white/20 rounded-2xl flex items-center justify-center text-3xl">
+          <i class="fa-solid fa-apple-whole"></i>
+        </div>
+        <div>
+          <h1 class="text-3xl font-extrabold">Fruits & Vegetables</h1>
+          <p class="text-green-100 text-xs mt-1">Sustainably grown, hand-selected organic produce from local orchards and farms.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Category Products Grid -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+      
+      <div class="product-card">
+        <div class="product-img-wrapper">
+          <img src="https://images.unsplash.com/photo-1571771894821-ce9b6c11b08e?auto=format&fit=crop&w=600&q=80" alt="Bananas" />
+          <span class="absolute top-3 left-3 badge-discount">-20% OFF</span>
+        </div>
+        <div class="p-4">
+          <span class="text-xs font-semibold text-slate-400 uppercase">Fruits & Vegetables</span>
+          <h3 class="font-bold text-slate-900 dark:text-white text-base mt-1 mb-1">Organic Cavendish Bananas</h3>
+          <p class="text-xs text-slate-500 mb-3">1 bunch (approx. 3 lbs)</p>
+          <div class="flex items-center justify-between">
+            <span class="text-lg font-extrabold text-green-600">$1.99</span>
+            <button class="add-to-cart-btn btn-primary text-xs px-3.5 py-2 min-h-0" data-product-id="prod-1">+ Add</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <div class="product-img-wrapper">
+          <img src="https://images.unsplash.com/photo-1560806887-1e4cd0b6cbd6?auto=format&fit=crop&w=600&q=80" alt="Apples" />
+          <span class="absolute top-3 left-3 badge-discount">-18% OFF</span>
+        </div>
+        <div class="p-4">
+          <span class="text-xs font-semibold text-slate-400 uppercase">Fruits & Vegetables</span>
+          <h3 class="font-bold text-slate-900 dark:text-white text-base mt-1 mb-1">Fresh Honeycrisp Apples</h3>
+          <p class="text-xs text-slate-500 mb-3">2 lbs bag</p>
+          <div class="flex items-center justify-between">
+            <span class="text-lg font-extrabold text-green-600">$3.49</span>
+            <button class="add-to-cart-btn btn-primary text-xs px-3.5 py-2 min-h-0" data-product-id="prod-2">+ Add</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <div class="product-img-wrapper">
+          <img src="https://images.unsplash.com/photo-1576045057995-568f588f82fb?auto=format&fit=crop&w=600&q=80" alt="Spinach" />
+        </div>
+        <div class="p-4">
+          <span class="text-xs font-semibold text-slate-400 uppercase">Fruits & Vegetables</span>
+          <h3 class="font-bold text-slate-900 dark:text-white text-base mt-1 mb-1">Baby Spinach Leaves</h3>
+          <p class="text-xs text-slate-500 mb-3">8 oz tub</p>
+          <div class="flex items-center justify-between">
+            <span class="text-lg font-extrabold text-green-600">$2.99</span>
+            <button class="add-to-cart-btn btn-primary text-xs px-3.5 py-2 min-h-0" data-product-id="prod-3">+ Add</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <div class="product-img-wrapper">
+          <img src="https://images.unsplash.com/photo-1523049673857-eb18f1d7b578?auto=format&fit=crop&w=600&q=80" alt="Avocados" />
+        </div>
+        <div class="p-4">
+          <span class="text-xs font-semibold text-slate-400 uppercase">Fruits & Vegetables</span>
+          <h3 class="font-bold text-slate-900 dark:text-white text-base mt-1 mb-1">Organic Avocados Hass</h3>
+          <p class="text-xs text-slate-500 mb-3">4 pack</p>
+          <div class="flex items-center justify-between">
+            <span class="text-lg font-extrabold text-green-600">$4.99</span>
+            <button class="add-to-cart-btn btn-primary text-xs px-3.5 py-2 min-h-0" data-product-id="prod-5">+ Add</button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <script src="../assets/js/data/products.js"></script>
+  <script src="../assets/js/theme.js"></script>
+  <script src="../assets/js/cart.js"></script>
+  <script src="../assets/js/wishlist.js"></script>
+  <script src="../assets/js/main.js"></script>
+</body>
+</html>

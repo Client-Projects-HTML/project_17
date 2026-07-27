@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Notifications — FreshBasket Supermarket</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = { darkMode: 'class', theme: { extend: { colors: { brand: { 600: '#16a34a' } } } } }
+  </script>
+  <link rel="stylesheet" href="../assets/css/style.css" />
+  <link rel="stylesheet" href="../assets/css/dark-mode.css" />
+  <link rel="stylesheet" href="../assets/css/rtl.css" />
+</head>
+<body class="bg-slate-50 dark:bg-slate-900 text-slate-900 dark:text-slate-100 transition-colors duration-200">
+
+  <header class="bg-white dark:bg-slate-800 border-b border-slate-200 dark:border-slate-700 py-4">
+    <div class="max-w-7xl mx-auto px-4 flex items-center justify-between">
+      <a href="../index.html" class="flex items-center gap-2">
+        <div class="w-9 h-9 bg-green-600 text-white rounded-xl flex items-center justify-center font-extrabold text-lg">
+          <i class="fa-solid fa-basket-shopping"></i>
+        </div>
+        <span class="font-extrabold text-xl dark:text-white">Fresh<span class="text-green-600">Basket</span> Alerts</span>
+      </a>
+      <div class="flex items-center gap-4">
+        <button class="rtl-toggle-btn text-xs font-semibold px-2 py-1 bg-slate-200 dark:bg-slate-700 rounded">RTL</button>
+        <button class="theme-toggle-btn text-sm p-1"><i class="fa-solid fa-moon"></i></button>
+      </div>
+    </div>
+  </header>
+
+  <main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+    <h1 class="text-3xl font-extrabold text-slate-900 dark:text-white mb-8">Notification Center</h1>
+
+    <div class="space-y-4">
+      <div class="bg-white dark:bg-slate-800 p-5 rounded-2xl border border-slate-200 dark:border-slate-700 flex items-start gap-4 shadow-sm">
+        <div class="w-10 h-10 bg-green-50 dark:bg-green-950/50 text-green-600 rounded-xl flex items-center justify-center text-lg flex-shrink-0">
+          <i class="fa-solid fa-truck-fast"></i>
+        </div>
+        <div class="flex-1">
+          <div class="flex items-center justify-between">
+            <h4 class="font-bold text-slate-900 dark:text-white text-sm">Shopper Dispatched for Order #FB-894210</h4>
+            <span class="text-[10px] text-slate-400">10 mins ago</span>
+          </div>
+          <p class="text-xs text-slate-500 mt-1">Personal shopper Marcus is picking your organic produce at the store.</p>
+        </div>
+      </div>
+
+      <div class="bg-white dark:bg-slate-800 p-5 rounded-2xl border border-slate-200 dark:border-slate-700 flex items-start gap-4 shadow-sm">
+        <div class="w-10 h-10 bg-amber-50 dark:bg-amber-950/50 text-amber-600 rounded-xl flex items-center justify-center text-lg flex-shrink-0">
+          <i class="fa-solid fa-tag"></i>
+        </div>
+        <div class="flex-1">
+          <div class="flex items-center justify-between">
+            <h4 class="font-bold text-slate-900 dark:text-white text-sm">Weekly Farm Deals Live</h4>
+            <span class="text-[10px] text-slate-400">2 hours ago</span>
+          </div>
+          <p class="text-xs text-slate-500 mt-1">20% off organic Cavendish bananas and fresh Atlantic salmon fillets available today.</p>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <script src="../assets/js/theme.js"></script>
+</body>
+</html>

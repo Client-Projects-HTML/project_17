@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin Inventory — FreshBasket</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = { darkMode: 'class', theme: { extend: { colors: { brand: { 600: '#16a34a' } } } } }
+  </script>
+  <link rel="stylesheet" href="../assets/css/style.css" />
+  <link rel="stylesheet" href="../assets/css/dark-mode.css" />
+  <link rel="stylesheet" href="../assets/css/rtl.css" />
+</head>
+<body class="bg-slate-100 dark:bg-slate-900 text-slate-900 dark:text-slate-100 min-h-screen flex">
+
+  <aside class="w-64 bg-slate-900 text-slate-300 min-h-screen flex flex-col justify-between hidden md:flex flex-shrink-0">
+    <div class="p-6 space-y-6">
+      <a href="../index.html" class="flex items-center gap-2.5">
+        <div class="w-9 h-9 bg-green-600 text-white rounded-xl flex items-center justify-center font-extrabold text-lg">
+          <i class="fa-solid fa-basket-shopping"></i>
+        </div>
+        <span class="font-extrabold text-lg text-white">Fresh<span class="text-green-500">Admin</span></span>
+      </a>
+      <nav class="space-y-1 text-xs font-semibold">
+        <a href="index.html" class="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-slate-800 hover:text-white"><i class="fa-solid fa-chart-line text-sm"></i> Dashboard Overview</a>
+        <a href="products.html" class="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-slate-800 hover:text-white"><i class="fa-solid fa-box text-sm"></i> Products Catalog</a>
+        <a href="categories.html" class="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-slate-800 hover:text-white"><i class="fa-solid fa-layer-group text-sm"></i> Categories</a>
+        <a href="orders.html" class="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-slate-800 hover:text-white"><i class="fa-solid fa-truck-ramp-box text-sm"></i> Orders & Delivery</a>
+        <a href="customers.html" class="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-slate-800 hover:text-white"><i class="fa-solid fa-users text-sm"></i> Customers</a>
+        <a href="inventory.html" class="flex items-center gap-3 px-4 py-3 rounded-xl bg-green-600 text-white shadow-md"><i class="fa-solid fa-warehouse text-sm"></i> Inventory Alerts</a>
+        <a href="deals.html" class="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-slate-800 hover:text-white"><i class="fa-solid fa-tags text-sm"></i> Weekly Deals</a>
+        <a href="reviews.html" class="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-slate-800 hover:text-white"><i class="fa-solid fa-star text-sm"></i> Product Reviews</a>
+        <a href="analytics.html" class="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-slate-800 hover:text-white"><i class="fa-solid fa-chart-pie text-sm"></i> Revenue Analytics</a>
+        <a href="settings.html" class="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-slate-800 hover:text-white"><i class="fa-solid fa-gear text-sm"></i> Store Settings</a>
+      </nav>
+    </div>
+  </aside>
+
+  <div class="flex-1 flex flex-col min-w-0">
+    <header class="bg-white dark:bg-slate-800 border-b border-slate-200 dark:border-slate-700 px-6 py-4 flex items-center justify-between">
+      <h1 class="text-xl font-extrabold text-slate-900 dark:text-white">Inventory Stock Control</h1>
+    </header>
+
+    <main class="p-6 space-y-6 flex-1 overflow-y-auto">
+      <div class="bg-white dark:bg-slate-800 rounded-3xl border border-slate-200 dark:border-slate-700 p-6 shadow-sm responsive-table-card">
+        <table class="w-full text-left text-sm">
+          <thead>
+            <tr class="border-b border-slate-200 dark:border-slate-700 text-xs text-slate-400 uppercase font-semibold">
+              <th class="py-3 pl-4">SKU Code</th>
+              <th class="py-3">Product Name</th>
+              <th class="py-3">Current Stock</th>
+              <th class="py-3">Minimum Stock</th>
+              <th class="py-3 pr-4 text-right">Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="border-b border-slate-100 dark:border-slate-700">
+              <td class="py-3 pl-4 font-mono text-xs text-slate-400">SKU-AVO-05</td>
+              <td class="py-3 font-bold text-slate-900 dark:text-white">Organic Avocados Hass</td>
+              <td class="py-3 font-bold text-amber-600">35 Units</td>
+              <td class="py-3 text-slate-500">50 Units</td>
+              <td class="py-3 pr-4 text-right"><span class="bg-amber-100 text-amber-700 font-bold text-xs px-2.5 py-0.5 rounded-full">Low Stock</span></td>
+            </tr>
+            <tr class="border-b border-slate-100 dark:border-slate-700">
+              <td class="py-3 pl-4 font-mono text-xs text-slate-400">SKU-SAL-12</td>
+              <td class="py-3 font-bold text-slate-900 dark:text-white">Fresh Atlantic Salmon Fillet</td>
+              <td class="py-3 font-bold text-amber-600">25 Units</td>
+              <td class="py-3 text-slate-500">30 Units</td>
+              <td class="py-3 pr-4 text-right"><span class="bg-amber-100 text-amber-700 font-bold text-xs px-2.5 py-0.5 rounded-full">Low Stock</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </main>
+  </div>
+
+  <script src="../assets/js/theme.js"></script>
+</body>
+</html>

@@ -1,0 +1,842 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FreshBasket — Neighborhood Grocery & Supermarket Delivery</title>
+  <meta name="description"
+    content="Shop fresh organic produce, daily dairy essentials, bakery favorites, and weekly grocery deals delivered straight to your door in 30 minutes." />
+
+  <!-- SEO & OpenGraph -->
+  <meta property="og:title" content="FreshBasket — Fast Neighborhood Grocery Delivery" />
+  <meta property="og:description"
+    content="Order fresh vegetables, fruits, pantry staples and farm milk online with same-day doorstep delivery." />
+  <meta property="og:type" content="website" />
+  <meta property="og:image"
+    content="https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&w=1200&q=80" />
+  <meta name="twitter:card" content="summary_large_image" />
+
+  <!-- Google Fonts & Font Awesome CDN -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600&display=swap"
+    rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+
+  <!-- Tailwind CSS CDN & Custom Stylesheets -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              50: '#f0fdf4',
+              100: '#dcfce7',
+              500: '#22c55e',
+              600: '#16a34a',
+              700: '#15803d',
+              800: '#166534',
+              900: '#14532d',
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <link rel="stylesheet" href="assets/css/style.css" />
+  <link rel="stylesheet" href="assets/css/dark-mode.css" />
+  <link rel="stylesheet" href="assets/css/rtl.css" />
+
+  <!-- JSON-LD Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "GroceryStore",
+    "name": "FreshBasket Supermarket",
+    "image": "https://images.unsplash.com/photo-1542838132-92c53300491e",
+    "description": "Neighborhood supermarket and fresh organic grocery delivery service.",
+    "openingHours": "Mo-Su 07:00-22:00",
+    "telephone": "+1-800-555-FRESH",
+    "priceRange": "$$"
+  }
+  </script>
+</head>
+
+<body class="bg-slate-50 dark:bg-slate-900 text-slate-900 dark:text-slate-100 transition-colors duration-200">
+
+  <!-- Skip to main content -->
+  <a href="#main-content"
+    class="sr-only focus:not-sr-only focus:absolute focus:z-50 focus:p-4 focus:bg-green-600 focus:text-white">Skip to
+    main content</a>
+
+  <!-- COMBINED FIXED HEADER (TOP UTILITY BAR + MAIN NAVBAR) -->
+  <header class="fixed top-0 left-0 right-0 z-50 w-full shadow-sm">
+    
+    <!-- TOP UTILITY BAR -->
+    <div class="bg-slate-900 text-slate-300 text-xs py-2 border-b border-slate-800">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between">
+        <div class="flex items-center gap-4">
+          <button class="location-modal-trigger hover:text-green-400 flex items-center gap-1 transition-colors">
+            <i class="fa-solid fa-location-dot text-green-500"></i>
+            <span>Delivering to: <strong class="current-location-text text-white">Downtown 10001</strong></span>
+            <i class="fa-solid fa-chevron-down text-[10px] ml-1"></i>
+          </button>
+          <span class="hidden md:inline text-slate-600">|</span>
+          <span class="hidden md:inline text-green-400 font-medium"><i class="fa-solid fa-bolt mr-1"></i> Express delivery
+            in 30 mins available</span>
+        </div>
+        <div class="flex items-center gap-4">
+          <a href="tel:18005553737" class="hover:text-white flex items-center gap-1">
+            <i class="fa-solid fa-phone text-slate-400"></i>
+            <span class="hidden sm:inline">Support: 1-800-FRESH</span>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- MAIN NAVBAR -->
+    <div class="bg-white/95 dark:bg-slate-900/95 backdrop-blur border-b border-slate-200/80 dark:border-slate-800 transition-colors duration-200">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex items-center justify-between h-20 gap-4">
+
+          <!-- Mobile Left: Hamburger Toggle & Logo -->
+          <div class="flex items-center gap-3 lg:hidden">
+            <button id="mobile-menu-toggle"
+              class="p-2 rounded-xl text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
+              aria-label="Open Navigation">
+              <i class="fa-solid fa-bars text-xl"></i>
+            </button>
+            <a href="index.html" class="flex items-center gap-2">
+              <div class="w-9 h-9 bg-green-600 text-white rounded-xl flex items-center justify-center font-extrabold text-lg shadow-md shadow-green-600/30">
+                <i class="fa-solid fa-basket-shopping"></i>
+              </div>
+              <span class="font-extrabold text-lg tracking-tight text-slate-900 dark:text-white">Fresh<span class="text-green-600">Basket</span></span>
+            </a>
+          </div>
+
+          <!-- Desktop Unified Single-Row Main Navbar (Exact 1-10 sequence) -->
+          <div class="hidden lg:flex items-center justify-between w-full gap-4 xl:gap-6">
+            
+            <!-- 1. FRESHBASKET LOGO / BRAND POSITION -->
+            <a href="index.html" class="flex items-center gap-2.5 flex-shrink-0 group">
+              <div class="w-11 h-11 bg-green-600 text-white rounded-2xl flex items-center justify-center font-extrabold text-xl shadow-lg shadow-green-600/30 group-hover:scale-105 transition-transform">
+                <i class="fa-solid fa-basket-shopping"></i>
+              </div>
+              <div>
+                <span class="font-extrabold text-xl tracking-tight text-slate-900 dark:text-white">Fresh<span class="text-green-600">Basket</span></span>
+                <span class="block text-[10px] uppercase font-bold tracking-widest text-slate-400 -mt-1">Supermarket</span>
+              </div>
+            </a>
+
+            <!-- Navigation Links (2 to 6) & Action Buttons (7 to 10) -->
+            <nav class="flex items-center gap-5 xl:gap-7 text-sm font-semibold text-slate-700 dark:text-slate-200">
+              <!-- 2. Home -->
+              <a href="index.html" class="text-green-600 dark:text-green-400 font-bold flex items-center gap-1.5 transition-colors">
+                <i class="fa-solid fa-house text-xs"></i> Home
+              </a>
+              <!-- 3. Shop -->
+              <a href="pages/shop.html" class="hover:text-green-600 dark:hover:text-green-400 transition-colors">Shop</a>
+              <!-- 4. Categories -->
+              <a href="pages/categories.html" class="hover:text-green-600 dark:hover:text-green-400 transition-colors">Categories</a>
+              <!-- 5. Deals -->
+              <a href="pages/deals.html" class="text-amber-600 dark:text-amber-400 hover:text-amber-500 transition-colors flex items-center gap-1">
+                <i class="fa-solid fa-fire text-xs"></i> Deals
+              </a>
+              <!-- 6. Blog -->
+              <a href="pages/blog.html" class="hover:text-green-600 dark:hover:text-green-400 transition-colors">Blog</a>
+
+              <!-- 7. Cart Icon (Only as cart icon with badge) -->
+              <button type="button" class="cart-drawer-trigger relative p-2 text-slate-700 dark:text-slate-200 hover:text-green-600 dark:hover:text-green-400 transition-colors" aria-label="Shopping Cart">
+                <i class="fa-solid fa-basket-shopping text-xl"></i>
+                <span class="cart-count-badge absolute -top-1 -right-1.5 w-5 h-5 bg-green-600 text-white rounded-full text-[11px] font-extrabold flex items-center justify-center border-2 border-white dark:border-slate-900">0</span>
+              </button>
+
+              <!-- 8. RTL Button -->
+              <button type="button" onclick="event.preventDefault(); event.stopPropagation(); event.stopImmediatePropagation(); if(window.themeController) window.themeController.toggleRTL(); return false;" class="rtl-toggle-btn w-9 h-9 flex items-center justify-center bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-200 border border-slate-200 dark:border-slate-700 rounded-xl hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors" title="Toggle RTL/LTR" aria-label="Toggle RTL/LTR">
+                <i class="fa-solid fa-globe text-base"></i>
+              </button>
+
+              <!-- 9. Theme Button -->
+              <button type="button" onclick="event.preventDefault(); event.stopPropagation(); event.stopImmediatePropagation(); if(window.themeController) window.themeController.toggleDarkMode(); return false;" class="theme-toggle-btn w-9 h-9 flex items-center justify-center bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-200 border border-slate-200 dark:border-slate-700 rounded-xl hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors" title="Toggle Light/Dark Theme" aria-label="Toggle Light/Dark Theme">
+                <i class="fa-solid fa-moon text-base"></i>
+              </button>
+
+              <!-- 10. Admin Portal -->
+              <a href="admin/index.html" class="text-xs font-semibold bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-200 border border-slate-200 dark:border-slate-700 px-3.5 py-1.5 rounded-full hover:bg-green-600 hover:text-white dark:hover:bg-green-600 dark:hover:text-white transition-colors flex items-center gap-1.5 flex-shrink-0">
+                <i class="fa-solid fa-user-gear"></i> Admin Portal
+              </a>
+            </nav>
+
+          </div>
+
+          <!-- Mobile Right Controls (Cart, RTL, Theme) -->
+          <div class="flex lg:hidden items-center gap-2">
+            <button type="button" class="cart-drawer-trigger relative p-2 text-slate-700 dark:text-slate-200 hover:text-green-600 transition-colors" aria-label="Shopping Cart">
+              <i class="fa-solid fa-basket-shopping text-lg"></i>
+              <span class="cart-count-badge absolute -top-1 -right-1.5 w-4 h-4 bg-green-600 text-white rounded-full text-[10px] font-extrabold flex items-center justify-center">0</span>
+            </button>
+            <button type="button" onclick="event.preventDefault(); event.stopPropagation(); event.stopImmediatePropagation(); if(window.themeController) window.themeController.toggleRTL(); return false;" class="rtl-toggle-btn w-9 h-9 flex items-center justify-center bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-200 border border-slate-200 dark:border-slate-700 rounded-xl" title="Toggle RTL/LTR" aria-label="Toggle RTL/LTR">
+              <i class="fa-solid fa-globe text-base"></i>
+            </button>
+            <button type="button" onclick="event.preventDefault(); event.stopPropagation(); event.stopImmediatePropagation(); if(window.themeController) window.themeController.toggleDarkMode(); return false;" class="theme-toggle-btn w-9 h-9 flex items-center justify-center bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-200 border border-slate-200 dark:border-slate-700 rounded-xl" title="Toggle Theme" aria-label="Toggle Theme">
+              <i class="fa-solid fa-moon text-base"></i>
+            </button>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+  </header>
+
+  <!-- MOBILE NAVIGATION DRAWER -->
+  <div id="mobile-menu-overlay" class="hidden fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 transition-opacity lg:hidden"></div>
+  <div id="mobile-menu-drawer" class="fixed top-0 left-0 w-4/5 max-w-xs h-full bg-white dark:bg-slate-900 z-50 shadow-2xl transform -translate-x-full transition-transform duration-300 flex flex-col lg:hidden">
+    <div class="p-5 border-b border-slate-200 dark:border-slate-800 flex items-center justify-between">
+      <a href="index.html" class="flex items-center gap-2">
+        <div class="w-9 h-9 bg-green-600 text-white rounded-xl flex items-center justify-center font-extrabold text-lg">
+          <i class="fa-solid fa-basket-shopping"></i>
+        </div>
+        <span class="font-extrabold text-lg text-slate-900 dark:text-white">Fresh<span class="text-green-600">Basket</span></span>
+      </a>
+      <button id="mobile-menu-close" class="p-2 text-slate-400 hover:text-slate-600 dark:hover:text-white" aria-label="Close Menu">
+        <i class="fa-solid fa-xmark text-lg"></i>
+      </button>
+    </div>
+    <div class="p-5 space-y-4 flex-1 overflow-y-auto font-semibold text-sm">
+      <a href="index.html" class="block py-2 text-green-600 dark:text-green-400 font-bold flex items-center gap-2">
+        <i class="fa-solid fa-house text-xs"></i> Home
+      </a>
+      <a href="pages/shop.html" class="block py-2 text-slate-700 dark:text-slate-200 hover:text-green-600">Shop</a>
+      <a href="pages/categories.html" class="block py-2 text-slate-700 dark:text-slate-200 hover:text-green-600">Categories</a>
+      <a href="pages/deals.html" class="block py-2 text-amber-600 dark:text-amber-400 flex items-center gap-2">
+        <i class="fa-solid fa-fire text-xs"></i> Deals
+      </a>
+      <a href="pages/blog.html" class="block py-2 text-slate-700 dark:text-slate-200 hover:text-green-600">Blog</a>
+      <hr class="border-slate-200 dark:border-slate-800 my-2" />
+      <a href="admin/index.html" class="block py-2.5 px-4 bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200 rounded-xl text-xs font-bold text-center border border-slate-200 dark:border-slate-700">
+        <i class="fa-solid fa-user-gear mr-1"></i> Admin Portal
+      </a>
+    </div>
+  </div>
+
+  <main id="main-content" class="pt-[116px]">
+
+    <!-- HERO SECTION -->
+    <!-- HERO SECTION -->
+    <section
+      class="relative bg-gradient-to-br from-green-50 via-emerald-100/70 to-slate-100 dark:from-green-950 dark:via-slate-900 dark:to-slate-950 text-slate-900 dark:text-white overflow-hidden py-16 lg:py-24 transition-colors duration-300">
+      <div
+        class="absolute inset-0 opacity-10 dark:opacity-20 bg-[radial-gradient(#16a34a_1px,transparent_1px)] [background-size:16px_16px]">
+      </div>
+
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+
+          <div class="lg:col-span-7 space-y-6">
+            <div
+              class="inline-flex items-center gap-2 bg-green-100 dark:bg-green-500/20 text-green-800 dark:text-green-300 border border-green-200 dark:border-green-500/30 px-3.5 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider">
+              <i class="fa-solid fa-leaf"></i> 100% Organic & Local Neighborhood Grocery
+            </div>
+
+            <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold leading-tight tracking-tight text-slate-900 dark:text-white">
+              Fresh groceries.<br />
+              <span class="text-transparent bg-clip-text bg-gradient-to-r from-green-600 to-emerald-600 dark:from-green-400 dark:to-emerald-300">Delivered to
+                your door.</span>
+            </h1>
+
+            <p class="text-slate-600 dark:text-slate-300 text-base sm:text-lg max-w-xl font-normal leading-relaxed">
+              Shop everyday essentials, fresh farm produce, bakery favorites, and weekly supermarket deals. Same-day
+              delivery right to your neighborhood kitchen.
+            </p>
+
+            <div class="flex flex-wrap items-center gap-4 pt-2">
+              <a href="pages/shop.html"
+                class="btn-primary text-base px-8 py-4 rounded-2xl shadow-xl shadow-green-600/30">
+                <i class="fa-solid fa-basket-shopping"></i> Start Shopping
+              </a>
+              <a href="pages/deals.html" class="btn-accent text-base px-8 py-4 rounded-2xl">
+                <i class="fa-solid fa-tag"></i> View Weekly Deals
+              </a>
+            </div>
+
+            <!-- Delivery Coverage Indicator -->
+            <div class="pt-6 flex items-center gap-4 border-t border-slate-200 dark:border-slate-800 text-xs text-slate-500 dark:text-slate-400">
+              <div class="flex -space-x-2">
+                <img class="w-8 h-8 rounded-full border-2 border-white dark:border-slate-900 object-cover"
+                  src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=100&q=80"
+                  alt="Customer" />
+                <img class="w-8 h-8 rounded-full border-2 border-white dark:border-slate-900 object-cover"
+                  src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=100&q=80"
+                  alt="Customer" />
+                <img class="w-8 h-8 rounded-full border-2 border-white dark:border-slate-900 object-cover"
+                  src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=100&q=80"
+                  alt="Customer" />
+              </div>
+              <div>
+                <span class="text-slate-900 dark:text-white font-bold block">Over 10,000+ Happy Neighbors Served</span>
+                <span>Delivering within 5 miles of your neighborhood</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Hero Banner Graphic -->
+          <div class="lg:col-span-5 relative">
+            <div class="relative z-10 rounded-3xl overflow-hidden shadow-2xl border border-slate-200 dark:border-slate-700/50 group">
+              <img src="https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&w=800&q=80"
+                alt="Fresh Produce Grocery Basket"
+                class="w-full h-[420px] object-cover group-hover:scale-105 transition-transform duration-500" />
+              <div
+                class="absolute bottom-6 left-6 right-6 bg-white/95 dark:bg-slate-900/90 backdrop-blur-md p-4 rounded-2xl border border-slate-200 dark:border-slate-700 flex items-center justify-between shadow-lg">
+                <div>
+                  <span class="text-xs text-slate-500 dark:text-slate-400 block font-medium">Flash Delivery Promise</span>
+                  <span class="font-extrabold text-slate-900 dark:text-white text-sm">Under 30 Minutes or Free</span>
+                </div>
+                <div
+                  class="w-10 h-10 bg-green-500 text-white rounded-xl flex items-center justify-center text-lg font-bold">
+                  <i class="fa-solid fa-stopwatch"></i>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- CATEGORIES SECTION -->
+    <section class="py-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-end justify-between mb-10">
+        <div>
+          <span
+            class="text-xs font-bold text-green-600 dark:text-green-400 uppercase tracking-widest block mb-1">Explore
+            Department</span>
+          <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white">Shop by Category</h2>
+        </div>
+        <a href="pages/categories.html"
+          class="text-sm font-bold text-green-600 dark:text-green-400 hover:underline flex items-center gap-1">
+          View All Categories <i class="fa-solid fa-arrow-right text-xs"></i>
+        </a>
+      </div>
+
+      <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-4 sm:gap-6">
+        <a href="pages/shop.html?category=fruits-veggies" class="category-card group">
+          <div
+            class="w-16 h-16 bg-green-100 dark:bg-green-950/50 text-green-600 rounded-2xl flex items-center justify-center mx-auto mb-3 text-2xl group-hover:scale-110 transition-transform">
+            <i class="fa-solid fa-apple-whole"></i>
+          </div>
+          <h3 class="font-bold text-slate-900 dark:text-white text-sm mb-1">Fruits & Vegetables</h3>
+          <span class="text-xs text-slate-500">9 Products</span>
+        </a>
+
+        <a href="pages/shop.html?category=dairy-eggs" class="category-card group">
+          <div
+            class="w-16 h-16 bg-amber-100 dark:bg-amber-950/50 text-amber-600 rounded-2xl flex items-center justify-center mx-auto mb-3 text-2xl group-hover:scale-110 transition-transform">
+            <i class="fa-solid fa-egg"></i>
+          </div>
+          <h3 class="font-bold text-slate-900 dark:text-white text-sm mb-1">Dairy & Eggs</h3>
+          <span class="text-xs text-slate-500">7 Products</span>
+        </a>
+
+        <a href="pages/shop.html?category=meat-seafood" class="category-card group">
+          <div
+            class="w-16 h-16 bg-red-100 dark:bg-red-950/50 text-red-600 rounded-2xl flex items-center justify-center mx-auto mb-3 text-2xl group-hover:scale-110 transition-transform">
+            <i class="fa-solid fa-drumstick-bite"></i>
+          </div>
+          <h3 class="font-bold text-slate-900 dark:text-white text-sm mb-1">Meat & Seafood</h3>
+          <span class="text-xs text-slate-500">5 Products</span>
+        </a>
+
+        <a href="pages/shop.html?category=bakery" class="category-card group">
+          <div
+            class="w-16 h-16 bg-orange-100 dark:bg-orange-950/50 text-orange-600 rounded-2xl flex items-center justify-center mx-auto mb-3 text-2xl group-hover:scale-110 transition-transform">
+            <i class="fa-solid fa-bread-slice"></i>
+          </div>
+          <h3 class="font-bold text-slate-900 dark:text-white text-sm mb-1">Fresh Bakery</h3>
+          <span class="text-xs text-slate-500">5 Products</span>
+        </a>
+
+        <a href="pages/shop.html?category=pantry" class="category-card group">
+          <div
+            class="w-16 h-16 bg-blue-100 dark:bg-blue-950/50 text-blue-600 rounded-2xl flex items-center justify-center mx-auto mb-3 text-2xl group-hover:scale-110 transition-transform">
+            <i class="fa-solid fa-box-archive"></i>
+          </div>
+          <h3 class="font-bold text-slate-900 dark:text-white text-sm mb-1">Pantry Staples</h3>
+          <span class="text-xs text-slate-500">6 Products</span>
+        </a>
+      </div>
+    </section>
+
+    <!-- WEEKLY DEALS SECTION -->
+    <section class="py-16 bg-amber-500/10 dark:bg-amber-950/20 border-y border-amber-500/20">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex flex-col sm:flex-row items-start sm:items-end justify-between mb-10 gap-4">
+          <div>
+            <span
+              class="inline-flex items-center gap-1.5 text-xs font-extrabold text-amber-600 dark:text-amber-400 bg-amber-100 dark:bg-amber-900/50 px-3 py-1 rounded-full uppercase mb-2">
+              <i class="fa-solid fa-fire"></i> Limited Time Discounts
+            </span>
+            <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white">Weekly Supermarket Deals</h2>
+          </div>
+          <a href="pages/deals.html" class="btn-accent text-sm">Explore All Weekly Deals</a>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+          <!-- Featured Deal Cards -->
+          <div class="product-card">
+            <div class="product-img-wrapper">
+              <img src="https://images.unsplash.com/photo-1571771894821-ce9b6c11b08e?auto=format&fit=crop&w=600&q=80"
+                alt="Bananas" loading="lazy" />
+              <span class="absolute top-3 left-3 badge-discount">-20% OFF</span>
+            </div>
+            <div class="p-4">
+              <span class="text-xs font-semibold text-slate-400 uppercase">Fruits & Vegetables</span>
+              <h3 class="font-bold text-slate-900 dark:text-white text-base mt-1 mb-1">Organic Cavendish Bananas</h3>
+              <p class="text-xs text-slate-500 mb-3">1 bunch (approx. 3 lbs)</p>
+              <div class="flex items-center justify-between">
+                <div>
+                  <span class="text-lg font-extrabold text-green-600">$1.99</span>
+                  <span class="text-xs text-slate-400 line-through ml-1.5">$2.49</span>
+                </div>
+                <button class="add-to-cart-btn btn-primary text-xs px-3.5 py-2 min-h-0" data-product-id="prod-1">+
+                  Add</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="product-card">
+            <div class="product-img-wrapper">
+              <img src="https://images.unsplash.com/photo-1604503468506-a8da13d82791?auto=format&fit=crop&w=600&q=80"
+                alt="Chicken Breasts" loading="lazy" />
+              <span class="absolute top-3 left-3 badge-discount">-18% OFF</span>
+            </div>
+            <div class="p-4">
+              <span class="text-xs font-semibold text-slate-400 uppercase">Meat & Seafood</span>
+              <h3 class="font-bold text-slate-900 dark:text-white text-base mt-1 mb-1">Chicken Breasts Boneless</h3>
+              <p class="text-xs text-slate-500 mb-3">2 lbs fresh tray pack</p>
+              <div class="flex items-center justify-between">
+                <div>
+                  <span class="text-lg font-extrabold text-green-600">$8.99</span>
+                  <span class="text-xs text-slate-400 line-through ml-1.5">$10.99</span>
+                </div>
+                <button class="add-to-cart-btn btn-primary text-xs px-3.5 py-2 min-h-0" data-product-id="prod-11">+
+                  Add</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="product-card">
+            <div class="product-img-wrapper">
+              <img src="https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?auto=format&fit=crop&w=600&q=80"
+                alt="Atlantic Salmon" loading="lazy" />
+              <span class="absolute top-3 left-3 badge-discount">-16% OFF</span>
+            </div>
+            <div class="p-4">
+              <span class="text-xs font-semibold text-slate-400 uppercase">Meat & Seafood</span>
+              <h3 class="font-bold text-slate-900 dark:text-white text-base mt-1 mb-1">Fresh Atlantic Salmon Fillet</h3>
+              <p class="text-xs text-slate-500 mb-3">1 lb fresh fillet</p>
+              <div class="flex items-center justify-between">
+                <div>
+                  <span class="text-lg font-extrabold text-green-600">$12.99</span>
+                  <span class="text-xs text-slate-400 line-through ml-1.5">$15.49</span>
+                </div>
+                <button class="add-to-cart-btn btn-primary text-xs px-3.5 py-2 min-h-0" data-product-id="prod-12">+
+                  Add</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="product-card">
+            <div class="product-img-wrapper">
+              <img src="https://images.unsplash.com/photo-1474979266404-7eaacbcd87c5?auto=format&fit=crop&w=600&q=80"
+                alt="Olive Oil" loading="lazy" />
+              <span class="absolute top-3 left-3 badge-discount">-20% OFF</span>
+            </div>
+            <div class="p-4">
+              <span class="text-xs font-semibold text-slate-400 uppercase">Pantry Staples</span>
+              <h3 class="font-bold text-slate-900 dark:text-white text-base mt-1 mb-1">Extra Virgin Olive Oil</h3>
+              <p class="text-xs text-slate-500 mb-3">16.9 fl oz (500ml)</p>
+              <div class="flex items-center justify-between">
+                <div>
+                  <span class="text-lg font-extrabold text-green-600">$9.99</span>
+                  <span class="text-xs text-slate-400 line-through ml-1.5">$12.49</span>
+                </div>
+                <button class="add-to-cart-btn btn-primary text-xs px-3.5 py-2 min-h-0" data-product-id="prod-17">+
+                  Add</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- WHY CHOOSE US -->
+    <section class="py-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center max-w-2xl mx-auto mb-16">
+        <span class="text-xs font-bold text-green-600 uppercase tracking-widest">Neighborhood Trust</span>
+        <h2 class="text-3xl font-extrabold text-slate-900 dark:text-white mt-1">Why Shop With FreshBasket?</h2>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-6">
+        <div
+          class="bg-white dark:bg-slate-800 p-6 rounded-2xl border border-slate-200 dark:border-slate-700 text-center shadow-sm hover:shadow-md transition-shadow">
+          <div
+            class="w-14 h-14 bg-green-50 dark:bg-green-950/50 text-green-600 rounded-2xl flex items-center justify-center mx-auto mb-4 text-2xl">
+            <i class="fa-solid fa-truck-fast"></i>
+          </div>
+          <h3 class="font-bold text-slate-900 dark:text-white text-base mb-2">30-Min Delivery</h3>
+          <p class="text-xs text-slate-500 dark:text-slate-400">Fast local shoppers bring groceries straight to your
+            kitchen door.</p>
+        </div>
+
+        <div
+          class="bg-white dark:bg-slate-800 p-6 rounded-2xl border border-slate-200 dark:border-slate-700 text-center shadow-sm hover:shadow-md transition-shadow">
+          <div
+            class="w-14 h-14 bg-emerald-50 dark:bg-emerald-950/50 text-emerald-600 rounded-2xl flex items-center justify-center mx-auto mb-4 text-2xl">
+            <i class="fa-solid fa-award"></i>
+          </div>
+          <h3 class="font-bold text-slate-900 dark:text-white text-base mb-2">100% Fresh Promise</h3>
+          <p class="text-xs text-slate-500 dark:text-slate-400">Hand-picked farm fresh produce or your money refunded
+            guaranteed.</p>
+        </div>
+
+        <div
+          class="bg-white dark:bg-slate-800 p-6 rounded-2xl border border-slate-200 dark:border-slate-700 text-center shadow-sm hover:shadow-md transition-shadow">
+          <div
+            class="w-14 h-14 bg-amber-50 dark:bg-amber-950/50 text-amber-600 rounded-2xl flex items-center justify-center mx-auto mb-4 text-2xl">
+            <i class="fa-solid fa-store"></i>
+          </div>
+          <h3 class="font-bold text-slate-900 dark:text-white text-base mb-2">Local Neighborhood</h3>
+          <p class="text-xs text-slate-500 dark:text-slate-400">Supporting local farmers, bakeries, and community
+            dairies.</p>
+        </div>
+
+        <div
+          class="bg-white dark:bg-slate-800 p-6 rounded-2xl border border-slate-200 dark:border-slate-700 text-center shadow-sm hover:shadow-md transition-shadow">
+          <div
+            class="w-14 h-14 bg-blue-50 dark:bg-blue-950/50 text-blue-600 rounded-2xl flex items-center justify-center mx-auto mb-4 text-2xl">
+            <i class="fa-solid fa-shield-halved"></i>
+          </div>
+          <h3 class="font-bold text-slate-900 dark:text-white text-base mb-2">Secure Checkout</h3>
+          <p class="text-xs text-slate-500 dark:text-slate-400">256-bit SSL encrypted digital checkout for your peace of
+            mind.</p>
+        </div>
+
+        <div
+          class="bg-white dark:bg-slate-800 p-6 rounded-2xl border border-slate-200 dark:border-slate-700 text-center shadow-sm hover:shadow-md transition-shadow">
+          <div
+            class="w-14 h-14 bg-purple-50 dark:bg-purple-950/50 text-purple-600 rounded-2xl flex items-center justify-center mx-auto mb-4 text-2xl">
+            <i class="fa-solid fa-rotate-left"></i>
+          </div>
+          <h3 class="font-bold text-slate-900 dark:text-white text-base mb-2">Hassle-Free Returns</h3>
+          <p class="text-xs text-slate-500 dark:text-slate-400">Instantly replace damaged items directly through your
+            account.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- DELIVERY ZIP CHECKER INTERACTIVE CARD -->
+    <section class="py-16 bg-slate-100 dark:bg-slate-950 text-slate-900 dark:text-white border-y border-slate-200 dark:border-slate-800 relative overflow-hidden transition-colors duration-300">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+          <div class="lg:col-span-6 space-y-4">
+            <span class="text-xs font-bold text-green-600 dark:text-green-400 uppercase tracking-widest block">Coverage Map</span>
+            <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-900 dark:text-white">Check Fresh Delivery In Your Area</h2>
+            <p class="text-slate-600 dark:text-slate-300 text-sm leading-relaxed">
+              Enter your zip code below to check instant express delivery availability and estimated delivery slot times
+              for your address.
+            </p>
+
+            <form id="zip-checker-form" class="flex items-center gap-3 pt-2">
+              <input type="text" id="zip-input" placeholder="Enter ZIP code (e.g. 10001)"
+                class="px-5 py-3.5 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-2xl text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-500 text-sm focus:ring-2 focus:ring-green-500 focus:outline-none w-full max-w-xs shadow-sm"
+                required />
+              <button type="submit" class="btn-primary py-3.5 px-6 rounded-2xl text-sm font-bold flex-shrink-0">Check
+                Coverage</button>
+            </form>
+
+            <div id="zip-checker-result" class="hidden mt-4"></div>
+          </div>
+
+          <div class="lg:col-span-6">
+            <div class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-3xl p-6 relative overflow-hidden shadow-xl">
+              <div class="flex items-center justify-between mb-4">
+                <div class="flex items-center gap-2 text-green-600 dark:text-green-400 font-bold text-sm">
+                  <i class="fa-solid fa-map-pin"></i> Active Delivery Radius
+                </div>
+                <span class="text-xs text-slate-600 dark:text-slate-300 bg-slate-100 dark:bg-slate-700 px-3 py-1 rounded-full font-medium">5 Miles Zone</span>
+              </div>
+              <div
+                class="h-56 bg-slate-50 dark:bg-slate-900/80 rounded-2xl flex items-center justify-center border border-slate-200 dark:border-slate-700/50 relative">
+                <div class="text-center p-6">
+                  <i class="fa-solid fa-compass text-4xl text-green-500 mb-3 animate-pulse"></i>
+                  <p class="font-bold text-slate-900 dark:text-white text-sm">Serving Downtown, Midtown & Surrounding Neighborhoods</p>
+                  <span class="text-xs text-slate-500 dark:text-slate-400 mt-1 block">Live GPS Shopper Dispatch Active</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TESTIMONIALS -->
+    <section class="py-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center max-w-xl mx-auto mb-12">
+        <span class="text-xs font-bold text-green-600 uppercase tracking-widest">Customer Voice</span>
+        <h2 class="text-3xl font-extrabold text-slate-900 dark:text-white mt-1">Loved by 10,000+ Local Families</h2>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div class="bg-white dark:bg-slate-800 p-8 rounded-3xl border border-slate-200 dark:border-slate-700 shadow-sm">
+          <div class="flex items-center gap-1 text-amber-400 text-sm mb-4">
+            <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i
+              class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+          </div>
+          <p class="text-slate-600 dark:text-slate-300 text-sm leading-relaxed mb-6">
+            "FreshBasket saved my weekly meal prep! The organic avocados and berries arrived perfectly ripe within 25
+            minutes of ordering."
+          </p>
+          <div class="flex items-center gap-3">
+            <img class="w-10 h-10 rounded-full object-cover"
+              src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=100&q=80"
+              alt="Sarah M." />
+            <div>
+              <h4 class="font-bold text-slate-900 dark:text-white text-sm">Sarah Jenkins</h4>
+              <span class="text-xs text-slate-400">Verified Neighbor</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-white dark:bg-slate-800 p-8 rounded-3xl border border-slate-200 dark:border-slate-700 shadow-sm">
+          <div class="flex items-center gap-1 text-amber-400 text-sm mb-4">
+            <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i
+              class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+          </div>
+          <p class="text-slate-600 dark:text-slate-300 text-sm leading-relaxed mb-6">
+            "The Saved Grocery Lists feature is brilliant. I press one button every Sunday and my entire week's
+            breakfast items show up at my doorstep."
+          </p>
+          <div class="flex items-center gap-3">
+            <img class="w-10 h-10 rounded-full object-cover"
+              src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=100&q=80"
+              alt="David K." />
+            <div>
+              <h4 class="font-bold text-slate-900 dark:text-white text-sm">David Chen</h4>
+              <span class="text-xs text-slate-400">Verified Neighbor</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-white dark:bg-slate-800 p-8 rounded-3xl border border-slate-200 dark:border-slate-700 shadow-sm">
+          <div class="flex items-center gap-1 text-amber-400 text-sm mb-4">
+            <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i
+              class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+          </div>
+          <p class="text-slate-600 dark:text-slate-300 text-sm leading-relaxed mb-6">
+            "Prices are completely fair and competitive with physical supermarkets, but without standing in long
+            checkout lines. Highly recommended!"
+          </p>
+          <div class="flex items-center gap-3">
+            <img class="w-10 h-10 rounded-full object-cover"
+              src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=100&q=80"
+              alt="Elena R." />
+            <div>
+              <h4 class="font-bold text-slate-900 dark:text-white text-sm">Elena Rodriguez</h4>
+              <span class="text-xs text-slate-400">Verified Neighbor</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- NEWSLETTER CTA -->
+    <section class="py-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div
+        class="bg-gradient-to-r from-green-700 to-emerald-800 rounded-3xl p-8 sm:p-14 text-white relative overflow-hidden shadow-2xl">
+        <div class="max-w-2xl relative z-10 space-y-4">
+          <span
+            class="text-xs font-bold uppercase tracking-wider text-green-200 bg-white/10 px-3 py-1 rounded-full">Weekly
+            Fresh Newsletter</span>
+          <h2 class="text-3xl sm:text-4xl font-extrabold">Your fridge called. It needs fresh groceries.</h2>
+          <p class="text-green-100 text-sm sm:text-base leading-relaxed">
+            Subscribe now to get $15 off your first order plus weekly exclusive farm discounts delivered right to your
+            inbox.
+          </p>
+          <form class="flex flex-col sm:flex-row gap-3 pt-2">
+            <input type="email" placeholder="Enter your email address"
+              class="px-5 py-3.5 bg-white text-slate-900 rounded-2xl text-sm focus:ring-2 focus:ring-amber-400 focus:outline-none w-full"
+              required />
+            <button type="submit" class="btn-accent py-3.5 px-8 rounded-2xl font-bold flex-shrink-0">Subscribe</button>
+          </form>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- GLOBAL FOOTER -->
+  <footer class="bg-slate-100 text-slate-600 border-t border-slate-200 dark:bg-slate-900 dark:text-slate-400 dark:border-slate-800 text-sm transition-colors duration-300">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10">
+
+        <!-- Brand Info -->
+        <div class="lg:col-span-2 space-y-4">
+          <a href="index.html" class="flex items-center gap-2.5">
+            <div
+              class="w-10 h-10 bg-green-600 text-white rounded-2xl flex items-center justify-center font-extrabold text-lg">
+              <i class="fa-solid fa-basket-shopping"></i>
+            </div>
+            <span class="font-extrabold text-xl tracking-tight text-slate-900 dark:text-white">Fresh<span
+                class="text-green-600 dark:text-green-500">Basket</span></span>
+          </a>
+          <p class="text-xs text-slate-600 dark:text-slate-400 leading-relaxed max-w-sm">
+            FreshBasket is your trusted neighborhood supermarket delivering farm-fresh produce, daily essentials, and
+            organic groceries straight to your doorstep.
+          </p>
+          <div class="flex items-center gap-4 pt-2">
+            <a href="#"
+              class="w-9 h-9 bg-white text-slate-700 border border-slate-200 dark:bg-slate-800 dark:text-slate-300 dark:border-slate-700 rounded-full flex items-center justify-center hover:bg-green-600 hover:text-white dark:hover:bg-green-600 dark:hover:text-white hover:border-green-600 transition-colors shadow-sm"
+              aria-label="Facebook" title="Facebook"><i class="fa-brands fa-facebook-f text-sm"></i></a>
+            <a href="#"
+              class="w-9 h-9 bg-white text-slate-700 border border-slate-200 dark:bg-slate-800 dark:text-slate-300 dark:border-slate-700 rounded-full flex items-center justify-center hover:bg-green-600 hover:text-white dark:hover:bg-green-600 dark:hover:text-white hover:border-green-600 transition-colors shadow-sm"
+              aria-label="Twitter" title="Twitter"><i class="fa-brands fa-twitter text-sm"></i></a>
+            <a href="#"
+              class="w-9 h-9 bg-white text-slate-700 border border-slate-200 dark:bg-slate-800 dark:text-slate-300 dark:border-slate-700 rounded-full flex items-center justify-center hover:bg-green-600 hover:text-white dark:hover:bg-green-600 dark:hover:text-white hover:border-green-600 transition-colors shadow-sm"
+              aria-label="Instagram" title="Instagram"><i class="fa-brands fa-instagram text-sm"></i></a>
+          </div>
+        </div>
+
+        <!-- Quick Links -->
+        <div>
+          <h4 class="text-slate-900 dark:text-white font-bold text-sm mb-4">Company</h4>
+          <ul class="space-y-2 text-xs">
+            <li><a href="pages/about.html" class="text-slate-600 dark:text-slate-400 hover:text-green-600 dark:hover:text-white transition-colors">About FreshBasket</a></li>
+            <li><a href="pages/blog.html" class="text-slate-600 dark:text-slate-400 hover:text-green-600 dark:hover:text-white transition-colors">Grocery Blog & Recipes</a></li>
+            <li><a href="pages/contact.html" class="text-slate-600 dark:text-slate-400 hover:text-green-600 dark:hover:text-white transition-colors">Contact Store</a></li>
+            <li><a href="pages/coming-soon.html" class="text-slate-600 dark:text-slate-400 hover:text-green-600 dark:hover:text-white transition-colors">Careers & Hiring</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="text-slate-900 dark:text-white font-bold text-sm mb-4">Shop Categories</h4>
+          <ul class="space-y-2 text-xs">
+            <li><a href="pages/shop.html" class="text-slate-600 dark:text-slate-400 hover:text-green-600 dark:hover:text-white transition-colors">All Products</a></li>
+            <li><a href="pages/categories.html" class="text-slate-600 dark:text-slate-400 hover:text-green-600 dark:hover:text-white transition-colors">Fruits & Vegetables</a></li>
+            <li><a href="pages/categories.html" class="text-slate-600 dark:text-slate-400 hover:text-green-600 dark:hover:text-white transition-colors">Dairy & Fresh Milk</a></li>
+            <li><a href="pages/deals.html" class="text-slate-600 dark:text-slate-400 hover:text-green-600 dark:hover:text-white transition-colors">Weekly Super Deals</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="text-slate-900 dark:text-white font-bold text-sm mb-4">Customer Support</h4>
+          <ul class="space-y-2 text-xs">
+            <li><a href="pages/contact.html" class="text-slate-600 dark:text-slate-400 hover:text-green-600 dark:hover:text-white transition-colors">Help & FAQ Center</a></li>
+            <li><a href="pages/order-tracking.html" class="text-slate-600 dark:text-slate-400 hover:text-green-600 dark:hover:text-white transition-colors">Live Order Tracking</a></li>
+            <li><a href="pages/orders.html" class="text-slate-600 dark:text-slate-400 hover:text-green-600 dark:hover:text-white transition-colors">Order History</a></li>
+            <li><a href="pages/404.html" class="text-slate-600 dark:text-slate-400 hover:text-green-600 dark:hover:text-white transition-colors">Returns & Refunds</a></li>
+          </ul>
+        </div>
+
+      </div>
+
+      <div
+        class="mt-12 pt-8 border-t border-slate-200 dark:border-slate-800 flex flex-col sm:flex-row items-center justify-between text-xs text-slate-500 dark:text-slate-400 gap-4">
+        <div>
+          <p>© 2026 FreshBasket Supermarket Inc. All rights reserved.</p>
+          <div class="mt-1 text-[11px] text-slate-500 dark:text-slate-400 flex flex-wrap items-center gap-2">
+            <span>Developed by</span>
+            <span class="text-slate-800 dark:text-slate-200 font-semibold tracking-wide">Abhivorn Technologies Pvt Ltd</span>
+          </div>
+        </div>
+        <div class="flex items-center gap-6">
+          <a href="pages/coming-soon.html" class="hover:text-slate-700 dark:hover:text-slate-300 transition-colors">Privacy Policy</a>
+          <a href="pages/coming-soon.html" class="hover:text-slate-700 dark:hover:text-slate-300 transition-colors">Terms of Service</a>
+          <a href="sitemap.xml" class="hover:text-slate-700 dark:hover:text-slate-300 transition-colors">Sitemap</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- CART DRAWER SLIDE-OVER -->
+  <div id="cart-drawer-overlay" class="hidden fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-[60] transition-opacity">
+  </div>
+  <div id="cart-drawer"
+    class="fixed top-0 right-0 w-full max-w-md h-full bg-white dark:bg-slate-900 z-[60] shadow-2xl transform translate-x-full transition-transform duration-300 flex flex-col">
+    <div class="p-6 border-b border-slate-200 dark:border-slate-800 flex items-center justify-between">
+      <div class="flex items-center gap-2">
+        <div
+          class="w-8 h-8 bg-green-100 dark:bg-green-950/50 text-green-600 rounded-lg flex items-center justify-center font-bold">
+          <i class="fa-solid fa-basket-shopping text-sm"></i>
+        </div>
+        <h3 class="font-bold text-lg text-slate-900 dark:text-white">Your Cart</h3>
+      </div>
+      <button id="cart-drawer-close" class="p-2 text-slate-400 hover:text-slate-600 dark:hover:text-white">
+        <i class="fa-solid fa-xmark text-lg"></i>
+      </button>
+    </div>
+
+    <!-- Free Delivery Progress Bar -->
+    <div class="bg-slate-50 dark:bg-slate-800/80 p-4 border-b border-slate-200 dark:border-slate-700">
+      <p id="cart-free-shipping-text" class="text-xs text-slate-600 dark:text-slate-300 mb-2">Calculating shipping free
+        delivery...</p>
+      <div class="w-full bg-slate-200 dark:bg-slate-700 h-2 rounded-full overflow-hidden">
+        <div id="cart-free-shipping-bar" class="bg-green-600 h-2 rounded-full transition-all duration-300"
+          style="width: 0%;"></div>
+      </div>
+    </div>
+
+    <!-- Items Container -->
+    <div id="cart-drawer-items" class="flex-1 overflow-y-auto p-6 space-y-4"></div>
+
+    <!-- Footer Summary -->
+    <div class="p-6 border-t border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900 space-y-4">
+      <div class="flex items-center justify-between text-sm">
+        <span class="text-slate-500">Subtotal</span>
+        <span id="cart-drawer-subtotal" class="font-bold text-slate-900 dark:text-white">$0.00</span>
+      </div>
+      <div class="flex items-center justify-between text-base">
+        <span class="font-bold text-slate-900 dark:text-white">Total</span>
+        <span id="cart-drawer-total" class="font-extrabold text-green-600 dark:text-green-400">$0.00</span>
+      </div>
+      <div class="grid grid-cols-2 gap-3 pt-2">
+        <a href="pages/cart.html" class="btn-secondary text-center text-xs py-3">View Cart</a>
+        <a href="pages/checkout.html" class="btn-primary text-center text-xs py-3">Checkout</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- LOCATION SELECTOR MODAL -->
+  <div id="location-modal"
+    class="hidden fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+    <div
+      class="bg-white dark:bg-slate-900 rounded-3xl max-w-md w-full p-6 border border-slate-200 dark:border-slate-800 shadow-2xl">
+      <div class="flex items-center justify-between mb-4">
+        <h4 class="font-bold text-lg text-slate-900 dark:text-white flex items-center gap-2">
+          <i class="fa-solid fa-location-dot text-green-600"></i> Select Delivery Location
+        </h4>
+        <button id="location-modal-close" class="text-slate-400 hover:text-slate-600">
+          <i class="fa-solid fa-xmark text-lg"></i>
+        </button>
+      </div>
+      <p class="text-xs text-slate-500 mb-4">Enter your ZIP code or neighborhood to customize store availability and
+        local delivery estimates.</p>
+      <input type="text" id="location-modal-input" placeholder="e.g. Downtown 10001, Brooklyn"
+        class="w-full p-3 bg-slate-100 dark:bg-slate-800 border-none rounded-xl text-sm mb-4 dark:text-white" />
+      <button id="location-modal-save" class="btn-primary w-full py-3 text-sm">Save Delivery Location</button>
+    </div>
+  </div>
+
+  <!-- SCRIPTS -->
+  <script src="assets/js/data/products.js"></script>
+  <script src="assets/js/theme.js"></script>
+  <script src="assets/js/cart.js"></script>
+  <script src="assets/js/wishlist.js"></script>
+  <script src="assets/js/main.js"></script>
+</body>
+
+</html>

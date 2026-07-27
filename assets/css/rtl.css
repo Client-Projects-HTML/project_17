@@ -1,0 +1,80 @@
+/* ===== FreshBasket RTL (Right-To-Left) Stylesheet ===== */
+
+[dir="rtl"] {
+  direction: rtl;
+  text-align: right;
+}
+
+[dir="rtl"] .space-x-1 > :not([hidden]) ~ :not([hidden]),
+[dir="rtl"] .space-x-2 > :not([hidden]) ~ :not([hidden]),
+[dir="rtl"] .space-x-3 > :not([hidden]) ~ :not([hidden]),
+[dir="rtl"] .space-x-4 > :not([hidden]) ~ :not([hidden]),
+[dir="rtl"] .space-x-6 > :not([hidden]) ~ :not([hidden]) {
+  --tw-space-x-reverse: 1;
+}
+
+[dir="rtl"] .mr-2 { margin-left: 0.5rem; margin-right: 0; }
+[dir="rtl"] .ml-2 { margin-right: 0.5rem; margin-left: 0; }
+[dir="rtl"] .mr-3 { margin-left: 0.75rem; margin-right: 0; }
+[dir="rtl"] .ml-3 { margin-right: 0.75rem; margin-left: 0; }
+[dir="rtl"] .mr-4 { margin-left: 1rem; margin-right: 0; }
+[dir="rtl"] .ml-4 { margin-right: 1rem; margin-left: 0; }
+
+[dir="rtl"] .pr-4 { padding-left: 1rem; padding-right: 0; }
+[dir="rtl"] .pl-4 { padding-right: 1rem; padding-left: 0; }
+
+/* Safe RTL text alignment & icon directions */
+[dir="rtl"] .text-left { text-align: right; }
+[dir="rtl"] .text-right { text-align: left; }
+
+/* Ensure off-screen drawers remain hidden off-screen in RTL mode */
+[dir="rtl"] #cart-drawer.translate-x-full {
+  transform: translateX(100%) !important;
+  right: 0 !important;
+  left: auto !important;
+}
+
+[dir="rtl"] #mobile-menu-drawer.-translate-x-full {
+  transform: translateX(-100%) !important;
+  left: 0 !important;
+  right: auto !important;
+}
+
+[dir="rtl"] .fa-arrow-right::before {
+  content: "\f060"; /* Font Awesome fa-arrow-left */
+}
+
+[dir="rtl"] .fa-arrow-left::before {
+  content: "\f061"; /* Font Awesome fa-arrow-right */
+}
+
+[dir="rtl"] .fa-chevron-right::before {
+  content: "\f053"; /* Font Awesome fa-chevron-left */
+}
+
+[dir="rtl"] .fa-chevron-left::before {
+  content: "\f054"; /* Font Awesome fa-chevron-right */
+}
+
+/* Toast container positioning in RTL */
+[dir="rtl"] #toast-container {
+  right: auto;
+  left: 1.5rem;
+}
+
+[dir="rtl"] .toast {
+  border-left: none;
+  border-right: 4px solid var(--primary);
+  animation-name: slideInLeft;
+}
+
+@keyframes slideInLeft {
+  from {
+    transform: translateX(-100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}

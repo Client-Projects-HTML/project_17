@@ -1,0 +1,109 @@
+/* ===== FreshBasket Dark Mode Stylesheet ===== */
+
+html.dark {
+  --primary: #22c55e;
+  --primary-dark: #16a34a;
+  --primary-light: #14532d;
+  --secondary: #052e16;
+  --accent: #fbbf24;
+  --background: #0f172a;
+  --surface: #1e293b;
+  --text: #f8fafc;
+  --muted: #94a3b8;
+  --border: #334155;
+  --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.5);
+  --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.3);
+  --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.4);
+}
+
+html.dark body {
+  background-color: var(--background);
+  color: var(--text);
+}
+
+html.dark .header-glass {
+  background: rgba(30, 41, 59, 0.95);
+  border-bottom-color: var(--border);
+}
+
+html.dark .bg-white {
+  background-color: var(--surface) !important;
+}
+
+html.dark .bg-gray-50,
+html.dark .bg-slate-50 {
+  background-color: #0f172a !important;
+}
+
+html.dark .bg-gray-100,
+html.dark .bg-slate-100 {
+  background-color: #1e293b !important;
+}
+
+html.dark .text-gray-900,
+html.dark .text-slate-900,
+html.dark .text-gray-800 {
+  color: #f8fafc !important;
+}
+
+html.dark .text-gray-600,
+html.dark .text-gray-500,
+html.dark .text-slate-600 {
+  color: #94a3b8 !important;
+}
+
+html.dark .border-gray-200,
+html.dark .border-gray-100,
+html.dark .border-slate-200 {
+  border-color: var(--border) !important;
+}
+
+html.dark input, 
+html.dark select, 
+html.dark textarea {
+  background-color: #0f172a !important;
+  color: #f8fafc !important;
+  border-color: var(--border) !important;
+}
+
+html.dark input::placeholder {
+  color: #64748b !important;
+}
+
+html.dark .product-card,
+html.dark .category-card,
+html.dark .bg-white.shadow-sm,
+html.dark .bg-white.shadow-md {
+  background-color: var(--surface) !important;
+  border-color: var(--border) !important;
+}
+
+html.dark .product-card:hover {
+  border-color: var(--primary) !important;
+}
+
+html.dark .toast {
+  background-color: #1e293b;
+  color: #f8fafc;
+  border-left-color: var(--primary);
+}
+
+html.dark table thead tr {
+  background-color: #0f172a !important;
+  color: #94a3b8 !important;
+}
+
+html.dark table tbody tr {
+  border-bottom-color: var(--border) !important;
+}
+
+/* Global smooth theme transition */
+body, header, nav, main, footer, section, div, card, button, input, select, textarea, a, span {
+  transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  body, header, nav, main, footer, section, div, card, button, input, select, textarea, a, span {
+    transition: none !important;
+  }
+}
