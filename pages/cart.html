@@ -68,10 +68,40 @@
 
             <!-- Navigation Links (2 to 6) & Action Buttons (7 to 10) -->
             <nav class="flex items-center gap-5 xl:gap-7 text-sm font-semibold text-slate-700 dark:text-slate-200">
-              <!-- 2. Home -->
-              <a href="../index.html" class="hover:text-green-600 dark:hover:text-green-400 transition-colors flex items-center gap-1.5">
-                <i class="fa-solid fa-house text-xs"></i> Home
-              </a>
+              <!-- 2. Home Dropdown Menu -->
+              <div class="relative home-dropdown-wrapper">
+                <button id="home-dropdown-trigger" type="button" class="hover:text-green-600 dark:hover:text-green-400 transition-colors flex items-center gap-1.5 py-2 focus:outline-none" aria-expanded="false" aria-haspopup="true">
+                  <i class="fa-solid fa-house text-xs"></i> <span>Home</span>
+                  <i class="fa-solid fa-chevron-down text-[10px] ml-0.5 transition-transform duration-200"></i>
+                </button>
+                
+                <div id="home-dropdown-menu" class="home-dropdown-menu hidden absolute top-full left-0 w-64 mt-1.5 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-2xl shadow-xl z-50 p-2 overflow-hidden">
+                  <a href="../index.html" class="flex items-start gap-3 p-2.5 rounded-xl hover:bg-slate-50 dark:hover:bg-slate-700/50 text-slate-700 dark:text-slate-200 transition-colors group">
+                    <div class="w-8 h-8 rounded-lg bg-green-600 text-white flex items-center justify-center text-xs flex-shrink-0 shadow-sm mt-0.5">
+                      <i class="fa-solid fa-store"></i>
+                    </div>
+                    <div>
+                      <div class="font-bold text-xs text-slate-900 dark:text-white flex items-center justify-between gap-2">
+                        <span>Home 1 (Classic)</span>
+                      </div>
+                      <div class="text-[11px] text-slate-500 dark:text-slate-400 font-normal leading-snug mt-0.5">Neighborhood daily essentials & 30-min delivery</div>
+                    </div>
+                  </a>
+
+                  <a href="home-premium.html" class="flex items-start gap-3 p-2.5 rounded-xl hover:bg-amber-50/80 dark:hover:bg-amber-950/30 text-slate-700 dark:text-slate-200 transition-colors group mt-1">
+                    <div class="w-8 h-8 rounded-lg bg-amber-500 text-white flex items-center justify-center text-xs flex-shrink-0 shadow-sm mt-0.5 group-hover:scale-105 transition-transform">
+                      <i class="fa-solid fa-crown text-amber-100"></i>
+                    </div>
+                    <div>
+                      <div class="font-bold text-xs text-slate-900 dark:text-white flex items-center justify-between gap-2">
+                        <span>Home 2 (Premium)</span>
+                        <span class="text-[9px] bg-amber-500/20 text-amber-700 dark:text-amber-300 border border-amber-500/30 px-1.5 py-0.5 rounded font-bold uppercase">Reserve</span>
+                      </div>
+                      <div class="text-[11px] text-slate-500 dark:text-slate-400 font-normal leading-snug mt-0.5">Gourmet farm-to-table & chef reserve</div>
+                    </div>
+                  </a>
+                </div>
+              </div>
               <!-- 3. Shop -->
               <a href="shop.html" class="hover:text-green-600 dark:hover:text-green-400 transition-colors">Shop</a>
               <!-- 4. Categories -->
@@ -83,26 +113,26 @@
               <!-- 6. Blog -->
               <a href="blog.html" class="hover:text-green-600 dark:hover:text-green-400 transition-colors">Blog</a>
 
-              <!-- 7. Cart Icon -->
-              <button type="button" class="cart-drawer-trigger relative p-2 text-green-600 dark:text-green-400 font-bold transition-colors" aria-label="Shopping Cart">
-                <i class="fa-solid fa-basket-shopping text-xl"></i>
-                <span class="cart-count-badge absolute -top-1 -right-1.5 w-5 h-5 bg-green-600 text-white rounded-full text-[11px] font-extrabold flex items-center justify-center border-2 border-white dark:border-slate-900">0</span>
-              </button>
-
-              <!-- 8. RTL Button -->
+              <!-- RTL Button -->
               <button type="button" onclick="event.preventDefault(); event.stopPropagation(); event.stopImmediatePropagation(); if(window.themeController) window.themeController.toggleRTL(); return false;" class="rtl-toggle-btn w-9 h-9 flex items-center justify-center bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-200 border border-slate-200 dark:border-slate-700 rounded-xl hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors" title="Toggle RTL/LTR" aria-label="Toggle RTL/LTR">
                 <i class="fa-solid fa-globe text-base"></i>
               </button>
 
-              <!-- 9. Theme Button -->
+              <!-- Theme Button -->
               <button type="button" onclick="event.preventDefault(); event.stopPropagation(); event.stopImmediatePropagation(); if(window.themeController) window.themeController.toggleDarkMode(); return false;" class="theme-toggle-btn w-9 h-9 flex items-center justify-center bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-200 border border-slate-200 dark:border-slate-700 rounded-xl hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors" title="Toggle Light/Dark Theme" aria-label="Toggle Light/Dark Theme">
                 <i class="fa-solid fa-moon text-base"></i>
               </button>
 
-              <!-- 10. Admin Portal -->
+              <!-- Admin Portal -->
               <a href="../admin/index.html" class="text-xs font-semibold bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-200 border border-slate-200 dark:border-slate-700 px-3.5 py-1.5 rounded-full hover:bg-green-600 hover:text-white dark:hover:bg-green-600 dark:hover:text-white transition-colors flex items-center gap-1.5 flex-shrink-0">
                 <i class="fa-solid fa-user-gear"></i> Admin Portal
               </a>
+
+              <!-- Cart Icon (Placed after Admin Portal) -->
+              <button type="button" class="cart-drawer-trigger relative p-2.5 bg-green-50 dark:bg-green-950/40 text-green-600 dark:text-green-400 hover:bg-green-600 hover:text-white dark:hover:bg-green-600 dark:hover:text-white border border-green-200 dark:border-green-800/60 rounded-xl transition-all shadow-sm flex items-center justify-center" aria-label="Shopping Cart">
+                <i class="fa-solid fa-basket-shopping text-lg"></i>
+                <span class="cart-count-badge absolute -top-1.5 -right-1.5 w-5 h-5 bg-green-600 text-white rounded-full text-[11px] font-extrabold flex items-center justify-center border-2 border-white dark:border-slate-900 shadow">0</span>
+              </button>
             </nav>
 
           </div>
@@ -142,9 +172,26 @@
       </button>
     </div>
     <div class="p-5 space-y-4 flex-1 overflow-y-auto font-semibold text-sm">
-      <a href="../index.html" class="block py-2 text-slate-700 dark:text-slate-200 hover:text-green-600 flex items-center gap-2">
-        <i class="fa-solid fa-house text-xs"></i> Home
-      </a>
+      
+      <!-- Mobile Home Accordion -->
+      <div class="space-y-1">
+        <button id="mobile-home-dropdown-trigger" type="button" class="w-full flex items-center justify-between py-2 text-slate-700 dark:text-slate-200 font-bold">
+          <span class="flex items-center gap-2">
+            <i class="fa-solid fa-house text-xs"></i> Homepages
+          </span>
+          <i id="mobile-home-chevron" class="fa-solid fa-chevron-down text-xs transition-transform duration-200"></i>
+        </button>
+
+        <div id="mobile-home-dropdown-menu" class="hidden pl-3 space-y-2 border-l-2 border-slate-300 dark:border-slate-700 my-1 py-1">
+          <a href="../index.html" class="flex items-center justify-between text-xs py-2 px-2.5 text-slate-700 dark:text-slate-200 font-semibold rounded-lg">
+            <span><i class="fa-solid fa-store text-green-600 mr-1.5"></i> Home 1 (Classic)</span>
+          </a>
+          <a href="home-premium.html" class="flex items-center justify-between text-xs py-2 px-2.5 text-slate-700 dark:text-slate-200 hover:text-amber-600 font-semibold rounded-lg">
+            <span><i class="fa-solid fa-crown text-amber-500 mr-1.5"></i> Home 2 (Premium)</span>
+            <span class="text-[9px] bg-amber-500/20 text-amber-600 px-1.5 py-0.5 rounded font-bold">Reserve</span>
+          </a>
+        </div>
+      </div>
       <a href="shop.html" class="block py-2 text-slate-700 dark:text-slate-200 hover:text-green-600">Shop</a>
       <a href="categories.html" class="block py-2 text-slate-700 dark:text-slate-200 hover:text-green-600">Categories</a>
       <a href="deals.html" class="block py-2 text-amber-600 dark:text-amber-400 flex items-center gap-2">
@@ -221,6 +268,82 @@
       </div>
 
     </div>
+  </main>
+
+  <!-- GLOBAL FOOTER -->
+  <footer class="bg-slate-100 text-slate-600 border-t border-slate-200 dark:bg-slate-900 dark:text-slate-400 dark:border-slate-800 text-sm transition-colors duration-300 mt-16">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10">
+
+        <!-- Brand Info -->
+        <div class="lg:col-span-2 space-y-4">
+          <a href="../index.html" class="flex items-center gap-2.5">
+            <div class="w-10 h-10 bg-green-600 text-white rounded-2xl flex items-center justify-center font-extrabold text-lg">
+              <i class="fa-solid fa-basket-shopping"></i>
+            </div>
+            <span class="font-extrabold text-xl tracking-tight text-slate-900 dark:text-white">Fresh<span class="text-green-600 dark:text-green-500">Basket</span></span>
+          </a>
+          <p class="text-xs text-slate-600 dark:text-slate-400 leading-relaxed max-w-sm">
+            FreshBasket is your trusted neighborhood supermarket delivering farm-fresh produce, daily essentials, and organic groceries straight to your doorstep.
+          </p>
+          <div class="flex items-center gap-4 pt-2">
+            <a href="#" class="w-9 h-9 bg-white text-slate-700 border border-slate-200 dark:bg-slate-800 dark:text-slate-300 dark:border-slate-700 rounded-full flex items-center justify-center hover:bg-green-600 hover:text-white dark:hover:bg-green-600 dark:hover:text-white hover:border-green-600 transition-colors shadow-sm" aria-label="Facebook" title="Facebook"><i class="fa-brands fa-facebook-f text-sm"></i></a>
+            <a href="#" class="w-9 h-9 bg-white text-slate-700 border border-slate-200 dark:bg-slate-800 dark:text-slate-300 dark:border-slate-700 rounded-full flex items-center justify-center hover:bg-green-600 hover:text-white dark:hover:bg-green-600 dark:hover:text-white hover:border-green-600 transition-colors shadow-sm" aria-label="Twitter" title="Twitter"><i class="fa-brands fa-twitter text-sm"></i></a>
+            <a href="#" class="w-9 h-9 bg-white text-slate-700 border border-slate-200 dark:bg-slate-800 dark:text-slate-300 dark:border-slate-700 rounded-full flex items-center justify-center hover:bg-green-600 hover:text-white dark:hover:bg-green-600 dark:hover:text-white hover:border-green-600 transition-colors shadow-sm" aria-label="Instagram" title="Instagram"><i class="fa-brands fa-instagram text-sm"></i></a>
+          </div>
+        </div>
+
+        <!-- Quick Links -->
+        <div>
+          <h4 class="text-slate-900 dark:text-white font-bold text-sm mb-4">Company</h4>
+          <ul class="space-y-2 text-xs">
+            <li><a href="about.html" class="text-slate-600 dark:text-slate-400 hover:text-green-600 dark:hover:text-white transition-colors">About FreshBasket</a></li>
+            <li><a href="blog.html" class="text-slate-600 dark:text-slate-400 hover:text-green-600 dark:hover:text-white transition-colors">Grocery Blog & Recipes</a></li>
+            <li><a href="contact.html" class="text-slate-600 dark:text-slate-400 hover:text-green-600 dark:hover:text-white transition-colors">Contact Store</a></li>
+            <li><a href="coming-soon.html" class="text-slate-600 dark:text-slate-400 hover:text-green-600 dark:hover:text-white transition-colors">Careers & Hiring</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="text-slate-900 dark:text-white font-bold text-sm mb-4">Shop Categories</h4>
+          <ul class="space-y-2 text-xs">
+            <li><a href="shop.html" class="text-slate-600 dark:text-slate-400 hover:text-green-600 dark:hover:text-white transition-colors">All Products</a></li>
+            <li><a href="categories.html" class="text-slate-600 dark:text-slate-400 hover:text-green-600 dark:hover:text-white transition-colors">Fruits & Vegetables</a></li>
+            <li><a href="categories.html" class="text-slate-600 dark:text-slate-400 hover:text-green-600 dark:hover:text-white transition-colors">Dairy & Fresh Milk</a></li>
+            <li><a href="deals.html" class="text-slate-600 dark:text-slate-400 hover:text-green-600 dark:hover:text-white transition-colors">Weekly Super Deals</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="text-slate-900 dark:text-white font-bold text-sm mb-4">Customer Support</h4>
+          <ul class="space-y-2 text-xs">
+            <li><a href="contact.html" class="text-slate-600 dark:text-slate-400 hover:text-green-600 dark:hover:text-white transition-colors">Help & FAQ Center</a></li>
+            <li><a href="order-tracking.html" class="text-slate-600 dark:text-slate-400 hover:text-green-600 dark:hover:text-white transition-colors">Live Order Tracking</a></li>
+            <li><a href="orders.html" class="text-slate-600 dark:text-slate-400 hover:text-green-600 dark:hover:text-white transition-colors">Order History</a></li>
+            <li><a href="404.html" class="text-slate-600 dark:text-slate-400 hover:text-green-600 dark:hover:text-white transition-colors">Returns & Refunds</a></li>
+          </ul>
+        </div>
+
+      </div>
+
+      <div class="mt-12 pt-8 border-t border-slate-200 dark:border-slate-800 flex flex-col sm:flex-row items-center justify-between text-xs text-slate-500 dark:text-slate-400 gap-4">
+        <div>
+          <p>© 2026 FreshBasket Supermarket Inc. All rights reserved.</p>
+          <div class="mt-1 text-[11px] text-slate-500 dark:text-slate-400 flex flex-wrap items-center gap-1.5">
+            <span>Developed by</span>
+            <span class="text-slate-900 dark:text-slate-100 font-extrabold tracking-wide text-green-700 dark:text-green-400">Abhivorn Technologies Pvt.Ltd.</span>
+          </div>
+        </div>
+        <div class="flex items-center gap-6">
+          <a href="coming-soon.html" class="hover:text-slate-700 dark:hover:text-slate-300 transition-colors">Privacy Policy</a>
+          <a href="coming-soon.html" class="hover:text-slate-700 dark:hover:text-slate-300 transition-colors">Terms of Service</a>
+          <a href="../index.html" class="hover:text-slate-700 dark:hover:text-slate-300 transition-colors">Home 1</a>
+          <a href="home-premium.html" class="text-amber-600 dark:text-amber-400 font-bold hover:underline">Home 2 (Premium)</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
   <!-- CART DRAWER OVERLAY & PANEL -->
   <div id="cart-drawer-overlay" class="hidden fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-[60] transition-opacity">
   </div>

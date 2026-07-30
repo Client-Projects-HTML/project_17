@@ -45,11 +45,66 @@ class AppMain {
   }
 
   init() {
+    this.setupHomeDropdown();
     this.setupMobileMenu();
     this.setupCartDrawer();
     this.setupSearchAutocomplete();
     this.setupZipChecker();
     this.setupLocationModal();
+    this.setupMobileTouchFeedback();
+  }
+
+  setupHomeDropdown() {
+    // Desktop Homepages Dropdown
+    const trigger = document.getElementById('home-dropdown-trigger');
+    const menu = document.getElementById('home-dropdown-menu');
+
+    if (trigger && menu) {
+      trigger.addEventListener('click', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        menu.classList.toggle('hidden');
+      });
+
+      document.addEventListener('click', (e) => {
+        if (!trigger.contains(e.target) && !menu.contains(e.target)) {
+          menu.classList.add('hidden');
+        }
+      });
+    }
+
+    // Mobile Navigation Drawer Home Dropdown Accordion
+    const mobileTrigger = document.getElementById('mobile-home-dropdown-trigger');
+    const mobileMenu = document.getElementById('mobile-home-dropdown-menu');
+    const mobileChevron = document.getElementById('mobile-home-chevron');
+
+    if (mobileTrigger && mobileMenu) {
+      mobileTrigger.addEventListener('click', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        mobileMenu.classList.toggle('hidden');
+        if (mobileChevron) {
+          mobileChevron.classList.toggle('rotate-180');
+        }
+      });
+    }
+  }
+
+  setupMobileTouchFeedback() {
+    // Enable active tap feedback state on mobile touch devices
+    document.addEventListener('touchstart', (e) => {
+      const card = e.target.closest('.touch-card, .product-card, .category-card, .btn-primary, .btn-secondary');
+      if (card) {
+        card.classList.add('tap-active');
+      }
+    }, { passive: true });
+
+    document.addEventListener('touchend', (e) => {
+      const card = e.target.closest('.touch-card, .product-card, .category-card, .btn-primary, .btn-secondary');
+      if (card) {
+        setTimeout(() => card.classList.remove('tap-active'), 150);
+      }
+    }, { passive: true });
   }
 
   setupMobileMenu() {

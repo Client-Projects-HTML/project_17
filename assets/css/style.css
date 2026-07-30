@@ -297,6 +297,94 @@ body {
   }
 }
 
+/* Mobile Touch & Tap Interaction Optimizations */
+.touch-card, 
+.product-card, 
+.category-card, 
+.home-dropdown-item {
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Mobile active tap animation fallback for non-hover devices */
+@media (hover: none) {
+  .product-card:active,
+  .category-card:active,
+  .touch-card:active {
+    transform: scale(0.98) !important;
+    opacity: 0.95;
+    transition: transform 0.15s ease, opacity 0.15s ease;
+  }
+}
+
+.tap-active:active {
+  transform: scale(0.96);
+  opacity: 0.9;
+}
+
+/* Homepages Dropdown Menu System */
+.home-dropdown-wrapper {
+  position: relative;
+}
+
+.home-dropdown-menu {
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  transform-origin: top left;
+}
+
+.home-dropdown-menu.hidden {
+  display: none !important;
+  opacity: 0;
+  transform: scale(0.95) translateY(-6px);
+  pointer-events: none;
+}
+
+.home-dropdown-menu:not(.hidden) {
+  display: block !important;
+  opacity: 1;
+  transform: scale(1) translateY(0);
+  pointer-events: auto;
+}
+
+/* Premium Hero Theme & Homepage 2 Styling System */
+.hero-gold-glow {
+  background: radial-gradient(circle at 70% 30%, rgba(245, 158, 11, 0.18), transparent 60%), radial-gradient(circle at 20% 80%, rgba(22, 163, 74, 0.15), transparent 50%);
+}
+
+.hero-emerald-glass {
+  background: rgba(15, 23, 42, 0.85);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(245, 158, 11, 0.3);
+}
+
+.premium-card {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.95), rgba(248, 250, 252, 0.9));
+  border: 1px solid rgba(245, 158, 11, 0.25);
+  box-shadow: 0 10px 25px -5px rgba(15, 23, 42, 0.08);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.dark .premium-card {
+  background: linear-gradient(135deg, rgba(30, 41, 59, 0.95), rgba(15, 23, 42, 0.9));
+  border: 1px solid rgba(245, 158, 11, 0.3);
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3);
+}
+
+.premium-card:hover, .premium-card:active {
+  border-color: rgba(245, 158, 11, 0.6);
+  transform: translateY(-4px);
+  box-shadow: 0 20px 30px -10px rgba(245, 158, 11, 0.2);
+}
+
+.badge-reserve {
+  background: linear-gradient(135deg, #f59e0b, #d97706);
+  color: #0f172a;
+  font-weight: 800;
+  letter-spacing: 0.05em;
+  box-shadow: 0 2px 8px rgba(245, 158, 11, 0.3);
+}
+
 /* Reduced Motion preference */
 @media (prefers-reduced-motion: reduce) {
   *, ::before, ::after {
@@ -306,3 +394,4 @@ body {
     scroll-behavior: auto !important;
   }
 }
+
