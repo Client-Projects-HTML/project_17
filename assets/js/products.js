@@ -42,9 +42,11 @@ class ProductCatalogController {
     
     if (this.viewMode === 'list') {
       return `
-        <div class="product-card flex flex-col sm:flex-row items-center p-4 gap-6">
-          <div class="product-img-wrapper w-full sm:w-48 h-48 rounded-xl flex-shrink-0">
-            <img src="${p.image}" alt="${safeName}" loading="lazy" onerror="this.onerror=null; this.src='${fallbackImg}';" />
+        <div class="product-card flex flex-col sm:flex-row items-center p-4 gap-6 cursor-pointer" onclick="if(!event.target.closest('.add-to-cart-btn') && !event.target.closest('.wishlist-toggle-btn')) window.location.href='product.html?id=${p.id}'">
+          <div class="product-img-wrapper w-full sm:w-48 h-48 rounded-xl flex-shrink-0 relative overflow-hidden">
+            <a href="product.html?id=${p.id}" class="block w-full h-full">
+              <img src="${p.image}" alt="${safeName}" loading="lazy" onerror="this.onerror=null; this.src='${fallbackImg}';" class="w-full h-full object-cover" />
+            </a>
             ${p.discount ? `<span class="absolute top-2 left-2 badge-discount">-${p.discount}% OFF</span>` : ''}
           </div>
           <div class="flex-1 min-w-0">
@@ -82,10 +84,12 @@ class ProductCatalogController {
     }
 
     return `
-      <div class="product-card flex flex-col justify-between">
+      <div class="product-card flex flex-col justify-between cursor-pointer" onclick="if(!event.target.closest('.add-to-cart-btn') && !event.target.closest('.wishlist-toggle-btn')) window.location.href='product.html?id=${p.id}'">
         <div>
-          <div class="product-img-wrapper">
-            <img src="${p.image}" alt="${safeName}" loading="lazy" onerror="this.onerror=null; this.src='${fallbackImg}';" />
+          <div class="product-img-wrapper cursor-pointer">
+            <a href="product.html?id=${p.id}" class="block w-full h-full">
+              <img src="${p.image}" alt="${safeName}" loading="lazy" onerror="this.onerror=null; this.src='${fallbackImg}';" />
+            </a>
             ${p.discount ? `<span class="absolute top-3 left-3 badge-discount">-${p.discount}% OFF</span>` : ''}
             <button data-product-id="${p.id}" class="wishlist-toggle-btn absolute top-3 right-3 w-9 h-9 bg-white/90 dark:bg-slate-900/90 rounded-full flex items-center justify-center shadow-md hover:scale-110 transition-transform">
               <i class="${isFav ? 'fa-solid fa-heart text-red-500' : 'fa-regular fa-heart text-slate-600 dark:text-slate-400'}"></i>

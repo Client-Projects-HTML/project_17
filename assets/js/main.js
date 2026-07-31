@@ -38,6 +38,20 @@ window.showToast = function(message, type = 'success') {
   }, 4000);
 };
 
+window.logoutUser = function() {
+  localStorage.setItem('freshbasket_logged_in', 'false');
+  localStorage.setItem('freshbasket_admin_logged_in', 'false');
+  const redirectPath = window.location.pathname.includes('/pages/') ? 'login.html' : (window.location.pathname.includes('/admin/') ? '../pages/login.html' : 'pages/login.html');
+  window.location.href = redirectPath;
+};
+
+window.logoutAdmin = function() {
+  localStorage.setItem('freshbasket_admin_logged_in', 'false');
+  localStorage.setItem('freshbasket_logged_in', 'false');
+  const redirectPath = window.location.pathname.includes('/admin/') ? '../pages/login.html' : (window.location.pathname.includes('/pages/') ? 'login.html' : 'pages/login.html');
+  window.location.href = redirectPath;
+};
+
 // Application Main Setup
 class AppMain {
   constructor() {
@@ -45,13 +59,72 @@ class AppMain {
   }
 
   init() {
+    this.setupStickyHeader();
     this.setupHomeDropdown();
+    this.setupAccountDropdown();
     this.setupMobileMenu();
     this.setupCartDrawer();
     this.setupSearchAutocomplete();
     this.setupZipChecker();
     this.setupLocationModal();
     this.setupMobileTouchFeedback();
+  }
+
+  setupAccountDropdown() {
+    document.querySelectorAll('.account-dropdown-wrapper').forEach(wrapper => {
+      const trigger = wrapper.querySelector('button');
+      const menu = wrapper.querySelector('div');
+      if (trigger && menu) {
+        trigger.addEventListener('click', (e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          menu.classList.toggle('hidden');
+        });
+      }
+    });
+
+    const mobileTrigger = document.getElementById('mobile-account-dropdown-trigger');
+    const mobileMenu = document.getElementById('mobile-account-dropdown-menu');
+
+    if (mobileTrigger && mobileMenu) {
+      mobileTrigger.addEventListener('click', (e) => {
+        e.preventDefault();
+        mobileMenu.classList.toggle('hidden');
+      });
+    }
+  }
+
+  setupStickyHeader() {
+    if (window.location.pathname.includes('/admin/') || document.querySelector('aside#admin-sidebar') || document.querySelector('aside.fixed')) return;
+
+    const header = document.querySelector('header');
+    if (!header) return;
+
+    // Enforce true fixed top navbar positioning
+    header.classList.add('fixed', 'top-0', 'left-0', 'right-0', 'z-50', 'w-full', 'transition-all', 'duration-300');
+    header.classList.remove('sticky');
+
+    // Automatically pad document body so layout content is never clipped under fixed header
+    const updateBodyPadding = () => {
+      const headerHeight = header.offsetHeight || 116;
+      document.body.style.paddingTop = `${headerHeight}px`;
+    };
+
+    updateBodyPadding();
+    window.addEventListener('resize', updateBodyPadding);
+
+    const handleScroll = () => {
+      if (window.scrollY > 20) {
+        header.classList.add('shadow-md', 'backdrop-blur-md');
+        header.classList.remove('shadow-sm');
+      } else {
+        header.classList.remove('shadow-md', 'backdrop-blur-md');
+        header.classList.add('shadow-sm');
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    handleScroll();
   }
 
   setupHomeDropdown() {
@@ -77,6 +150,51 @@ class AppMain {
     const mobileTrigger = document.getElementById('mobile-home-dropdown-trigger');
     const mobileMenu = document.getElementById('mobile-home-dropdown-menu');
     const mobileChevron = document.getElementById('mobile-home-chevron');
+
+    if (mobileTrigger && mobileMenu) {
+      mobileTrigger.addEventListener('click', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        mobileMenu.classList.toggle('hidden');
+        if (mobileChevron) {
+          mobileChevron.classList.toggle('rotate-180');
+        }
+      });
+    }
+  }
+
+  setupLoginDropdown() {
+    // Desktop Login Dropdown
+    document.querySelectorAll('.login-dropdown-wrapper').forEach(wrapper => {
+      const trigger = wrapper.querySelector('#login-dropdown-trigger, .login-dropdown-trigger');
+      const menu = wrapper.querySelector('#login-dropdown-menu, .login-dropdown-menu');
+
+      if (trigger && menu) {
+        trigger.addEventListener('click', (e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          menu.classList.toggle('hidden');
+        });
+
+        wrapper.addEventListener('mouseenter', () => {
+          menu.classList.remove('hidden');
+        });
+        wrapper.addEventListener('mouseleave', () => {
+          menu.classList.add('hidden');
+        });
+      }
+    });
+
+    document.addEventListener('click', (e) => {
+      if (!e.target.closest('.login-dropdown-wrapper')) {
+        document.querySelectorAll('.login-dropdown-menu').forEach(m => m.classList.add('hidden'));
+      }
+    });
+
+    // Mobile Navigation Drawer Login Accordion
+    const mobileTrigger = document.getElementById('mobile-login-dropdown-trigger');
+    const mobileMenu = document.getElementById('mobile-login-dropdown-menu');
+    const mobileChevron = document.getElementById('mobile-login-chevron');
 
     if (mobileTrigger && mobileMenu) {
       mobileTrigger.addEventListener('click', (e) => {

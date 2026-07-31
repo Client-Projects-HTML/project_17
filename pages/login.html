@@ -1,14 +1,12 @@
 <!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
-
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>User Login — FreshBasket Supermarket</title>
+  <title>Account Sign In — FreshBasket Supermarket</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
-    rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
@@ -18,38 +16,45 @@
   <link rel="stylesheet" href="../assets/css/dark-mode.css" />
   <link rel="stylesheet" href="../assets/css/rtl.css" />
 </head>
-
-<body
-  class="bg-slate-50 dark:bg-slate-900 text-slate-900 dark:text-slate-100 min-h-screen flex flex-col justify-between">
+<body class="bg-slate-50 dark:bg-slate-900 text-slate-900 dark:text-slate-100 min-h-screen flex flex-col justify-between transition-colors duration-200">
 
   <!-- HEADER -->
-  <header class="py-6 px-4 max-w-7xl mx-auto w-full flex items-center justify-between">
+  <header class="py-3 px-4 max-w-7xl mx-auto w-full flex items-center justify-between">
     <a href="../index.html" class="flex items-center gap-2">
-      <div
-        class="w-10 h-10 bg-green-600 text-white rounded-2xl flex items-center justify-center font-extrabold text-xl">
+      <div class="w-10 h-10 bg-green-600 text-white rounded-2xl flex items-center justify-center font-extrabold text-xl shadow-md shadow-green-600/30">
         <i class="fa-solid fa-basket-shopping"></i>
       </div>
       <span class="font-extrabold text-xl dark:text-white">Fresh<span class="text-green-600">Basket</span></span>
     </a>
     <div class="flex items-center gap-3">
-      <button class="rtl-toggle-btn text-xs font-semibold px-2 py-1 bg-slate-200 dark:bg-slate-800 rounded">RTL</button>
-      <button class="theme-toggle-btn text-sm p-1"><i class="fa-solid fa-moon"></i></button>
+      <button type="button" onclick="event.preventDefault(); event.stopPropagation(); event.stopImmediatePropagation(); if(window.themeController) window.themeController.toggleRTL(); return false;" class="rtl-toggle-btn w-9 h-9 flex items-center justify-center bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-200 border border-slate-200 dark:border-slate-700 rounded-xl hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors" title="Toggle RTL/LTR" aria-label="Toggle RTL/LTR"><i class="fa-solid fa-globe text-base"></i></button>
+      <button type="button" onclick="event.preventDefault(); event.stopPropagation(); event.stopImmediatePropagation(); if(window.themeController) window.themeController.toggleDarkMode(); return false;" class="theme-toggle-btn text-sm p-1.5"><i class="fa-solid fa-moon"></i></button>
     </div>
   </header>
 
   <!-- FORM CARD -->
-  <main class="max-w-md mx-auto w-full px-4 py-8">
-    <div
-      class="bg-white dark:bg-slate-800 rounded-3xl border border-slate-200 dark:border-slate-700 p-8 shadow-xl space-y-6">
-      <div class="text-center space-y-1">
-        <h1 class="text-2xl font-extrabold text-slate-900 dark:text-white">Welcome Back!</h1>
-        <p class="text-xs text-slate-500">Sign in to access your saved grocery lists and orders.</p>
+  <main class="max-w-md mx-auto w-full px-4 py-4 sm:py-6">
+    <div class="bg-white dark:bg-slate-800 rounded-3xl border border-slate-200 dark:border-slate-700 p-6 sm:p-7 shadow-xl space-y-5">
+      
+      <!-- Role Tab Switcher -->
+      <div class="flex rounded-2xl bg-slate-100 dark:bg-slate-900 p-1 border border-slate-200 dark:border-slate-700">
+        <button id="tab-user" type="button" onclick="switchLoginTab('user')" class="flex-1 py-2.5 text-xs font-bold rounded-xl transition-all bg-green-600 text-white shadow-md flex items-center justify-center gap-1.5">
+          <i class="fa-solid fa-user"></i> User Login
+        </button>
+        <button id="tab-admin" type="button" onclick="switchLoginTab('admin')" class="flex-1 py-2.5 text-xs font-bold rounded-xl transition-all text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white flex items-center justify-center gap-1.5">
+          <i class="fa-solid fa-user-gear"></i> Admin Login
+        </button>
       </div>
 
-      <form id="login-form" class="space-y-4" onsubmit="event.preventDefault(); window.location.href='profile.html';">
+      <div class="text-center space-y-1">
+        <h1 id="login-heading" class="text-2xl font-extrabold text-slate-900 dark:text-white">User Sign In</h1>
+        <p id="login-subheading" class="text-xs text-slate-500 dark:text-slate-400">Sign in to access your saved grocery lists, orders, and VIP member perks.</p>
+      </div>
+
+      <form id="login-form" class="space-y-4" onsubmit="handleLoginSubmit(event)">
         <div>
           <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">Email Address</label>
-          <input type="email" placeholder="customer@freshbasket.com" required
+          <input id="login-email" type="email" value="customer@freshbasket.com" required
             class="w-full p-3 bg-slate-100 dark:bg-slate-900 border-none rounded-xl text-sm dark:text-white focus:ring-2 focus:ring-green-500" />
         </div>
 
@@ -58,7 +63,7 @@
             <label class="block text-xs font-bold text-slate-700 dark:text-slate-300">Password</label>
             <a href="forgot-password.html" class="text-xs text-green-600 font-bold hover:underline">Forgot password?</a>
           </div>
-          <input type="password" placeholder="••••••••" required
+          <input id="login-password" type="password" value="password123" required
             class="w-full p-3 bg-slate-100 dark:bg-slate-900 border-none rounded-xl text-sm dark:text-white focus:ring-2 focus:ring-green-500" />
         </div>
 
@@ -69,14 +74,13 @@
           </label>
         </div>
 
-        <button type="submit" class="btn-primary w-full py-3.5 text-sm font-bold shadow-lg shadow-green-600/30">
-          Sign In
+        <button id="login-submit-btn" type="submit" class="btn-primary w-full py-3.5 text-sm font-bold shadow-lg shadow-green-600/30">
+          Sign In to Dashboard
         </button>
       </form>
 
-      <div class="relative text-center border-t border-slate-200 dark:border-slate-700 pt-4">
-        <span class="text-xs text-slate-400">Don't have an account? <a href="register.html"
-            class="text-green-600 font-bold hover:underline">Sign up now</a></span>
+      <div id="register-footer-prompt" class="relative text-center border-t border-slate-200 dark:border-slate-700 pt-4">
+        <span class="text-xs text-slate-400">Don't have an account? <a href="register.html" class="text-green-600 font-bold hover:underline">Sign up now</a></span>
       </div>
     </div>
   </main>
@@ -90,6 +94,54 @@
   </footer>
 
   <script src="../assets/js/theme.js"></script>
-</body>
+  <script>
+    let activeRole = 'user';
 
+    function switchLoginTab(role) {
+      activeRole = role;
+      const userBtn = document.getElementById('tab-user');
+      const adminBtn = document.getElementById('tab-admin');
+      const heading = document.getElementById('login-heading');
+      const subheading = document.getElementById('login-subheading');
+      const emailInput = document.getElementById('login-email');
+      const submitBtn = document.getElementById('login-submit-btn');
+
+      if (role === 'admin') {
+        adminBtn.className = 'flex-1 py-2.5 text-xs font-bold rounded-xl transition-all bg-amber-500 text-slate-950 shadow-md flex items-center justify-center gap-1.5';
+        userBtn.className = 'flex-1 py-2.5 text-xs font-bold rounded-xl transition-all text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white flex items-center justify-center gap-1.5';
+        heading.textContent = 'Admin Portal Sign In';
+        subheading.textContent = 'Sign in to access inventory, orders, customer management, and analytics.';
+        emailInput.value = 'admin@freshbasket.com';
+        submitBtn.textContent = 'Sign In to Admin Portal';
+        submitBtn.className = 'btn-accent w-full py-3.5 text-sm font-bold shadow-lg shadow-amber-500/20';
+      } else {
+        userBtn.className = 'flex-1 py-2.5 text-xs font-bold rounded-xl transition-all bg-green-600 text-white shadow-md flex items-center justify-center gap-1.5';
+        adminBtn.className = 'flex-1 py-2.5 text-xs font-bold rounded-xl transition-all text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white flex items-center justify-center gap-1.5';
+        heading.textContent = 'User Sign In';
+        subheading.textContent = 'Sign in to access your saved grocery lists, orders, and VIP member perks.';
+        emailInput.value = 'customer@freshbasket.com';
+        submitBtn.textContent = 'Sign In to Dashboard';
+        submitBtn.className = 'btn-primary w-full py-3.5 text-sm font-bold shadow-lg shadow-green-600/30';
+      }
+    }
+
+    function handleLoginSubmit(event) {
+      event.preventDefault();
+      if (activeRole === 'admin') {
+        window.location.href = '../admin/index.html';
+      } else {
+        window.location.href = '../user/index.html';
+      }
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      const params = new URLSearchParams(window.location.search);
+      if (params.get('type') === 'admin') {
+        switchLoginTab('admin');
+      } else {
+        switchLoginTab('user');
+      }
+    });
+  </script>
+</body>
 </html>

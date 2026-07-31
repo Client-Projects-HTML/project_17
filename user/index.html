@@ -1,0 +1,1202 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>User Dashboard — FreshBasket Supermarket</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = { darkMode: 'class', theme: { extend: { colors: { brand: { 600: '#16a34a' } } } } }
+  </script>
+  <link rel="stylesheet" href="../assets/css/style.css" />
+  <link rel="stylesheet" href="../assets/css/dark-mode.css" />
+  <link rel="stylesheet" href="../assets/css/rtl.css" />
+</head>
+<body class="bg-slate-100 dark:bg-slate-900 text-slate-900 dark:text-slate-100 min-h-screen flex">
+
+  <!-- USER SIDEBAR -->
+  <aside id="user-sidebar" class="w-64 bg-white dark:bg-slate-900 text-slate-700 dark:text-slate-300 border-r border-slate-200 dark:border-slate-800 min-h-screen flex flex-col justify-between hidden md:flex flex-shrink-0 transition-colors duration-200 sticky top-0 h-screen z-30">
+    <div class="p-6 space-y-6 overflow-y-auto">
+      <a href="../index.html" class="flex items-center gap-2.5">
+        <div class="w-9 h-9 bg-green-600 text-white rounded-xl flex items-center justify-center font-extrabold text-lg shadow-sm">
+          <i class="fa-solid fa-basket-shopping"></i>
+        </div>
+        <span class="font-extrabold text-lg text-slate-900 dark:text-white">Fresh<span class="text-green-600 dark:text-green-500">User</span></span>
+      </a>
+
+      <!-- User Profile Badge -->
+      <div class="flex items-center gap-3.5 p-3 rounded-2xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200/80 dark:border-slate-700/60">
+        <img class="w-10 h-10 rounded-full object-cover border-2 border-green-600 shadow-sm" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=150&q=80" alt="Sarah Jenkins" />
+        <div class="overflow-hidden">
+          <h4 class="font-bold text-slate-900 dark:text-white text-xs truncate">Sarah Jenkins</h4>
+          <span class="text-[10px] text-green-600 dark:text-green-400 font-extrabold flex items-center gap-1">
+            <i class="fa-solid fa-shield-halved"></i> VIP Member
+          </span>
+        </div>
+      </div>
+
+      <!-- Navigation Links -->
+      <nav class="space-y-1 text-xs font-semibold">
+        <a href="#dashboard" onclick="switchSection('dashboard')" id="nav-dashboard" class="user-nav-link flex items-center gap-3 px-4 py-3 rounded-xl bg-green-600 text-white shadow-md shadow-green-600/20">
+          <i class="fa-solid fa-gauge-high text-sm"></i> User Dashboard
+        </a>
+        <a href="#orders" onclick="switchSection('orders')" id="nav-orders" class="user-nav-link flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-slate-100 hover:text-slate-900 dark:hover:bg-slate-800 dark:hover:text-white transition-colors">
+          <i class="fa-solid fa-clock-rotate-left text-sm"></i> My Orders & Tracking
+        </a>
+        <a href="#lists" onclick="switchSection('lists')" id="nav-lists" class="user-nav-link flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-slate-100 hover:text-slate-900 dark:hover:bg-slate-800 dark:hover:text-white transition-colors">
+          <i class="fa-solid fa-list-check text-sm"></i> Saved Grocery Lists
+        </a>
+        <a href="#wishlist" onclick="switchSection('wishlist')" id="nav-wishlist" class="user-nav-link flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-slate-100 hover:text-slate-900 dark:hover:bg-slate-800 dark:hover:text-white transition-colors">
+          <i class="fa-solid fa-heart text-sm"></i> Wishlist & Favorites
+        </a>
+        <a href="#addresses" onclick="switchSection('addresses')" id="nav-addresses" class="user-nav-link flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-slate-100 hover:text-slate-900 dark:hover:bg-slate-800 dark:hover:text-white transition-colors">
+          <i class="fa-solid fa-location-dot text-sm"></i> Delivery Addresses
+        </a>
+        <a href="#payments" onclick="switchSection('payments')" id="nav-payments" class="user-nav-link flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-slate-100 hover:text-slate-900 dark:hover:bg-slate-800 dark:hover:text-white transition-colors">
+          <i class="fa-solid fa-wallet text-sm"></i> Payment Methods & Wallet
+        </a>
+        <a href="#notifications" onclick="switchSection('notifications')" id="nav-notifications" class="user-nav-link flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-slate-100 hover:text-slate-900 dark:hover:bg-slate-800 dark:hover:text-white transition-colors">
+          <i class="fa-solid fa-bell text-sm"></i> Alerts & Promotions
+        </a>
+        <a href="#profile" onclick="switchSection('profile')" id="nav-profile" class="user-nav-link flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-slate-100 hover:text-slate-900 dark:hover:bg-slate-800 dark:hover:text-white transition-colors">
+          <i class="fa-solid fa-user-gear text-sm"></i> Profile Settings
+        </a>
+      </nav>
+    </div>
+
+    <!-- Sidebar Footer -->
+    <div class="p-6 border-t border-slate-200 dark:border-slate-800">
+      <button onclick="logoutUser()" class="w-full flex items-center justify-center gap-2.5 px-3 py-2.5 rounded-xl bg-red-50 text-red-600 hover:bg-red-600 hover:text-white dark:bg-red-950/40 dark:text-red-400 dark:hover:bg-red-600 dark:hover:text-white text-xs font-bold transition-colors shadow-sm">
+        <i class="fa-solid fa-right-from-bracket"></i> Logout
+      </button>
+    </div>
+  </aside>
+
+  <!-- MAIN AREA (RIGHT OF SIDEBAR) -->
+  <div class="flex-1 flex flex-col min-w-0 min-h-screen">
+
+    <!-- TOP HEADER BAR -->
+    <header class="sticky top-0 z-20 bg-white dark:bg-slate-800 border-b border-slate-200 dark:border-slate-700/80 px-6 py-4 md:px-8 shadow-sm flex flex-col sm:flex-row sm:items-center justify-between gap-4 transition-colors">
+      <div class="flex items-center gap-3">
+        <!-- Mobile Sidebar Toggle -->
+        <button type="button" onclick="toggleUserSidebar()" class="md:hidden w-9 h-9 flex items-center justify-center bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-slate-200 border border-slate-200 dark:border-slate-600 rounded-xl hover:bg-slate-200 dark:hover:bg-slate-600 transition-colors" title="Toggle Sidebar Navigation">
+          <i class="fa-solid fa-bars text-sm"></i>
+        </button>
+
+        <a href="../index.html" class="flex items-center gap-2 md:hidden">
+          <div class="w-8 h-8 bg-green-600 text-white rounded-xl flex items-center justify-center font-extrabold text-base shadow-sm">
+            <i class="fa-solid fa-basket-shopping"></i>
+          </div>
+          <span class="font-extrabold text-base text-slate-900 dark:text-white">Fresh<span class="text-green-600 dark:text-green-500">User</span></span>
+        </a>
+
+        <div>
+          <div class="flex items-center gap-2.5">
+            <h1 id="topbar-title" class="text-lg md:text-xl font-extrabold text-slate-900 dark:text-white">Welcome back, Sarah! 👋</h1>
+            <span class="bg-green-100 text-green-700 dark:bg-green-950/70 dark:text-green-300 text-[10px] font-extrabold px-2.5 py-0.5 rounded-full uppercase tracking-wider hidden sm:inline-block border border-green-200 dark:border-green-800">VIP Member</span>
+          </div>
+          <p id="topbar-subtitle" class="text-xs text-slate-500 dark:text-slate-400 hidden sm:block">Track your fresh grocery deliveries, rewards, and 1-click reorders.</p>
+        </div>
+      </div>
+
+      <div class="flex items-center gap-3">
+        <a href="../pages/shop.html" class="btn-primary text-xs px-4 py-2.5 font-bold shadow-md flex items-center gap-2">
+          <i class="fa-solid fa-store"></i> <span class="hidden sm:inline">Shop Store</span>
+        </a>
+        <button type="button" onclick="event.preventDefault(); event.stopPropagation(); event.stopImmediatePropagation(); if(window.themeController) window.themeController.toggleRTL(); return false;" class="rtl-toggle-btn w-9 h-9 flex items-center justify-center bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-slate-200 border border-slate-200 dark:border-slate-600 rounded-xl hover:bg-slate-200 dark:hover:bg-slate-600 transition-colors" title="Toggle RTL/LTR" aria-label="Toggle RTL/LTR">
+          <i class="fa-solid fa-globe text-base"></i>
+        </button>
+        <button type="button" onclick="event.preventDefault(); event.stopPropagation(); event.stopImmediatePropagation(); if(window.themeController) window.themeController.toggleDarkMode(); return false;" class="theme-toggle-btn w-9 h-9 flex items-center justify-center bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-slate-200 border border-slate-200 dark:border-slate-600 rounded-xl hover:bg-slate-200 dark:hover:bg-slate-600 transition-colors" title="Toggle Light/Dark Theme" aria-label="Toggle Light/Dark Theme">
+          <i class="fa-solid fa-moon text-base"></i>
+        </button>
+      </div>
+    </header>
+
+    <!-- MAIN CONTENT CONTAINER -->
+    <main class="flex-1 p-6 md:p-8 overflow-y-auto space-y-8">
+
+    <!-- SECTION 1: DASHBOARD OVERVIEW -->
+    <div id="section-dashboard" class="user-section space-y-8">
+      
+      <!-- LIVE ORDER DELIVERY TRACKER BANNER -->
+      <div class="bg-gradient-to-r from-green-600 to-emerald-700 text-white rounded-3xl p-6 shadow-xl flex flex-col md:flex-row md:items-center justify-between gap-6 relative overflow-hidden">
+        <div class="absolute right-0 top-0 bottom-0 opacity-10 pointer-events-none text-9xl flex items-center">
+          <i class="fa-solid fa-truck-fast"></i>
+        </div>
+        <div class="space-y-2 relative z-10">
+          <div class="inline-flex items-center gap-2 bg-white/20 backdrop-blur-md px-3 py-1 rounded-full text-xs font-extrabold uppercase tracking-wider">
+            <i class="fa-solid fa-bolt text-amber-300"></i> Express Delivery Out For Delivery
+          </div>
+          <h2 class="text-xl sm:text-2xl font-extrabold">Order #FB-894210 is arriving in ~14 mins</h2>
+          <p class="text-xs text-green-100">Driver David (FreshCourier) is 1.2 miles away with your organic produce & dairy basket.</p>
+        </div>
+        <a href="../pages/order-tracking.html" class="relative z-10 bg-white text-green-700 hover:bg-green-50 px-5 py-3 rounded-2xl text-xs font-bold shadow-md transition-transform hover:scale-105 self-start md:self-center flex items-center gap-2">
+          <i class="fa-solid fa-map-location-dot"></i> Live Driver Map
+        </a>
+      </div>
+
+      <!-- USER METRICS GRID -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div class="bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 p-5 shadow-sm space-y-2">
+          <div class="flex items-center justify-between text-xs text-slate-500 dark:text-slate-400 font-bold uppercase tracking-wider">
+            <span>Total Orders</span>
+            <div class="w-8 h-8 rounded-xl bg-green-50 text-green-600 dark:bg-green-950/50 flex items-center justify-center text-sm">
+              <i class="fa-solid fa-box-open"></i>
+            </div>
+          </div>
+          <div class="text-2xl font-extrabold text-slate-900 dark:text-white">24 Orders</div>
+          <div class="text-xs text-green-600 font-semibold flex items-center gap-1">
+            <i class="fa-solid fa-check"></i> 100% On-time deliveries
+          </div>
+        </div>
+
+        <div class="bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 p-5 shadow-sm space-y-2">
+          <div class="flex items-center justify-between text-xs text-slate-500 dark:text-slate-400 font-bold uppercase tracking-wider">
+            <span>FreshPoints Earned</span>
+            <div class="w-8 h-8 rounded-xl bg-amber-50 text-amber-600 dark:bg-amber-950/50 flex items-center justify-center text-sm">
+              <i class="fa-solid fa-star"></i>
+            </div>
+          </div>
+          <div id="user-fresh-points" class="text-2xl font-extrabold text-slate-900 dark:text-white">1,420 pts</div>
+          <button onclick="redeemCoupon('FRESH15')" class="text-xs text-amber-600 font-bold hover:underline flex items-center gap-1 text-left">
+            <i class="fa-solid fa-ticket mr-1"></i> Redeem $15 Off Coupon
+          </button>
+        </div>
+
+        <div class="bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 p-5 shadow-sm space-y-2">
+          <div class="flex items-center justify-between text-xs text-slate-500 dark:text-slate-400 font-bold uppercase tracking-wider">
+            <span>FreshWallet Balance</span>
+            <div class="w-8 h-8 rounded-xl bg-blue-50 text-blue-600 dark:bg-blue-950/50 flex items-center justify-center text-sm">
+              <i class="fa-solid fa-wallet"></i>
+            </div>
+          </div>
+          <div id="user-wallet-balance" class="text-2xl font-extrabold text-slate-900 dark:text-white">$85.00</div>
+          <button onclick="openTopupModal()" class="text-xs text-blue-600 font-semibold hover:underline flex items-center gap-1">
+            <i class="fa-solid fa-plus-circle"></i> Top Up Balance
+          </button>
+        </div>
+
+        <div class="bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 p-5 shadow-sm space-y-2">
+          <div class="flex items-center justify-between text-xs text-slate-500 dark:text-slate-400 font-bold uppercase tracking-wider">
+            <span>Primary Address</span>
+            <div class="w-8 h-8 rounded-xl bg-purple-50 text-purple-600 dark:bg-purple-950/50 flex items-center justify-center text-sm">
+              <i class="fa-solid fa-house-chimney"></i>
+            </div>
+          </div>
+          <div id="primary-address-title" class="text-base font-extrabold text-slate-900 dark:text-white truncate">742 Evergreen Terr.</div>
+          <button onclick="switchSection('addresses')" class="text-xs text-purple-600 font-bold hover:underline">
+            Manage Addresses →
+          </button>
+        </div>
+      </div>
+
+      <!-- QUICK REORDER & RECENT ORDERS GRID -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+        <div class="lg:col-span-8 bg-white dark:bg-slate-800 rounded-3xl border border-slate-200 dark:border-slate-700 p-6 shadow-sm space-y-6">
+          <div class="flex items-center justify-between">
+            <div>
+              <h3 class="font-extrabold text-lg text-slate-900 dark:text-white">Recent Orders</h3>
+              <p class="text-xs text-slate-500">View live status and download invoice receipts.</p>
+            </div>
+            <a href="#orders" onclick="switchSection('orders')" class="text-xs font-bold text-green-600 hover:underline">View All Orders →</a>
+          </div>
+
+          <div class="overflow-x-auto">
+            <table class="w-full text-left border-collapse text-xs">
+              <thead>
+                <tr class="border-b border-slate-200 dark:border-slate-700 text-slate-500 uppercase tracking-wider font-bold">
+                  <th class="py-3 px-2">Order ID</th>
+                  <th class="py-3 px-2">Date</th>
+                  <th class="py-3 px-2">Items</th>
+                  <th class="py-3 px-2">Total</th>
+                  <th class="py-3 px-2">Status</th>
+                  <th class="py-3 px-2 text-right">Action</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-slate-100 dark:divide-slate-700/60 font-semibold text-slate-700 dark:text-slate-300">
+                <tr>
+                  <td class="py-4 px-2 font-bold text-slate-900 dark:text-white">#FB-894210</td>
+                  <td class="py-4 px-2">Today, 11:15 AM</td>
+                  <td class="py-4 px-2">7 items</td>
+                  <td class="py-4 px-2 font-bold text-green-600">$48.20</td>
+                  <td class="py-4 px-2">
+                    <span class="inline-flex items-center gap-1.5 bg-amber-50 text-amber-700 border border-amber-200 dark:bg-amber-950/40 dark:text-amber-300 dark:border-amber-800 px-2.5 py-1 rounded-full text-[10px] font-bold">
+                      <i class="fa-solid fa-truck-fast"></i> Out For Delivery
+                    </span>
+                  </td>
+                  <td class="py-4 px-2 text-right">
+                    <a href="../pages/order-tracking.html" class="px-3 py-1.5 bg-green-600 text-white rounded-lg text-[11px] font-bold hover:bg-green-700 transition-colors shadow-sm">Track</a>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="py-4 px-2 font-bold text-slate-900 dark:text-white">#FB-712049</td>
+                  <td class="py-4 px-2">Yesterday, 4:30 PM</td>
+                  <td class="py-4 px-2">12 items</td>
+                  <td class="py-4 px-2 font-bold text-green-600">$84.50</td>
+                  <td class="py-4 px-2">
+                    <span class="inline-flex items-center gap-1.5 bg-green-50 text-green-700 border border-green-200 dark:bg-green-950/40 dark:text-green-300 dark:border-green-800 px-2.5 py-1 rounded-full text-[10px] font-bold">
+                      <i class="fa-solid fa-circle-check"></i> Delivered
+                    </span>
+                  </td>
+                  <td class="py-4 px-2 text-right">
+                    <button onclick="reorderItems('FB-712049', this)" class="px-3 py-1.5 bg-slate-100 text-slate-700 dark:bg-slate-700 dark:text-slate-200 rounded-lg text-[11px] font-bold hover:bg-green-600 hover:text-white transition-colors">Reorder</button>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="py-4 px-2 font-bold text-slate-900 dark:text-white">#FB-650912</td>
+                  <td class="py-4 px-2">Jul 28, 2026</td>
+                  <td class="py-4 px-2">5 items</td>
+                  <td class="py-4 px-2 font-bold text-green-600">$32.10</td>
+                  <td class="py-4 px-2">
+                    <span class="inline-flex items-center gap-1.5 bg-green-50 text-green-700 border border-green-200 dark:bg-green-950/40 dark:text-green-300 dark:border-green-800 px-2.5 py-1 rounded-full text-[10px] font-bold">
+                      <i class="fa-solid fa-circle-check"></i> Delivered
+                    </span>
+                  </td>
+                  <td class="py-4 px-2 text-right">
+                    <button onclick="reorderItems('FB-650912', this)" class="px-3 py-1.5 bg-slate-100 text-slate-700 dark:bg-slate-700 dark:text-slate-200 rounded-lg text-[11px] font-bold hover:bg-green-600 hover:text-white transition-colors">Reorder</button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- 1-CLICK QUICK REORDER FAVORITES -->
+        <div class="lg:col-span-4 bg-white dark:bg-slate-800 rounded-3xl border border-slate-200 dark:border-slate-700 p-6 shadow-sm space-y-6">
+          <div>
+            <h3 class="font-extrabold text-lg text-slate-900 dark:text-white">1-Click Quick Reorder</h3>
+            <p class="text-xs text-slate-500">Frequently ordered weekly staples.</p>
+          </div>
+
+          <div class="space-y-4">
+            <div class="flex items-center justify-between p-3 rounded-2xl bg-slate-50 dark:bg-slate-900/60 border border-slate-200/80 dark:border-slate-700/60">
+              <div class="flex items-center gap-3">
+                <img src="https://images.unsplash.com/photo-1550583724-b2692b85b150?auto=format&fit=crop&w=100&q=80" alt="Whole Milk" class="w-10 h-10 rounded-xl object-cover" />
+                <div>
+                  <h4 class="font-bold text-xs text-slate-900 dark:text-white">Whole Organic Milk</h4>
+                  <span class="text-[10px] text-slate-500">1 Gallon • $4.49</span>
+                </div>
+              </div>
+              <button onclick="quickAddCart('Whole Organic Milk', 4.49, this)" class="w-8 h-8 rounded-xl bg-green-600 text-white flex items-center justify-center text-xs hover:bg-green-700 shadow-sm transition-transform active:scale-95" title="Add Whole Organic Milk to Cart">
+                <i class="fa-solid fa-plus"></i>
+              </button>
+            </div>
+
+            <div class="flex items-center justify-between p-3 rounded-2xl bg-slate-50 dark:bg-slate-900/60 border border-slate-200/80 dark:border-slate-700/60">
+              <div class="flex items-center gap-3">
+                <img src="https://images.unsplash.com/photo-1571771894821-ce9b6c11b08e?auto=format&fit=crop&w=100&q=80" alt="Bananas" class="w-10 h-10 rounded-xl object-cover" />
+                <div>
+                  <h4 class="font-bold text-xs text-slate-900 dark:text-white">Organic Bananas</h4>
+                  <span class="text-[10px] text-slate-500">1 Bunch (approx 3 lbs) • $2.99</span>
+                </div>
+              </div>
+              <button onclick="quickAddCart('Organic Bananas', 2.99, this)" class="w-8 h-8 rounded-xl bg-green-600 text-white flex items-center justify-center text-xs hover:bg-green-700 shadow-sm transition-transform active:scale-95" title="Add Organic Bananas to Cart">
+                <i class="fa-solid fa-plus"></i>
+              </button>
+            </div>
+
+            <div class="flex items-center justify-between p-3 rounded-2xl bg-slate-50 dark:bg-slate-900/60 border border-slate-200/80 dark:border-slate-700/60">
+              <div class="flex items-center gap-3">
+                <img src="https://images.unsplash.com/photo-1518492104633-130d0cc84637?auto=format&fit=crop&w=100&q=80" alt="Avocados" class="w-10 h-10 rounded-xl object-cover" />
+                <div>
+                  <h4 class="font-bold text-xs text-slate-900 dark:text-white">Hass Avocados</h4>
+                  <span class="text-[10px] text-slate-500">4 Count Bag • $5.20</span>
+                </div>
+              </div>
+              <button onclick="quickAddCart('Hass Avocados', 5.20, this)" class="w-8 h-8 rounded-xl bg-green-600 text-white flex items-center justify-center text-xs hover:bg-green-700 shadow-sm transition-transform active:scale-95" title="Add Hass Avocados to Cart">
+                <i class="fa-solid fa-plus"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SECTION 2: MY ORDERS & TRACKING -->
+    <div id="section-orders" class="user-section hidden space-y-6">
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+        <div>
+          <h2 class="text-xl font-extrabold text-slate-900 dark:text-white">My Orders & Live Tracking</h2>
+          <p class="text-xs text-slate-500">View real-time delivery status, items list, and invoice receipts.</p>
+        </div>
+        <div class="flex items-center gap-2 bg-white dark:bg-slate-800 p-1 rounded-xl border border-slate-200 dark:border-slate-700 text-xs font-bold">
+          <button onclick="filterOrderList('all', this)" class="order-filter-btn px-3 py-1.5 rounded-lg bg-green-600 text-white shadow-sm transition-colors">All Orders</button>
+          <button onclick="filterOrderList('out_for_delivery', this)" class="order-filter-btn px-3 py-1.5 rounded-lg text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700 transition-colors">Out For Delivery</button>
+          <button onclick="filterOrderList('completed', this)" class="order-filter-btn px-3 py-1.5 rounded-lg text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700 transition-colors">Completed</button>
+        </div>
+      </div>
+
+      <!-- Live Order Card -->
+      <div class="user-order-card order-status-out_for_delivery bg-white dark:bg-slate-800 rounded-3xl border-2 border-green-500/40 p-6 shadow-md space-y-4">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-100 dark:border-slate-700 pb-4">
+          <div>
+            <span class="text-xs font-extrabold text-green-600 uppercase tracking-wider">Live Express Order</span>
+            <h3 class="text-lg font-extrabold text-slate-900 dark:text-white">Order #FB-894210</h3>
+            <p class="text-xs text-slate-500">Placed Today at 11:15 AM • 7 Items • Total: $48.20</p>
+          </div>
+          <span class="self-start sm:self-center px-3 py-1 rounded-full bg-amber-50 text-amber-700 border border-amber-200 dark:bg-amber-950/40 dark:text-amber-300 dark:border-amber-800 text-xs font-bold flex items-center gap-1.5">
+            <i class="fa-solid fa-truck-fast"></i> Arriving in ~14 mins
+          </span>
+        </div>
+
+        <div class="space-y-2">
+          <div class="flex justify-between text-xs font-bold text-slate-700 dark:text-slate-300">
+            <span>Delivery Progress</span>
+            <span class="text-green-600">On the Way (1.2 miles away)</span>
+          </div>
+          <div class="w-full bg-slate-100 dark:bg-slate-700 rounded-full h-2.5 overflow-hidden">
+            <div class="bg-gradient-to-r from-green-500 to-emerald-600 h-2.5 rounded-full w-3/4"></div>
+          </div>
+        </div>
+
+        <div class="flex flex-wrap items-center justify-between gap-4 pt-2">
+          <div class="flex items-center gap-3 text-xs text-slate-600 dark:text-slate-300 font-semibold">
+            <i class="fa-solid fa-user-gear text-green-600 text-sm"></i> Driver: David (FreshCourier)
+          </div>
+          <a href="../pages/order-tracking.html" class="px-4 py-2 bg-green-600 text-white rounded-xl text-xs font-bold hover:bg-green-700 transition-colors shadow-md flex items-center gap-2">
+            <i class="fa-solid fa-map-location-dot"></i> Live Driver Map
+          </a>
+        </div>
+      </div>
+
+      <!-- Past Orders List -->
+      <div class="space-y-4">
+        <div class="user-order-card order-status-completed bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 p-5 shadow-sm flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+          <div class="space-y-1">
+            <div class="flex items-center gap-2">
+              <h4 class="font-extrabold text-sm text-slate-900 dark:text-white">Order #FB-712049</h4>
+              <span class="bg-green-50 text-green-700 border border-green-200 dark:bg-green-950/40 dark:text-green-300 text-[10px] px-2 py-0.5 rounded-full font-bold">Delivered</span>
+            </div>
+            <p class="text-xs text-slate-500">Delivered Yesterday at 4:30 PM • 12 Items • Total: $84.50</p>
+          </div>
+          <div class="flex items-center gap-2">
+            <a href="../pages/orders.html" class="px-3.5 py-2 bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-slate-200 rounded-xl text-xs font-bold hover:bg-slate-200 transition-colors">Details & Receipt</a>
+            <button onclick="reorderItems('FB-712049', this)" class="px-3.5 py-2 bg-green-600 text-white rounded-xl text-xs font-bold hover:bg-green-700 transition-colors shadow-sm">Reorder</button>
+          </div>
+        </div>
+
+        <div class="user-order-card order-status-completed bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 p-5 shadow-sm flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+          <div class="space-y-1">
+            <div class="flex items-center gap-2">
+              <h4 class="font-extrabold text-sm text-slate-900 dark:text-white">Order #FB-650912</h4>
+              <span class="bg-green-50 text-green-700 border border-green-200 dark:bg-green-950/40 dark:text-green-300 text-[10px] px-2 py-0.5 rounded-full font-bold">Delivered</span>
+            </div>
+            <p class="text-xs text-slate-500">Delivered Jul 28, 2026 • 5 Items • Total: $32.10</p>
+          </div>
+          <div class="flex items-center gap-2">
+            <a href="../pages/orders.html" class="px-3.5 py-2 bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-slate-200 rounded-xl text-xs font-bold hover:bg-slate-200 transition-colors">Details & Receipt</a>
+            <button onclick="reorderItems('FB-650912', this)" class="px-3.5 py-2 bg-green-600 text-white rounded-xl text-xs font-bold hover:bg-green-700 transition-colors shadow-sm">Reorder</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SECTION 3: SAVED GROCERY LISTS -->
+    <div id="section-lists" class="user-section hidden space-y-6">
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+        <div>
+          <h2 class="text-xl font-extrabold text-slate-900 dark:text-white">Saved Grocery Lists</h2>
+          <p class="text-xs text-slate-500">Manage your pre-saved weekly shopping templates for 1-click checkout.</p>
+        </div>
+        <button onclick="openCreateListModal()" class="btn-primary text-xs px-4 py-2.5 font-bold shadow-md flex items-center gap-2 self-start sm:self-center">
+          <i class="fa-solid fa-plus"></i> Create New Grocery List
+        </button>
+      </div>
+
+      <div id="grocery-lists-grid" class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <!-- List Card 1 -->
+        <div class="bg-white dark:bg-slate-800 rounded-3xl border border-slate-200 dark:border-slate-700 p-6 shadow-sm space-y-4">
+          <div class="flex items-center justify-between border-b border-slate-100 dark:border-slate-700 pb-3">
+            <div>
+              <h3 class="font-extrabold text-base text-slate-900 dark:text-white">Weekly Family Staples</h3>
+              <p class="text-xs text-slate-500">7 Items • Est. Total: $28.40</p>
+            </div>
+            <span class="w-9 h-9 rounded-2xl bg-green-50 text-green-600 flex items-center justify-center font-bold text-xs"><i class="fa-solid fa-basket-shopping"></i></span>
+          </div>
+          <ul class="space-y-2 text-xs text-slate-700 dark:text-slate-300 font-semibold">
+            <li class="flex justify-between"><span>• Organic Whole Milk (1 Gal)</span> <span>$4.49</span></li>
+            <li class="flex justify-between"><span>• Organic Bananas (1 Bunch)</span> <span>$2.99</span></li>
+            <li class="flex justify-between"><span>• Farm Fresh Brown Eggs (12 pk)</span> <span>$3.89</span></li>
+            <li class="flex justify-between"><span>• Artisanal Sourdough Bread</span> <span>$4.25</span></li>
+            <li class="flex justify-between"><span>• Hass Avocados (4 Pack)</span> <span>$5.20</span></li>
+          </ul>
+          <button onclick="addListToCart('Weekly Family Staples', 28.40, 7, this)" class="w-full py-3 bg-green-600 text-white rounded-xl text-xs font-bold text-center block hover:bg-green-700 transition-colors shadow-md">Add All 7 Items to Cart ($28.40)</button>
+        </div>
+
+        <!-- List Card 2 -->
+        <div class="bg-white dark:bg-slate-800 rounded-3xl border border-slate-200 dark:border-slate-700 p-6 shadow-sm space-y-4">
+          <div class="flex items-center justify-between border-b border-slate-100 dark:border-slate-700 pb-3">
+            <div>
+              <h3 class="font-extrabold text-base text-slate-900 dark:text-white">Organic Produce & Salad</h3>
+              <p class="text-xs text-slate-500">4 Items • Est. Total: $19.80</p>
+            </div>
+            <span class="w-9 h-9 rounded-2xl bg-emerald-50 text-emerald-600 flex items-center justify-center font-bold text-xs"><i class="fa-solid fa-leaf"></i></span>
+          </div>
+          <ul class="space-y-2 text-xs text-slate-700 dark:text-slate-300 font-semibold">
+            <li class="flex justify-between"><span>• Fresh Organic Spinach (16 oz)</span> <span>$4.50</span></li>
+            <li class="flex justify-between"><span>• Cherry Tomatoes (10 oz)</span> <span>$3.80</span></li>
+            <li class="flex justify-between"><span>• Organic Cucumbers (3 ct)</span> <span>$2.50</span></li>
+            <li class="flex justify-between"><span>• Extra Virgin Olive Oil (16 oz)</span> <span>$9.00</span></li>
+          </ul>
+          <button onclick="addListToCart('Organic Produce & Salad', 19.80, 4, this)" class="w-full py-3 bg-green-600 text-white rounded-xl text-xs font-bold text-center block hover:bg-green-700 transition-colors shadow-md">Add All 4 Items to Cart ($19.80)</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- SECTION 4: WISHLIST & FAVORITES -->
+    <div id="section-wishlist" class="user-section hidden space-y-6">
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+        <div>
+          <h2 class="text-xl font-extrabold text-slate-900 dark:text-white">Wishlist & Saved Favorites</h2>
+          <p class="text-xs text-slate-500">Your favorite items saved for easy reordering.</p>
+        </div>
+        <a href="../pages/wishlist.html" class="text-xs font-bold text-green-600 hover:underline">View Full Wishlist Page →</a>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <!-- Item 1 -->
+        <div class="bg-white dark:bg-slate-800 rounded-3xl border border-slate-200 dark:border-slate-700 p-5 shadow-sm space-y-4">
+          <img src="https://images.unsplash.com/photo-1464965911861-746a04b4bca6?auto=format&fit=crop&w=400&q=80" alt="Strawberries" class="w-full h-36 rounded-2xl object-cover" />
+          <div class="space-y-1">
+            <h4 class="font-extrabold text-sm text-slate-900 dark:text-white">Fresh Organic Strawberries</h4>
+            <p class="text-xs text-slate-500">1 lb Container • In Stock</p>
+            <div class="text-base font-extrabold text-green-600">$4.99</div>
+          </div>
+          <button onclick="addToCartFromWishlist('Fresh Organic Strawberries', 4.99, this)" class="w-full py-2.5 bg-green-600 text-white rounded-xl text-xs font-bold hover:bg-green-700 transition-colors shadow-sm">Add to Cart</button>
+        </div>
+
+        <!-- Item 2 -->
+        <div class="bg-white dark:bg-slate-800 rounded-3xl border border-slate-200 dark:border-slate-700 p-5 shadow-sm space-y-4">
+          <img src="https://images.unsplash.com/photo-1603048588665-791ca8aea617?auto=format&fit=crop&w=400&q=80" alt="Ribeye Steak" class="w-full h-36 rounded-2xl object-cover" />
+          <div class="space-y-1">
+            <h4 class="font-extrabold text-sm text-slate-900 dark:text-white">Grass-Fed Ribeye Steak</h4>
+            <p class="text-xs text-slate-500">12 oz Cut • Organic</p>
+            <div class="text-base font-extrabold text-green-600">$14.99</div>
+          </div>
+          <button onclick="addToCartFromWishlist('Grass-Fed Ribeye Steak', 14.99, this)" class="w-full py-2.5 bg-green-600 text-white rounded-xl text-xs font-bold hover:bg-green-700 transition-colors shadow-sm">Add to Cart</button>
+        </div>
+
+        <!-- Item 3 -->
+        <div class="bg-white dark:bg-slate-800 rounded-3xl border border-slate-200 dark:border-slate-700 p-5 shadow-sm space-y-4">
+          <img src="https://images.unsplash.com/photo-1517701604599-bb29b565090c?auto=format&fit=crop&w=400&q=80" alt="Cold Brew Coffee" class="w-full h-36 rounded-2xl object-cover" />
+          <div class="space-y-1">
+            <h4 class="font-extrabold text-sm text-slate-900 dark:text-white">Cold Brew Organic Coffee</h4>
+            <p class="text-xs text-slate-500">32 oz Bottle</p>
+            <div class="text-base font-extrabold text-green-600">$6.49</div>
+          </div>
+          <button onclick="addToCartFromWishlist('Cold Brew Organic Coffee', 6.49, this)" class="w-full py-2.5 bg-green-600 text-white rounded-xl text-xs font-bold hover:bg-green-700 transition-colors shadow-sm">Add to Cart</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- SECTION 5: DELIVERY ADDRESSES -->
+    <div id="section-addresses" class="user-section hidden space-y-6">
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+        <div>
+          <h2 class="text-xl font-extrabold text-slate-900 dark:text-white">Delivery Addresses</h2>
+          <p class="text-xs text-slate-500">Manage saved home, workplace, and secondary shipping destinations.</p>
+        </div>
+        <button onclick="openAddressModal()" class="btn-primary text-xs px-4 py-2.5 font-bold shadow-md flex items-center gap-2 self-start sm:self-center">
+          <i class="fa-solid fa-plus"></i> Add New Address
+        </button>
+      </div>
+
+      <div id="addresses-grid" class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <!-- Address 1 -->
+        <div class="user-address-card bg-white dark:bg-slate-800 rounded-3xl border-2 border-green-600/40 p-6 shadow-sm space-y-3 relative">
+          <span class="address-default-tag absolute top-5 right-5 bg-green-50 text-green-700 border border-green-200 dark:bg-green-950/40 dark:text-green-300 text-[10px] px-2.5 py-1 rounded-full font-bold">Default</span>
+          <h3 class="font-extrabold text-base text-slate-900 dark:text-white flex items-center gap-2">
+            <i class="fa-solid fa-house-chimney text-green-600"></i> <span class="addr-label-text">Home Address</span>
+          </h3>
+          <p class="addr-details-text text-xs text-slate-600 dark:text-slate-300 leading-relaxed font-semibold">
+            Sarah Jenkins<br />
+            742 Evergreen Terr., Apt 4B<br />
+            Downtown, NY 10001<br />
+            Phone: (555) 234-5678
+          </p>
+          <div class="pt-2 flex items-center gap-3 text-xs font-bold">
+            <button onclick="editAddress('Home Address', '742 Evergreen Terr., Apt 4B', 'Downtown, NY 10001', '(555) 234-5678')" class="text-green-600 hover:underline">Edit Address</button>
+          </div>
+        </div>
+
+        <!-- Address 2 -->
+        <div class="user-address-card bg-white dark:bg-slate-800 rounded-3xl border border-slate-200 dark:border-slate-700 p-6 shadow-sm space-y-3 relative">
+          <span class="address-default-tag hidden absolute top-5 right-5 bg-green-50 text-green-700 border border-green-200 dark:bg-green-950/40 dark:text-green-300 text-[10px] px-2.5 py-1 rounded-full font-bold">Default</span>
+          <h3 class="font-extrabold text-base text-slate-900 dark:text-white flex items-center gap-2">
+            <i class="fa-solid fa-building text-slate-400"></i> <span class="addr-label-text">Office / Workplace</span>
+          </h3>
+          <p class="addr-details-text text-xs text-slate-600 dark:text-slate-300 leading-relaxed font-semibold">
+            Sarah Jenkins<br />
+            100 Tech Plaza, Floor 5<br />
+            Midtown, NY 10018<br />
+            Phone: (555) 876-5432
+          </p>
+          <div class="pt-2 flex items-center gap-3 text-xs font-bold">
+            <button onclick="setDefaultAddress(this, 'Office / Workplace')" class="set-default-addr-btn text-green-600 hover:underline">Set as Default</button>
+            <span class="text-slate-300">•</span>
+            <button onclick="editAddress('Office / Workplace', '100 Tech Plaza, Floor 5', 'Midtown, NY 10018', '(555) 876-5432')" class="text-slate-500 hover:underline">Edit Address</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SECTION 6: PAYMENT METHODS & WALLET -->
+    <div id="section-payments" class="user-section hidden space-y-6">
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+        <div>
+          <h2 class="text-xl font-extrabold text-slate-900 dark:text-white">Payment Methods & FreshWallet</h2>
+          <p class="text-xs text-slate-500">Manage your saved credit cards, digital wallet balance, and top-ups.</p>
+        </div>
+        <button onclick="openPaymentModal()" class="btn-primary text-xs px-4 py-2.5 font-bold shadow-md flex items-center gap-2 self-start sm:self-center">
+          <i class="fa-solid fa-plus"></i> Add Payment Method
+        </button>
+      </div>
+
+      <!-- FreshWallet Card -->
+      <div class="bg-gradient-to-r from-blue-600 to-indigo-700 text-white rounded-3xl p-6 shadow-xl flex flex-col sm:flex-row sm:items-center justify-between gap-6">
+        <div class="space-y-1">
+          <span class="text-xs font-bold uppercase tracking-wider text-blue-200">FreshWallet Balance</span>
+          <div id="section-wallet-balance" class="text-3xl font-extrabold">$85.00</div>
+          <p class="text-xs text-blue-100">Auto-topup active ($50 topup when balance drops below $10)</p>
+        </div>
+        <button onclick="openTopupModal()" class="px-5 py-3 bg-white text-blue-700 rounded-2xl text-xs font-bold hover:bg-blue-50 transition-colors shadow-md self-start sm:self-center">Top Up Wallet</button>
+      </div>
+
+      <!-- Saved Cards -->
+      <div class="bg-white dark:bg-slate-800 rounded-3xl border border-slate-200 dark:border-slate-700 p-6 shadow-sm space-y-4">
+        <h3 class="font-extrabold text-base text-slate-900 dark:text-white">Saved Payment Cards</h3>
+        <div id="saved-payment-cards-list" class="space-y-3">
+          <div class="user-payment-card flex items-center justify-between p-4 rounded-2xl bg-slate-50 dark:bg-slate-900/60 border border-slate-200 dark:border-slate-700">
+            <div class="flex items-center gap-3">
+              <i class="fa-brands fa-cc-visa text-2xl text-blue-600"></i>
+              <div>
+                <h4 class="font-bold text-xs text-slate-900 dark:text-white">Visa ending in 4242</h4>
+                <span class="text-[10px] text-slate-500">Expires 08/2028 • Primary Card</span>
+              </div>
+            </div>
+            <span class="card-default-badge text-xs font-bold text-green-600 bg-green-50 dark:bg-green-950/40 px-2.5 py-1 rounded-full border border-green-200 dark:border-green-800">Default</span>
+          </div>
+
+          <div class="user-payment-card flex items-center justify-between p-4 rounded-2xl bg-slate-50 dark:bg-slate-900/60 border border-slate-200 dark:border-slate-700">
+            <div class="flex items-center gap-3">
+              <i class="fa-brands fa-cc-mastercard text-2xl text-orange-500"></i>
+              <div>
+                <h4 class="font-bold text-xs text-slate-900 dark:text-white">Mastercard ending in 8899</h4>
+                <span class="text-[10px] text-slate-500">Expires 11/2027</span>
+              </div>
+            </div>
+            <button onclick="setDefaultPayment(this, 'Mastercard ending in 8899')" class="set-default-card-btn text-xs font-bold text-slate-500 hover:text-green-600 hover:underline">Set Default</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SECTION 7: ALERTS & PROMOTIONS -->
+    <div id="section-notifications" class="user-section hidden space-y-6">
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+        <div>
+          <h2 class="text-xl font-extrabold text-slate-900 dark:text-white">Alerts & Promotions</h2>
+          <p class="text-xs text-slate-500">Stay updated on your live orders, discount codes, and price drops.</p>
+        </div>
+        <div class="flex items-center gap-3">
+          <button onclick="markAllNotificationsRead()" class="text-xs font-bold text-green-600 hover:underline flex items-center gap-1.5">
+            <i class="fa-solid fa-check-double"></i> Mark All as Read
+          </button>
+          <span class="text-slate-300">•</span>
+          <a href="../pages/notifications.html" class="text-xs font-bold text-slate-500 hover:underline">View All Notifications →</a>
+        </div>
+      </div>
+
+      <div id="notifications-list" class="space-y-4">
+        <div class="notif-item bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 p-4 shadow-sm flex items-start justify-between gap-3.5">
+          <div class="flex items-start gap-3.5">
+            <div class="w-9 h-9 rounded-xl bg-amber-50 text-amber-600 dark:bg-amber-950/50 flex items-center justify-center font-bold text-sm flex-shrink-0">
+              <i class="fa-solid fa-truck-fast"></i>
+            </div>
+            <div class="space-y-1">
+              <h4 class="font-extrabold text-xs text-slate-900 dark:text-white">Express Order #FB-894210 is Out for Delivery!</h4>
+              <p class="text-xs text-slate-500">Driver David is ~14 mins away with your fresh organic basket.</p>
+              <span class="text-[10px] text-slate-400 block pt-1">10 minutes ago</span>
+            </div>
+          </div>
+          <span class="notif-unread-dot w-2.5 h-2.5 rounded-full bg-green-500 flex-shrink-0 mt-1"></span>
+        </div>
+
+        <div class="notif-item bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 p-4 shadow-sm flex items-start justify-between gap-3.5">
+          <div class="flex items-start gap-3.5">
+            <div class="w-9 h-9 rounded-xl bg-green-50 text-green-600 dark:bg-green-950/50 flex items-center justify-center font-bold text-sm flex-shrink-0">
+              <i class="fa-solid fa-tag"></i>
+            </div>
+            <div class="space-y-1">
+              <h4 class="font-extrabold text-xs text-slate-900 dark:text-white">Exclusive $15 Coupon Unlocked</h4>
+              <p class="text-xs text-slate-500">Use promo code 
+                <button onclick="redeemCoupon('FRESH15')" class="inline-flex items-center gap-1 font-bold text-green-600 bg-green-50 dark:bg-green-950/40 px-2 py-0.5 rounded border border-green-200 dark:border-green-800 hover:bg-green-100 transition-colors">
+                  FRESH15 <i class="fa-regular fa-copy text-[10px]"></i>
+                </button> 
+                at checkout for $15 off orders over $50.
+              </p>
+              <span class="text-[10px] text-slate-400 block pt-1">2 hours ago</span>
+            </div>
+          </div>
+          <span class="notif-unread-dot w-2.5 h-2.5 rounded-full bg-green-500 flex-shrink-0 mt-1"></span>
+        </div>
+      </div>
+    </div>
+
+    <!-- SECTION 8: PROFILE SETTINGS -->
+    <div id="section-profile" class="user-section hidden space-y-6">
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+        <div>
+          <h2 class="text-xl font-extrabold text-slate-900 dark:text-white">Profile Settings</h2>
+          <p class="text-xs text-slate-500">Update your personal account details, email, and password security.</p>
+        </div>
+        <a href="../pages/profile.html" class="text-xs font-bold text-green-600 hover:underline">View Full Profile Page →</a>
+      </div>
+
+      <div class="bg-white dark:bg-slate-800 rounded-3xl border border-slate-200 dark:border-slate-700 p-6 shadow-sm space-y-6">
+        <form class="space-y-4" onsubmit="saveProfileSettings(event)">
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div>
+              <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">Full Name</label>
+              <input type="text" id="profile-input-name" value="Sarah Jenkins" required class="w-full p-3 bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl text-xs dark:text-white font-bold focus:outline-none focus:border-green-600" />
+            </div>
+            <div>
+              <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">Email Address</label>
+              <input type="email" id="profile-input-email" value="sarah.jenkins@example.com" required class="w-full p-3 bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl text-xs dark:text-white font-bold focus:outline-none focus:border-green-600" />
+            </div>
+            <div>
+              <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">Phone Number</label>
+              <input type="tel" id="profile-input-phone" value="(555) 234-5678" required class="w-full p-3 bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl text-xs dark:text-white font-bold focus:outline-none focus:border-green-600" />
+            </div>
+            <div>
+              <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">Preferred Delivery Slot</label>
+              <select id="profile-input-slot" class="w-full p-3 bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl text-xs dark:text-white font-bold focus:outline-none focus:border-green-600">
+                <option selected>Evening (5:00 PM - 8:00 PM)</option>
+                <option>Morning (8:00 AM - 11:00 AM)</option>
+                <option>Afternoon (1:00 PM - 4:00 PM)</option>
+              </select>
+            </div>
+          </div>
+          <button type="submit" class="btn-primary text-xs px-6 py-3 font-bold shadow-md">Save Profile Settings</button>
+        </form>
+      </div>
+    </div>
+
+  </main>
+  </div>
+
+  <!-- INTERACTIVE MODALS -->
+
+  <!-- TOP UP WALLET MODAL -->
+  <div id="topup-modal" class="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm hidden flex items-center justify-center p-4">
+    <div class="bg-white dark:bg-slate-800 rounded-3xl max-w-md w-full p-6 shadow-2xl space-y-6 relative border border-slate-200 dark:border-slate-700">
+      <button onclick="closeTopupModal()" class="absolute top-5 right-5 text-slate-400 hover:text-slate-600 dark:hover:text-white text-lg"><i class="fa-solid fa-xmark"></i></button>
+      <div class="space-y-1">
+        <h3 class="text-lg font-extrabold text-slate-900 dark:text-white">Top Up FreshWallet</h3>
+        <p class="text-xs text-slate-500">Select an amount to instantly add funds to your digital wallet balance.</p>
+      </div>
+
+      <div class="grid grid-cols-4 gap-3">
+        <button type="button" onclick="selectTopupAmount(10)" class="topup-amt-btn py-3 rounded-2xl border border-slate-200 dark:border-slate-700 text-xs font-extrabold text-slate-700 dark:text-slate-200 hover:border-green-600 transition-colors">$10</button>
+        <button type="button" onclick="selectTopupAmount(25)" class="topup-amt-btn py-3 rounded-2xl border border-slate-200 dark:border-slate-700 text-xs font-extrabold text-slate-700 dark:text-slate-200 hover:border-green-600 transition-colors">$25</button>
+        <button type="button" onclick="selectTopupAmount(50)" class="topup-amt-btn py-3 rounded-2xl border-2 border-green-600 bg-green-50 dark:bg-green-950/40 text-xs font-extrabold text-green-700 dark:text-green-300">$50</button>
+        <button type="button" onclick="selectTopupAmount(100)" class="topup-amt-btn py-3 rounded-2xl border border-slate-200 dark:border-slate-700 text-xs font-extrabold text-slate-700 dark:text-slate-200 hover:border-green-600 transition-colors">$100</button>
+      </div>
+
+      <div>
+        <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">Payment Method</label>
+        <select id="topup-payment-method" class="w-full p-3 bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl text-xs dark:text-white font-bold">
+          <option>Visa ending in 4242 (Default)</option>
+          <option>Mastercard ending in 8899</option>
+        </select>
+      </div>
+
+      <button type="button" onclick="confirmTopup()" class="w-full py-3.5 bg-green-600 text-white rounded-xl text-xs font-bold hover:bg-green-700 transition-colors shadow-md">Confirm Top Up</button>
+    </div>
+  </div>
+
+  <!-- ADD / EDIT ADDRESS MODAL -->
+  <div id="address-modal" class="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm hidden flex items-center justify-center p-4">
+    <div class="bg-white dark:bg-slate-800 rounded-3xl max-w-lg w-full p-6 shadow-2xl space-y-6 relative border border-slate-200 dark:border-slate-700">
+      <button onclick="closeAddressModal()" class="absolute top-5 right-5 text-slate-400 hover:text-slate-600 dark:hover:text-white text-lg"><i class="fa-solid fa-xmark"></i></button>
+      <div class="space-y-1">
+        <h3 id="address-modal-title" class="text-lg font-extrabold text-slate-900 dark:text-white">Add New Address</h3>
+        <p class="text-xs text-slate-500">Save a new shipping location for quick express deliveries.</p>
+      </div>
+
+      <form onsubmit="saveAddress(event)" class="space-y-4">
+        <div>
+          <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">Address Label (e.g. Home, Office, Beach House)</label>
+          <input type="text" id="addr-modal-label" required placeholder="e.g. Vacation Home" class="w-full p-3 bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl text-xs dark:text-white font-bold" />
+        </div>
+        <div>
+          <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">Street & Apartment</label>
+          <input type="text" id="addr-modal-street" required placeholder="123 Ocean Ave, Apt 2" class="w-full p-3 bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl text-xs dark:text-white font-bold" />
+        </div>
+        <div class="grid grid-cols-2 gap-4">
+          <div>
+            <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">City & Zip</label>
+            <input type="text" id="addr-modal-city" required placeholder="Brooklyn, NY 11201" class="w-full p-3 bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl text-xs dark:text-white font-bold" />
+          </div>
+          <div>
+            <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">Phone Number</label>
+            <input type="tel" id="addr-modal-phone" required placeholder="(555) 000-0000" class="w-full p-3 bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl text-xs dark:text-white font-bold" />
+          </div>
+        </div>
+        <button type="submit" class="w-full py-3.5 bg-green-600 text-white rounded-xl text-xs font-bold hover:bg-green-700 transition-colors shadow-md">Save Address</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- ADD PAYMENT METHOD MODAL -->
+  <div id="payment-modal" class="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm hidden flex items-center justify-center p-4">
+    <div class="bg-white dark:bg-slate-800 rounded-3xl max-w-md w-full p-6 shadow-2xl space-y-6 relative border border-slate-200 dark:border-slate-700">
+      <button onclick="closePaymentModal()" class="absolute top-5 right-5 text-slate-400 hover:text-slate-600 dark:hover:text-white text-lg"><i class="fa-solid fa-xmark"></i></button>
+      <div class="space-y-1">
+        <h3 class="text-lg font-extrabold text-slate-900 dark:text-white">Add Payment Card</h3>
+        <p class="text-xs text-slate-500">Securely add a credit or debit card for 1-click checkout.</p>
+      </div>
+
+      <form onsubmit="savePaymentCard(event)" class="space-y-4">
+        <div>
+          <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">Cardholder Name</label>
+          <input type="text" required placeholder="Sarah Jenkins" class="w-full p-3 bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl text-xs dark:text-white font-bold" />
+        </div>
+        <div>
+          <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">Card Number</label>
+          <input type="text" id="card-modal-num" required maxlength="19" placeholder="4532 •••• •••• 8821" class="w-full p-3 bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl text-xs dark:text-white font-bold" />
+        </div>
+        <div class="grid grid-cols-2 gap-4">
+          <div>
+            <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">Expiration</label>
+            <input type="text" required placeholder="MM/YY" maxlength="5" class="w-full p-3 bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl text-xs dark:text-white font-bold" />
+          </div>
+          <div>
+            <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">CVV Security Code</label>
+            <input type="password" required maxlength="4" placeholder="123" class="w-full p-3 bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl text-xs dark:text-white font-bold" />
+          </div>
+        </div>
+        <button type="submit" class="w-full py-3.5 bg-green-600 text-white rounded-xl text-xs font-bold hover:bg-green-700 transition-colors shadow-md">Add Payment Card</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- CREATE GROCERY LIST MODAL -->
+  <div id="list-modal" class="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm hidden flex items-center justify-center p-4">
+    <div class="bg-white dark:bg-slate-800 rounded-3xl max-w-md w-full p-6 shadow-2xl space-y-6 relative border border-slate-200 dark:border-slate-700">
+      <button onclick="closeCreateListModal()" class="absolute top-5 right-5 text-slate-400 hover:text-slate-600 dark:hover:text-white text-lg"><i class="fa-solid fa-xmark"></i></button>
+      <div class="space-y-1">
+        <h3 class="text-lg font-extrabold text-slate-900 dark:text-white">Create New Grocery List</h3>
+        <p class="text-xs text-slate-500">Name your grocery list template for instant weekly reorders.</p>
+      </div>
+
+      <form onsubmit="saveGroceryList(event)" class="space-y-4">
+        <div>
+          <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">List Name</label>
+          <input type="text" id="list-modal-name" required placeholder="e.g. Weekend BBQ Staples" class="w-full p-3 bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl text-xs dark:text-white font-bold" />
+        </div>
+        <div>
+          <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">List Category</label>
+          <select id="list-modal-cat" class="w-full p-3 bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl text-xs dark:text-white font-bold">
+            <option>Weekly Essentials</option>
+            <option>Organic & Fresh Produce</option>
+            <option>Snacks & Drinks</option>
+            <option>Party & BBQ Special</option>
+          </select>
+        </div>
+        <button type="submit" class="w-full py-3.5 bg-green-600 text-white rounded-xl text-xs font-bold hover:bg-green-700 transition-colors shadow-md">Create List</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- TOAST NOTIFICATION CONTAINER -->
+  <div id="toast-container" class="fixed bottom-5 right-5 z-50 flex flex-col gap-2 pointer-events-none"></div>
+
+  <script src="../assets/js/theme.js"></script>
+  <script>
+    let currentWalletBalance = 85.00;
+    let selectedTopupAmt = 50;
+
+    // Toast notification generator
+    function showToast(message, icon = 'fa-circle-check', bgClass = 'bg-slate-900 text-white dark:bg-slate-100 dark:text-slate-900') {
+      const container = document.getElementById('toast-container');
+      if (!container) return;
+
+      const toast = document.createElement('div');
+      toast.className = `pointer-events-auto px-4 py-3 rounded-2xl shadow-xl border border-slate-700/30 flex items-center gap-3 text-xs font-bold transform transition-all duration-300 translate-y-4 opacity-0 ${bgClass}`;
+      toast.innerHTML = `<i class="fa-solid ${icon} text-green-500 text-sm"></i> <span>${message}</span>`;
+
+      container.appendChild(toast);
+
+      // Animate in
+      setTimeout(() => {
+        toast.classList.remove('translate-y-4', 'opacity-0');
+      }, 50);
+
+      // Remove after 3 seconds
+      setTimeout(() => {
+        toast.classList.add('translate-y-4', 'opacity-0');
+        setTimeout(() => toast.remove(), 300);
+      }, 3200);
+    }
+
+    function logoutUser() {
+      localStorage.setItem('freshbasket_logged_in', 'false');
+      window.location.href = '../pages/login.html';
+    }
+
+    function toggleUserSidebar() {
+      const sidebar = document.getElementById('user-sidebar');
+      if (sidebar) {
+        sidebar.classList.toggle('hidden');
+        sidebar.classList.toggle('fixed');
+        sidebar.classList.toggle('inset-y-0');
+        sidebar.classList.toggle('left-0');
+        sidebar.classList.toggle('z-50');
+        sidebar.classList.toggle('shadow-2xl');
+      }
+    }
+
+    const sectionTitles = {
+      'dashboard': { title: 'Welcome back, Sarah! 👋', subtitle: 'Track your fresh grocery deliveries, rewards, and 1-click reorders.' },
+      'orders': { title: 'My Orders & Tracking 📦', subtitle: 'View your order history, live tracking, and invoices.' },
+      'lists': { title: 'Saved Grocery Lists 📝', subtitle: 'Manage your weekly grocery shopping lists & templates.' },
+      'wishlist': { title: 'Wishlist & Favorites ❤️', subtitle: 'Your saved favorite items and price drop alerts.' },
+      'addresses': { title: 'Delivery Addresses 📍', subtitle: 'Manage your saved shipping and delivery addresses.' },
+      'payments': { title: 'Payment Methods & Wallet 💳', subtitle: 'Manage your FreshWallet balance and credit cards.' },
+      'notifications': { title: 'Alerts & Promotions 🔔', subtitle: 'Stay updated with exclusive deals and order status alerts.' },
+      'profile': { title: 'Profile Settings ⚙️', subtitle: 'Update your personal details and delivery preferences.' }
+    };
+
+    function switchSection(sectionId) {
+      if (!sectionId) sectionId = 'dashboard';
+      document.querySelectorAll('.user-section').forEach(sec => sec.classList.add('hidden'));
+      
+      const targetSec = document.getElementById('section-' + sectionId);
+      if (targetSec) {
+        targetSec.classList.remove('hidden');
+      } else {
+        document.getElementById('section-dashboard').classList.remove('hidden');
+      }
+
+      // Update top bar text dynamically
+      const info = sectionTitles[sectionId] || sectionTitles['dashboard'];
+      const titleEl = document.getElementById('topbar-title');
+      const subTitleEl = document.getElementById('topbar-subtitle');
+      if (titleEl) titleEl.textContent = info.title;
+      if (subTitleEl) subTitleEl.textContent = info.subtitle;
+
+      const activeClass = 'user-nav-link flex items-center gap-3 px-4 py-3 rounded-xl bg-green-600 text-white shadow-md shadow-green-600/20';
+      const inactiveClass = 'user-nav-link flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-slate-100 hover:text-slate-900 dark:hover:bg-slate-800 dark:hover:text-white transition-colors';
+
+      document.querySelectorAll('.user-nav-link').forEach(link => {
+        link.className = inactiveClass;
+      });
+
+      const activeLink = document.getElementById('nav-' + sectionId);
+      if (activeLink) {
+        activeLink.className = activeClass;
+      }
+    }
+
+    // BUTTON HANDLERS
+    function redeemCoupon(code) {
+      if (navigator.clipboard) {
+        navigator.clipboard.writeText(code);
+      }
+      showToast(`Coupon code ${code} copied! $15 discount applied to your account.`, 'fa-ticket');
+    }
+
+    function reorderItems(orderId, btn) {
+      if (btn) {
+        const origText = btn.innerHTML;
+        btn.innerHTML = `<i class="fa-solid fa-check"></i> Added!`;
+        btn.classList.add('bg-green-600', 'text-white');
+        setTimeout(() => { btn.innerHTML = origText; }, 2000);
+      }
+      showToast(`Items from Order #${orderId} added to your cart for 1-click checkout.`, 'fa-basket-shopping');
+    }
+
+    function quickAddCart(itemName, price, btn) {
+      if (btn) {
+        btn.innerHTML = `<i class="fa-solid fa-check"></i>`;
+        btn.classList.replace('bg-green-600', 'bg-emerald-700');
+        setTimeout(() => {
+          btn.innerHTML = `<i class="fa-solid fa-plus"></i>`;
+          btn.classList.replace('bg-emerald-700', 'bg-green-600');
+        }, 1800);
+      }
+      showToast(`Added ${itemName} ($${price.toFixed(2)}) to your cart!`, 'fa-cart-plus');
+    }
+
+    function filterOrderList(status, btn) {
+      document.querySelectorAll('.order-filter-btn').forEach(b => {
+        b.className = 'order-filter-btn px-3 py-1.5 rounded-lg text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700 transition-colors';
+      });
+      if (btn) {
+        btn.className = 'order-filter-btn px-3 py-1.5 rounded-lg bg-green-600 text-white shadow-sm transition-colors';
+      }
+
+      document.querySelectorAll('.user-order-card').forEach(card => {
+        if (status === 'all') {
+          card.classList.remove('hidden');
+        } else {
+          if (card.classList.contains('order-status-' + status)) {
+            card.classList.remove('hidden');
+          } else {
+            card.classList.add('hidden');
+          }
+        }
+      });
+    }
+
+    function addListToCart(listName, total, count, btn) {
+      if (btn) {
+        const orig = btn.innerText;
+        btn.innerText = `Added ${count} Items to Cart! ✓`;
+        btn.classList.replace('bg-green-600', 'bg-emerald-700');
+        setTimeout(() => {
+          btn.innerText = orig;
+          btn.classList.replace('bg-emerald-700', 'bg-green-600');
+        }, 2200);
+      }
+      showToast(`Added all ${count} items from '${listName}' ($${total.toFixed(2)}) to cart!`, 'fa-basket-shopping');
+    }
+
+    function addToCartFromWishlist(itemName, price, btn) {
+      if (btn) {
+        btn.innerText = 'In Cart ✓';
+        btn.classList.replace('bg-green-600', 'bg-emerald-700');
+        setTimeout(() => {
+          btn.innerText = 'Add to Cart';
+          btn.classList.replace('bg-emerald-700', 'bg-green-600');
+        }, 2000);
+      }
+      showToast(`Moved '${itemName}' ($${price.toFixed(2)}) to cart!`, 'fa-heart');
+    }
+
+    // TOPUP MODAL
+    function openTopupModal() {
+      document.getElementById('topup-modal').classList.remove('hidden');
+    }
+    function closeTopupModal() {
+      document.getElementById('topup-modal').classList.add('hidden');
+    }
+    function selectTopupAmount(amt) {
+      selectedTopupAmt = amt;
+      document.querySelectorAll('.topup-amt-btn').forEach(b => {
+        if (b.innerText === '$' + amt) {
+          b.className = 'topup-amt-btn py-3 rounded-2xl border-2 border-green-600 bg-green-50 dark:bg-green-950/40 text-xs font-extrabold text-green-700 dark:text-green-300';
+        } else {
+          b.className = 'topup-amt-btn py-3 rounded-2xl border border-slate-200 dark:border-slate-700 text-xs font-extrabold text-slate-700 dark:text-slate-200 hover:border-green-600 transition-colors';
+        }
+      });
+    }
+    function confirmTopup() {
+      currentWalletBalance += selectedTopupAmt;
+      const formatted = '$' + currentWalletBalance.toFixed(2);
+      const topBarWallet = document.getElementById('user-wallet-balance');
+      const sectionWallet = document.getElementById('section-wallet-balance');
+      if (topBarWallet) topBarWallet.innerText = formatted;
+      if (sectionWallet) sectionWallet.innerText = formatted;
+      closeTopupModal();
+      showToast(`Successfully added $${selectedTopupAmt}.00 to your FreshWallet balance!`, 'fa-wallet');
+    }
+
+    // ADDRESS MODAL
+    function openAddressModal() {
+      document.getElementById('address-modal-title').innerText = 'Add New Address';
+      document.getElementById('addr-modal-label').value = '';
+      document.getElementById('addr-modal-street').value = '';
+      document.getElementById('addr-modal-city').value = '';
+      document.getElementById('addr-modal-phone').value = '';
+      document.getElementById('address-modal').classList.remove('hidden');
+    }
+    function closeAddressModal() {
+      document.getElementById('address-modal').classList.add('hidden');
+    }
+    function editAddress(label, street, city, phone) {
+      document.getElementById('address-modal-title').innerText = 'Edit Address - ' + label;
+      document.getElementById('addr-modal-label').value = label;
+      document.getElementById('addr-modal-street').value = street;
+      document.getElementById('addr-modal-city').value = city;
+      document.getElementById('addr-modal-phone').value = phone;
+      document.getElementById('address-modal').classList.remove('hidden');
+    }
+    function saveAddress(e) {
+      e.preventDefault();
+      const label = document.getElementById('addr-modal-label').value || 'New Address';
+      const street = document.getElementById('addr-modal-street').value;
+      const city = document.getElementById('addr-modal-city').value;
+      const phone = document.getElementById('addr-modal-phone').value;
+
+      const grid = document.getElementById('addresses-grid');
+      if (grid) {
+        const card = document.createElement('div');
+        card.className = 'user-address-card bg-white dark:bg-slate-800 rounded-3xl border border-slate-200 dark:border-slate-700 p-6 shadow-sm space-y-3 relative';
+        card.innerHTML = `
+          <span class="address-default-tag hidden absolute top-5 right-5 bg-green-50 text-green-700 border border-green-200 dark:bg-green-950/40 dark:text-green-300 text-[10px] px-2.5 py-1 rounded-full font-bold">Default</span>
+          <h3 class="font-extrabold text-base text-slate-900 dark:text-white flex items-center gap-2">
+            <i class="fa-solid fa-location-dot text-green-600"></i> <span class="addr-label-text">${label}</span>
+          </h3>
+          <p class="addr-details-text text-xs text-slate-600 dark:text-slate-300 leading-relaxed font-semibold">
+            Sarah Jenkins<br />
+            ${street}<br />
+            ${city}<br />
+            Phone: ${phone}
+          </p>
+          <div class="pt-2 flex items-center gap-3 text-xs font-bold">
+            <button onclick="setDefaultAddress(this, '${label}')" class="set-default-addr-btn text-green-600 hover:underline">Set as Default</button>
+            <span class="text-slate-300">•</span>
+            <button onclick="editAddress('${label}', '${street}', '${city}', '${phone}')" class="text-slate-500 hover:underline">Edit Address</button>
+          </div>
+        `;
+        grid.appendChild(card);
+      }
+
+      closeAddressModal();
+      showToast(`Delivery address '${label}' saved successfully!`, 'fa-location-dot');
+    }
+
+    function setDefaultAddress(btn, label) {
+      document.querySelectorAll('.user-address-card').forEach(c => {
+        c.classList.replace('border-2', 'border');
+        c.classList.replace('border-green-600/40', 'border-slate-200');
+        const tag = c.querySelector('.address-default-tag');
+        if (tag) tag.classList.add('hidden');
+      });
+
+      const card = btn.closest('.user-address-card');
+      if (card) {
+        card.classList.replace('border', 'border-2');
+        card.classList.replace('border-slate-200', 'border-green-600/40');
+        const tag = card.querySelector('.address-default-tag');
+        if (tag) tag.classList.remove('hidden');
+      }
+
+      const primaryTitle = document.getElementById('primary-address-title');
+      if (primaryTitle && label) primaryTitle.innerText = label;
+
+      showToast(`'${label}' set as your default delivery address.`, 'fa-house-chimney');
+    }
+
+    // PAYMENT MODAL
+    function openPaymentModal() {
+      document.getElementById('payment-modal').classList.remove('hidden');
+    }
+    function closePaymentModal() {
+      document.getElementById('payment-modal').classList.add('hidden');
+    }
+    function savePaymentCard(e) {
+      e.preventDefault();
+      const numInput = document.getElementById('card-modal-num').value || '4532';
+      const last4 = numInput.slice(-4) || '8821';
+      const list = document.getElementById('saved-payment-cards-list');
+      if (list) {
+        const item = document.createElement('div');
+        item.className = 'user-payment-card flex items-center justify-between p-4 rounded-2xl bg-slate-50 dark:bg-slate-900/60 border border-slate-200 dark:border-slate-700';
+        item.innerHTML = `
+          <div class="flex items-center gap-3">
+            <i class="fa-solid fa-credit-card text-2xl text-green-600"></i>
+            <div>
+              <h4 class="font-bold text-xs text-slate-900 dark:text-white">Card ending in ${last4}</h4>
+              <span class="text-[10px] text-slate-500">Expires 12/2029</span>
+            </div>
+          </div>
+          <button onclick="setDefaultPayment(this, 'Card ending in ${last4}')" class="set-default-card-btn text-xs font-bold text-slate-500 hover:text-green-600 hover:underline">Set Default</button>
+        `;
+        list.appendChild(item);
+      }
+      closePaymentModal();
+      showToast(`New payment card ending in ${last4} saved successfully!`, 'fa-credit-card');
+    }
+
+    function setDefaultPayment(btn, cardName) {
+      document.querySelectorAll('.user-payment-card').forEach(c => {
+        const badge = c.querySelector('.card-default-badge');
+        if (badge) badge.remove();
+        const setBtn = c.querySelector('.set-default-card-btn');
+        if (!setBtn) {
+          const newBtn = document.createElement('button');
+          newBtn.className = 'set-default-card-btn text-xs font-bold text-slate-500 hover:text-green-600 hover:underline';
+          newBtn.innerText = 'Set Default';
+          newBtn.onclick = function() { setDefaultPayment(this, cardName); };
+          c.appendChild(newBtn);
+        }
+      });
+
+      const card = btn.closest('.user-payment-card');
+      if (card) {
+        btn.remove();
+        const badge = document.createElement('span');
+        badge.className = 'card-default-badge text-xs font-bold text-green-600 bg-green-50 dark:bg-green-950/40 px-2.5 py-1 rounded-full border border-green-200 dark:border-green-800';
+        badge.innerText = 'Default';
+        card.appendChild(badge);
+      }
+      showToast(`'${cardName}' set as your primary payment method.`, 'fa-circle-check');
+    }
+
+    // GROCERY LIST MODAL
+    function openCreateListModal() {
+      document.getElementById('list-modal').classList.remove('hidden');
+    }
+    function closeCreateListModal() {
+      document.getElementById('list-modal').classList.add('hidden');
+    }
+    function saveGroceryList(e) {
+      e.preventDefault();
+      const listName = document.getElementById('list-modal-name').value || 'New Grocery List';
+      const grid = document.getElementById('grocery-lists-grid');
+      if (grid) {
+        const card = document.createElement('div');
+        card.className = 'bg-white dark:bg-slate-800 rounded-3xl border border-slate-200 dark:border-slate-700 p-6 shadow-sm space-y-4';
+        card.innerHTML = `
+          <div class="flex items-center justify-between border-b border-slate-100 dark:border-slate-700 pb-3">
+            <div>
+              <h3 class="font-extrabold text-base text-slate-900 dark:text-white">${listName}</h3>
+              <p class="text-xs text-slate-500">5 Items • Est. Total: $24.50</p>
+            </div>
+            <span class="w-9 h-9 rounded-2xl bg-green-50 text-green-600 flex items-center justify-center font-bold text-xs"><i class="fa-solid fa-list-check"></i></span>
+          </div>
+          <ul class="space-y-2 text-xs text-slate-700 dark:text-slate-300 font-semibold">
+            <li class="flex justify-between"><span>• Organic Milk & Eggs</span> <span>$8.38</span></li>
+            <li class="flex justify-between"><span>• Fresh Fruits Basket</span> <span>$10.12</span></li>
+            <li class="flex justify-between"><span>• Whole Grain Bread</span> <span>$6.00</span></li>
+          </ul>
+          <button onclick="addListToCart('${listName}', 24.50, 5, this)" class="w-full py-3 bg-green-600 text-white rounded-xl text-xs font-bold text-center block hover:bg-green-700 transition-colors shadow-md">Add All 5 Items to Cart ($24.50)</button>
+        `;
+        grid.appendChild(card);
+      }
+      closeCreateListModal();
+      showToast(`New grocery list '${listName}' created!`, 'fa-list-check');
+    }
+
+    // NOTIFICATIONS
+    function markAllNotificationsRead() {
+      document.querySelectorAll('.notif-unread-dot').forEach(dot => dot.remove());
+      showToast('All notifications marked as read.', 'fa-bell');
+    }
+
+    // PROFILE FORM SAVE
+    function saveProfileSettings(e) {
+      e.preventDefault();
+      const name = document.getElementById('profile-input-name').value || 'Sarah Jenkins';
+      showToast(`Profile settings for '${name}' saved successfully!`, 'fa-user-check');
+    }
+
+    window.addEventListener('hashchange', () => {
+      const hash = window.location.hash.replace('#', '');
+      switchSection(hash);
+    });
+
+    window.addEventListener('DOMContentLoaded', () => {
+      const hash = window.location.hash.replace('#', '') || 'dashboard';
+      switchSection(hash);
+    });
+  </script>
+</body>
+</html>

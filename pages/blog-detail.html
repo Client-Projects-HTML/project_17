@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>10 Smart Ways To Store Fresh Vegetables — FreshBasket</title>
+  <title id="blog-doc-title">Grocery Article — FreshBasket</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
@@ -18,35 +18,428 @@
 </head>
 <body class="bg-slate-50 dark:bg-slate-900 text-slate-900 dark:text-slate-100 transition-colors duration-200">
 
-  <header class="bg-white dark:bg-slate-800 border-b border-slate-200 dark:border-slate-700 py-4">
-    <div class="max-w-7xl mx-auto px-4 flex items-center justify-between">
+  <!-- COMBINED FIXED HEADER (TOP UTILITY BAR + MAIN NAVBAR) -->
+  <header class="fixed top-0 left-0 right-0 z-50 w-full shadow-sm bg-white dark:bg-slate-900 transition-colors duration-200">
+    
+    <!-- TOP UTILITY BAR -->
+    <div class="bg-slate-900 text-slate-300 text-xs py-2 border-b border-slate-800">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between">
+        <div class="flex items-center gap-4">
+          <button class="location-modal-trigger hover:text-green-400 flex items-center gap-1">
+            <i class="fa-solid fa-location-dot text-green-500"></i>
+            <span>Delivering to: <strong class="current-location-text text-white">Downtown 10001</strong></span>
+          </button>
+        </div>
+        <div class="flex items-center gap-4">
+          <a href="tel:18005553737" class="hover:text-white flex items-center gap-1">
+            <i class="fa-solid fa-phone text-slate-400"></i>
+            <span class="hidden sm:inline">Support: 1-800-FRESH</span>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- MAIN NAVBAR -->
+    <div class="bg-white/95 dark:bg-slate-900/95 backdrop-blur border-b border-slate-200/80 dark:border-slate-800 transition-colors duration-200">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex items-center justify-between h-20 gap-4">
+
+          <!-- Mobile Left: Hamburger Toggle & Logo -->
+          <div class="flex items-center gap-3 lg:hidden">
+            <button id="mobile-menu-toggle"
+              class="p-2 rounded-xl text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
+              aria-label="Open Navigation">
+              <i class="fa-solid fa-bars text-xl"></i>
+            </button>
+            <a href="../index.html" class="flex items-center gap-2">
+              <div class="w-9 h-9 bg-green-600 text-white rounded-xl flex items-center justify-center font-extrabold text-lg shadow-md shadow-green-600/30">
+                <i class="fa-solid fa-basket-shopping"></i>
+              </div>
+              <span class="font-extrabold text-lg tracking-tight text-slate-900 dark:text-white">Fresh<span class="text-green-600">Basket</span></span>
+            </a>
+          </div>
+
+          <!-- Desktop Unified Single-Row Main Navbar -->
+          <div class="hidden lg:flex items-center justify-between w-full gap-4 xl:gap-6">
+            
+            <!-- 1. FRESHBASKET LOGO / BRAND POSITION -->
+            <a href="../index.html" class="flex items-center gap-2.5 flex-shrink-0 group">
+              <div class="w-11 h-11 bg-green-600 text-white rounded-2xl flex items-center justify-center font-extrabold text-xl shadow-lg shadow-green-600/30 group-hover:scale-105 transition-transform">
+                <i class="fa-solid fa-basket-shopping"></i>
+              </div>
+              <div>
+                <span class="font-extrabold text-xl tracking-tight text-slate-900 dark:text-white">Fresh<span class="text-green-600">Basket</span></span>
+                <span class="block text-[10px] uppercase font-bold tracking-widest text-slate-400 -mt-1">Supermarket</span>
+              </div>
+            </a>
+
+            <!-- Navigation Links -->
+            <nav class="flex items-center gap-5 xl:gap-7 text-sm font-semibold text-slate-700 dark:text-slate-200">
+              <!-- Home Dropdown Menu -->
+              <div class="relative home-dropdown-wrapper">
+                <button id="home-dropdown-trigger" type="button" class="hover:text-green-600 dark:hover:text-green-400 transition-colors flex items-center gap-1.5 py-2 focus:outline-none" aria-expanded="false" aria-haspopup="true">
+                  <i class="fa-solid fa-house text-xs"></i> <span>Home</span>
+                  <i class="fa-solid fa-chevron-down text-[10px] ml-0.5 transition-transform duration-200"></i>
+                </button>
+                
+                <div id="home-dropdown-menu" class="home-dropdown-menu hidden absolute top-full left-0 w-64 mt-1.5 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-2xl shadow-xl z-50 p-2 overflow-hidden">
+                  <a href="../index.html" class="flex items-start gap-3 p-2.5 rounded-xl hover:bg-slate-50 dark:hover:bg-slate-700/50 text-slate-700 dark:text-slate-200 transition-colors group">
+                    <div class="w-8 h-8 rounded-lg bg-green-600 text-white flex items-center justify-center text-xs flex-shrink-0 shadow-sm mt-0.5">
+                      <i class="fa-solid fa-store"></i>
+                    </div>
+                    <div>
+                      <div class="font-bold text-xs text-slate-900 dark:text-white flex items-center justify-between gap-2">
+                        <span>Home 1 (Classic)</span>
+                      </div>
+                      <div class="text-[11px] text-slate-500 dark:text-slate-400 font-normal leading-snug mt-0.5">Neighborhood daily essentials & 30-min delivery</div>
+                    </div>
+                  </a>
+
+                  <a href="home-premium.html" class="flex items-start gap-3 p-2.5 rounded-xl hover:bg-amber-50/80 dark:hover:bg-amber-950/30 text-slate-700 dark:text-slate-200 transition-colors group mt-1">
+                    <div class="w-8 h-8 rounded-lg bg-amber-500 text-white flex items-center justify-center text-xs flex-shrink-0 shadow-sm mt-0.5 group-hover:scale-105 transition-transform">
+                      <i class="fa-solid fa-crown text-amber-100"></i>
+                    </div>
+                    <div>
+                      <div class="font-bold text-xs text-slate-900 dark:text-white flex items-center justify-between gap-2">
+                        <span>Home 2 (Premium)</span>
+                        <span class="text-[9px] bg-amber-500/20 text-amber-700 dark:text-amber-300 border border-amber-500/30 px-1.5 py-0.5 rounded font-bold uppercase">Reserve</span>
+                      </div>
+                      <div class="text-[11px] text-slate-500 dark:text-slate-400 font-normal leading-snug mt-0.5">Gourmet farm-to-table & chef reserve</div>
+                    </div>
+                  </a>
+                </div>
+              </div>
+              <a href="shop.html" class="hover:text-green-600 dark:hover:text-green-400 transition-colors flex items-center gap-1.5"><i class="fa-solid fa-store text-xs"></i> <span>Shop</span></a>
+              <a href="categories.html" class="hover:text-green-600 dark:hover:text-green-400 transition-colors">Categories</a>
+              <a href="deals.html" class="text-amber-600 dark:text-amber-400 hover:text-amber-500 transition-colors flex items-center gap-1">
+                <i class="fa-solid fa-fire text-xs"></i> Deals
+              </a>
+              <!-- Blog -->
+              <a href="blog.html" class="hover:text-green-600 dark:hover:text-green-400 transition-colors">Blog</a>
+              <!-- 7. Account Dropdown -->
+              <div class="relative group account-dropdown-wrapper flex items-center">
+                <a href="register.html" class="hover:text-green-600 dark:hover:text-green-400 transition-colors flex items-center gap-1.5 py-2 font-semibold">
+                  <i class="fa-solid fa-user-circle text-xs"></i>
+                  <span>Account</span>
+                </a>
+                <button type="button" class="hover:text-green-600 dark:hover:text-green-400 p-1 text-xs cursor-pointer focus:outline-none" aria-label="Account Menu">
+                  <i class="fa-solid fa-chevron-down text-[10px]"></i>
+                </button>
+                
+                <div class="hidden group-hover:block absolute top-full right-0 w-56 mt-1 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-2xl shadow-xl z-50 p-2 space-y-1">
+                  <a href="../user/index.html" class="flex items-center gap-3 p-2.5 rounded-xl hover:bg-green-50 dark:hover:bg-green-950/40 text-slate-800 dark:text-slate-100 transition-colors group/item">
+                    <div class="w-8 h-8 rounded-lg bg-green-600 text-white flex items-center justify-center text-xs flex-shrink-0 shadow-sm">
+                      <i class="fa-solid fa-user"></i>
+                    </div>
+                    <div>
+                      <div class="font-bold text-xs">User Dashboard</div>
+                      <div class="text-[10px] text-slate-500 dark:text-slate-400">Manage orders & profile</div>
+                    </div>
+                  </a>
+
+                  <a href="../admin/index.html" class="flex items-center gap-3 p-2.5 rounded-xl hover:bg-amber-50 dark:hover:bg-amber-950/30 text-slate-800 dark:text-slate-100 transition-colors group/item">
+                    <div class="w-8 h-8 rounded-lg bg-amber-500 text-slate-950 flex items-center justify-center text-xs flex-shrink-0 shadow-sm">
+                      <i class="fa-solid fa-user-gear"></i>
+                    </div>
+                    <div>
+                      <div class="font-bold text-xs flex items-center gap-1">
+                        <span>Admin Portal</span>
+                        <span class="text-[8px] bg-amber-500/20 text-amber-600 px-1 py-0.2 rounded font-bold uppercase">Staff</span>
+                      </div>
+                      <div class="text-[10px] text-slate-500 dark:text-slate-400">Inventory & analytics</div>
+                    </div>
+                  </a>
+                </div>
+              </div>
+
+              <!-- Theme Toggle -->
+              <button type="button" onclick="event.preventDefault(); event.stopPropagation(); event.stopImmediatePropagation(); if(window.themeController) window.themeController.toggleRTL(); return false;" class="rtl-toggle-btn w-9 h-9 flex items-center justify-center bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-200 border border-slate-200 dark:border-slate-700 rounded-xl hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors" title="Toggle RTL/LTR" aria-label="Toggle RTL/LTR">
+                <i class="fa-solid fa-globe text-base"></i>
+              </button>
+              <button type="button" onclick="event.preventDefault(); event.stopPropagation(); event.stopImmediatePropagation(); if(window.themeController) window.themeController.toggleDarkMode(); return false;" class="theme-toggle-btn w-9 h-9 flex items-center justify-center bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-200 border border-slate-200 dark:border-slate-700 rounded-xl hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors" title="Toggle Light/Dark Theme" aria-label="Toggle Light/Dark Theme">
+                <i class="fa-solid fa-moon text-base"></i>
+              </button>
+              
+              <!-- Cart Icon -->
+              <button type="button" class="cart-drawer-trigger relative p-2.5 bg-green-50 dark:bg-green-950/40 text-green-600 dark:text-green-400 hover:bg-green-600 hover:text-white dark:hover:bg-green-600 dark:hover:text-white border border-green-200 dark:border-green-800/60 rounded-xl transition-all shadow-sm flex items-center justify-center" aria-label="Shopping Cart">
+                <i class="fa-solid fa-basket-shopping text-lg"></i>
+                <span class="cart-count-badge absolute -top-1.5 -right-1.5 w-5 h-5 bg-green-600 text-white rounded-full text-[11px] font-extrabold flex items-center justify-center border-2 border-white dark:border-slate-900 shadow">0</span>
+              </button>
+            </nav>
+
+          </div>
+
+          <!-- Mobile Right Controls -->
+          <div class="flex lg:hidden items-center gap-2">
+            <button type="button" class="cart-drawer-trigger relative p-2 text-slate-700 dark:text-slate-200 hover:text-green-600 transition-colors" aria-label="Shopping Cart">
+              <i class="fa-solid fa-basket-shopping text-lg"></i>
+              <span class="cart-count-badge absolute -top-1 -right-1.5 w-4 h-4 bg-green-600 text-white rounded-full text-[10px] font-extrabold flex items-center justify-center">0</span>
+            </button>
+            <button type="button" onclick="event.preventDefault(); event.stopPropagation(); event.stopImmediatePropagation(); if(window.themeController) window.themeController.toggleRTL(); return false;" class="rtl-toggle-btn w-9 h-9 flex items-center justify-center bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-200 border border-slate-200 dark:border-slate-700 rounded-xl" title="Toggle RTL/LTR" aria-label="Toggle RTL/LTR">
+              <i class="fa-solid fa-globe text-base"></i>
+            </button>
+            <button type="button" onclick="event.preventDefault(); event.stopPropagation(); event.stopImmediatePropagation(); if(window.themeController) window.themeController.toggleDarkMode(); return false;" class="theme-toggle-btn w-9 h-9 flex items-center justify-center bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-200 border border-slate-200 dark:border-slate-700 rounded-xl" title="Toggle Theme" aria-label="Toggle Theme">
+              <i class="fa-solid fa-moon text-base"></i>
+            </button>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+  </header>
+
+  <!-- MOBILE NAVIGATION DRAWER -->
+  <div id="mobile-menu-overlay" class="hidden fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 transition-opacity lg:hidden"></div>
+  <div id="mobile-menu-drawer" class="fixed top-0 left-0 w-4/5 max-w-xs h-full bg-white dark:bg-slate-900 z-50 shadow-2xl transform -translate-x-full transition-transform duration-300 flex flex-col lg:hidden">
+    <div class="p-5 border-b border-slate-200 dark:border-slate-800 flex items-center justify-between">
       <a href="../index.html" class="flex items-center gap-2">
         <div class="w-9 h-9 bg-green-600 text-white rounded-xl flex items-center justify-center font-extrabold text-lg">
           <i class="fa-solid fa-basket-shopping"></i>
         </div>
-        <span class="font-extrabold text-xl dark:text-white">Fresh<span class="text-green-600">Basket</span> Blog</span>
+        <span class="font-extrabold text-lg text-slate-900 dark:text-white">Fresh<span class="text-green-600">Basket</span></span>
       </a>
-      <a href="blog.html" class="text-xs font-bold text-green-600 hover:underline">← Back to Articles</a>
+      <button id="mobile-menu-close" class="p-2 text-slate-400 hover:text-slate-600 dark:hover:text-white" aria-label="Close Menu">
+        <i class="fa-solid fa-xmark text-lg"></i>
+      </button>
     </div>
-  </header>
-
-  <main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-    <article class="bg-white dark:bg-slate-800 rounded-3xl border border-slate-200 dark:border-slate-700 p-8 shadow-sm space-y-6">
-      <span class="text-xs font-bold text-green-600 uppercase">Fresh Produce Tips • 5 Min Read</span>
-      <h1 class="text-3xl font-extrabold text-slate-900 dark:text-white">10 Smart Ways To Store Fresh Vegetables For Maximum Shelf Life</h1>
+    <div class="p-5 space-y-4 flex-1 overflow-y-auto font-semibold text-sm">
       
-      <img src="https://images.unsplash.com/photo-1540420773420-3366772f4999?auto=format&fit=crop&w=1200&q=80" alt="Fresh Vegetables" class="w-full h-80 object-cover rounded-2xl" />
+      <!-- Mobile Home Accordion -->
+      <div class="space-y-1">
+        <button id="mobile-home-dropdown-trigger" type="button" class="w-full flex items-center justify-between py-2 text-slate-700 dark:text-slate-200 font-bold">
+          <span class="flex items-center gap-2">
+            <i class="fa-solid fa-house text-xs"></i> Homepages
+          </span>
+          <i id="mobile-home-chevron" class="fa-solid fa-chevron-down text-xs transition-transform duration-200"></i>
+        </button>
 
-      <div class="prose dark:prose-invert max-w-none text-sm text-slate-600 dark:text-slate-300 leading-relaxed space-y-4">
-        <p>Keeping leafy greens, berries, and root vegetables crisp requires adjusting moisture, temperature, and airflow inside your refrigerator.</p>
-        <h3 class="font-bold text-slate-900 dark:text-white text-base">1. Keep Herbs in Glass Jars with Water</h3>
-        <p>Treat cilantro, parsley, and asparagus like fresh flowers. Trim the stems and stand them upright in an inch of fresh water.</p>
-        <h3 class="font-bold text-slate-900 dark:text-white text-base">2. Wrap Leafy Greens in Cloth Towels</h3>
-        <p>Excess moisture is the primary cause of wilted spinach and kale. Place a dry paper towel inside plastic containers to absorb moisture droplets.</p>
+        <div id="mobile-home-dropdown-menu" class="hidden pl-3 space-y-2 border-l-2 border-slate-300 dark:border-slate-700 my-1 py-1">
+          <a href="../index.html" class="flex items-center justify-between text-xs py-2 px-2.5 text-slate-700 dark:text-slate-200 font-semibold rounded-lg">
+            <span><i class="fa-solid fa-store text-green-600 mr-1.5"></i> Home 1 (Classic)</span>
+          </a>
+          <a href="home-premium.html" class="flex items-center justify-between text-xs py-2 px-2.5 text-slate-700 dark:text-slate-200 hover:text-amber-600 font-semibold rounded-lg">
+            <span><i class="fa-solid fa-crown text-amber-500 mr-1.5"></i> Home 2 (Premium)</span>
+            <span class="text-[9px] bg-amber-500/20 text-amber-600 px-1.5 py-0.5 rounded font-bold">Reserve</span>
+          </a>
+        </div>
+      </div>
+      <a href="shop.html" class="block py-2 text-slate-700 dark:text-slate-200 hover:text-green-600 flex items-center gap-2"><i class="fa-solid fa-store text-xs text-green-600"></i> <span>Shop</span></a>
+      <a href="categories.html" class="block py-2 text-slate-700 dark:text-slate-200 hover:text-green-600">Categories</a>
+      <a href="deals.html" class="block py-2 text-amber-600 dark:text-amber-400 flex items-center gap-2">
+        <i class="fa-solid fa-fire text-xs"></i> Deals
+      </a>
+      <a href="blog.html" class="block py-2 text-green-600 dark:text-green-400 font-bold">Blog</a>
+      <a href="../user/index.html" class="block py-2 text-slate-700 dark:text-slate-200 hover:text-green-600 flex items-center gap-2"><i class="fa-solid fa-user-circle text-xs text-green-600"></i> <span>Account</span></a>
+      <hr class="border-slate-200 dark:border-slate-800 my-2" />
+    </div>
+  </div>
+
+  <!-- BACK TO ARTICLES CONTAINER (BELOW NAVBAR) -->
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-6 pb-2">
+    <a href="blog.html" class="inline-flex items-center gap-2 text-xs font-bold text-green-600 dark:text-green-400 hover:underline">
+      <i class="fa-solid fa-arrow-left"></i> Back to Articles
+    </a>
+  </div>
+
+  <!-- BLOG ARTICLE CONTENT -->
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-6">
+    <article class="bg-white dark:bg-slate-800 rounded-3xl border border-slate-200 dark:border-slate-700 p-6 sm:p-8 shadow-sm space-y-6">
+      <span id="article-tag" class="text-xs font-bold text-green-600 uppercase">Fresh Produce Tips • 5 Min Read</span>
+      <h1 id="article-title" class="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white">Article Title Loading...</h1>
+      
+      <img id="article-img" src="" alt="Article Cover" class="w-full h-72 sm:h-96 object-cover rounded-2xl" />
+
+      <div id="article-body" class="prose dark:prose-invert max-w-none text-sm text-slate-600 dark:text-slate-300 leading-relaxed space-y-4">
       </div>
     </article>
   </main>
 
+  <!-- GLOBAL FOOTER -->
+  <footer class="bg-slate-100 text-slate-600 border-t border-slate-200 dark:bg-slate-900 dark:text-slate-400 dark:border-slate-800 text-sm transition-colors duration-300 mt-16">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10">
+
+        <!-- Brand Info -->
+        <div class="lg:col-span-2 space-y-4">
+          <a href="../index.html" class="flex items-center gap-2.5">
+            <div class="w-10 h-10 bg-green-600 text-white rounded-2xl flex items-center justify-center font-extrabold text-lg">
+              <i class="fa-solid fa-basket-shopping"></i>
+            </div>
+            <span class="font-extrabold text-xl tracking-tight text-slate-900 dark:text-white">Fresh<span class="text-green-600 dark:text-green-500">Basket</span></span>
+          </a>
+          <p class="text-xs text-slate-600 dark:text-slate-400 leading-relaxed max-w-sm">
+            FreshBasket is your trusted neighborhood supermarket delivering farm-fresh produce, daily essentials, and organic groceries straight to your doorstep.
+          </p>
+        </div>
+
+        <!-- Quick Links -->
+        <div>
+          <h4 class="text-slate-900 dark:text-white font-bold text-sm mb-4">Company</h4>
+          <ul class="space-y-2 text-xs">
+            <li><a href="about.html" class="text-slate-600 dark:text-slate-400 hover:text-green-600 dark:hover:text-white transition-colors">About FreshBasket</a></li>
+            <li><a href="blog.html" class="text-slate-600 dark:text-slate-400 hover:text-green-600 dark:hover:text-white transition-colors">Grocery Blog & Recipes</a></li>
+            <li><a href="contact.html" class="text-slate-600 dark:text-slate-400 hover:text-green-600 dark:hover:text-white transition-colors">Contact Store</a></li>
+            <li><a href="coming-soon.html" class="text-slate-600 dark:text-slate-400 hover:text-green-600 dark:hover:text-white transition-colors">Careers & Hiring</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="text-slate-900 dark:text-white font-bold text-sm mb-4">Shop Categories</h4>
+          <ul class="space-y-2 text-xs">
+            <li><a href="shop.html" class="text-slate-600 dark:text-slate-400 hover:text-green-600 dark:hover:text-white transition-colors">All Products</a></li>
+            <li><a href="categories.html" class="text-slate-600 dark:text-slate-400 hover:text-green-600 dark:hover:text-white transition-colors">Fruits & Vegetables</a></li>
+            <li><a href="categories.html" class="text-slate-600 dark:text-slate-400 hover:text-green-600 dark:hover:text-white transition-colors">Dairy & Fresh Milk</a></li>
+            <li><a href="deals.html" class="text-slate-600 dark:text-slate-400 hover:text-green-600 dark:hover:text-white transition-colors">Weekly Super Deals</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="text-slate-900 dark:text-white font-bold text-sm mb-4">Customer Support</h4>
+          <ul class="space-y-2 text-xs">
+            <li><a href="contact.html" class="text-slate-600 dark:text-slate-400 hover:text-green-600 dark:hover:text-white transition-colors">Help & FAQ Center</a></li>
+            <li><a href="order-tracking.html" class="text-slate-600 dark:text-slate-400 hover:text-green-600 dark:hover:text-white transition-colors">Live Order Tracking</a></li>
+            <li><a href="orders.html" class="text-slate-600 dark:text-slate-400 hover:text-green-600 dark:hover:text-white transition-colors">Order History</a></li>
+            <li><a href="404.html" class="text-slate-600 dark:text-slate-400 hover:text-green-600 dark:hover:text-white transition-colors">Returns & Refunds</a></li>
+          </ul>
+        </div>
+
+      </div>
+
+      <div class="mt-12 pt-8 border-t border-slate-200 dark:border-slate-800 flex flex-col sm:flex-row items-center justify-between text-xs text-slate-500 dark:text-slate-400 gap-4">
+        <div>
+          <p>© 2026 FreshBasket Supermarket Inc. All rights reserved.</p>
+          <div class="mt-1 text-[11px] text-slate-500 dark:text-slate-400 flex flex-wrap items-center gap-1.5">
+            <span>Developed by</span>
+            <span class="text-slate-900 dark:text-slate-100 font-extrabold tracking-wide text-green-700 dark:text-green-400">Abhivorn Technologies Pvt.Ltd.</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- CART DRAWER OVERLAY & PANEL -->
+  <div id="cart-drawer-overlay" class="hidden fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-[60] transition-opacity"></div>
+  <div id="cart-drawer" class="fixed top-0 right-0 w-full max-w-md h-full bg-white dark:bg-slate-900 z-[60] shadow-2xl transform translate-x-full transition-transform duration-300 flex flex-col">
+    <div class="p-6 border-b border-slate-200 dark:border-slate-800 flex items-center justify-between">
+      <div class="flex items-center gap-2">
+        <div class="w-8 h-8 bg-green-100 dark:bg-green-950/50 text-green-600 rounded-lg flex items-center justify-center font-bold">
+          <i class="fa-solid fa-basket-shopping text-sm"></i>
+        </div>
+        <h3 class="font-bold text-lg text-slate-900 dark:text-white">Your Cart</h3>
+      </div>
+      <button id="cart-drawer-close" class="p-2 text-slate-400 hover:text-slate-600 dark:hover:text-white" aria-label="Close Cart">
+        <i class="fa-solid fa-xmark text-lg"></i>
+      </button>
+    </div>
+    <div class="bg-slate-50 dark:bg-slate-800/80 p-4 border-b border-slate-200 dark:border-slate-700">
+      <p id="cart-free-shipping-text" class="text-xs text-slate-600 dark:text-slate-300 mb-2">Calculating shipping free delivery...</p>
+      <div class="w-full bg-slate-200 dark:bg-slate-700 h-2 rounded-full overflow-hidden">
+        <div id="cart-free-shipping-bar" class="bg-green-600 h-2 rounded-full transition-all duration-300" style="width: 0%;"></div>
+      </div>
+    </div>
+    <div id="cart-drawer-items" class="flex-1 overflow-y-auto p-6 space-y-4"></div>
+    <div class="p-6 border-t border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900 space-y-4">
+      <div class="flex items-center justify-between text-sm">
+        <span class="text-slate-500">Subtotal</span>
+        <span id="cart-drawer-subtotal" class="font-bold text-slate-900 dark:text-white">$0.00</span>
+      </div>
+      <div class="flex items-center justify-between text-base">
+        <span class="font-bold text-slate-900 dark:text-white">Total</span>
+        <span id="cart-drawer-total" class="font-extrabold text-green-600 dark:text-green-400">$0.00</span>
+      </div>
+      <div class="grid grid-cols-2 gap-3 pt-2">
+        <a href="cart.html" class="btn-secondary text-center text-xs py-3">View Cart</a>
+        <a href="checkout.html" class="btn-primary text-center text-xs py-3">Checkout</a>
+      </div>
+    </div>
+  </div>
+
+  <script src="../assets/js/data/products.js"></script>
   <script src="../assets/js/theme.js"></script>
+  <script src="../assets/js/cart.js"></script>
+  <script src="../assets/js/wishlist.js"></script>
+  <script src="../assets/js/main.js"></script>
+
+  <script>
+    const blogArticles = {
+      'blog-1': {
+        tag: 'Fresh Produce Tips • 5 Min Read',
+        title: '10 Smart Ways To Store Fresh Vegetables For Maximum Shelf Life',
+        image: 'https://images.unsplash.com/photo-1540420773420-3366772f4999?auto=format&fit=crop&w=1200&q=80',
+        content: `
+          <p class="text-base font-semibold text-slate-700 dark:text-slate-200">Keeping leafy greens, berries, and root vegetables crisp requires adjusting moisture, temperature, and airflow inside your refrigerator.</p>
+          
+          <h3 class="text-lg font-bold text-slate-900 dark:text-white pt-2">1. Keep Herbs in Glass Jars with Water</h3>
+          <p>Treat cilantro, parsley, and asparagus like fresh flowers. Trim the stems and stand them upright in an inch of fresh water inside your fridge door.</p>
+
+          <h3 class="text-lg font-bold text-slate-900 dark:text-white pt-2">2. Wrap Leafy Greens in Cloth Towels</h3>
+          <p>Excess moisture is the primary cause of wilted spinach and kale. Place a dry paper towel inside plastic containers to absorb moisture droplets and maintain crispness for up to 14 days.</p>
+
+          <h3 class="text-lg font-bold text-slate-900 dark:text-white pt-2">3. Separate Ethylene Producers</h3>
+          <p>Apples, bananas, and tomatoes produce ethylene gas, which accelerates decay in leafy greens and cucumbers. Store them in separate crisper drawers.</p>
+
+          <h3 class="text-lg font-bold text-slate-900 dark:text-white pt-2">4. Keep Potatoes and Onions Apart</h3>
+          <p>While both prefer dark, cool pantry storage, keeping potatoes and onions in the same basket causes potatoes to sprout prematurely.</p>
+
+          <h3 class="text-lg font-bold text-slate-900 dark:text-white pt-2">5. Submerge Carrots and Celery in Water</h3>
+          <p>Peeled or chopped carrots and celery retain their crunch when submerged in a sealed glass container filled with clean cold water.</p>
+        `
+      },
+      'blog-2': {
+        tag: 'Meal Prep • 7 Min Read',
+        title: 'Weekly Meal Planning Guide For Busy Families On A Budget',
+        image: 'https://images.unsplash.com/photo-1498837167922-ddd27525d352?auto=format&fit=crop&w=1200&q=80',
+        content: `
+          <p class="text-base font-semibold text-slate-700 dark:text-slate-200">Save up to $150 a month by structuring your weekly grocery order around seasonal organic ingredients and efficient batch cooking routines.</p>
+
+          <h3 class="text-lg font-bold text-slate-900 dark:text-white pt-2">1. Inventory Your Pantry Before Shopping</h3>
+          <p>Avoid double-buying staples by taking 5 minutes to audit your refrigerator and pantry. Base your meal plan on ingredients you already own.</p>
+
+          <h3 class="text-lg font-bold text-slate-900 dark:text-white pt-2">2. Plan Around Weekly Supermarket Deals</h3>
+          <p>Check FreshBasket's Weekly Supermarket Deals page every Monday morning to build your dinner menu around discounted fresh meats, seafood, and seasonal produce.</p>
+
+          <h3 class="text-lg font-bold text-slate-900 dark:text-white pt-2">3. Master Batch Cooking & Sheet Pan Meals</h3>
+          <p>Prepare double portions of brown rice, roasted vegetables, and grilled chicken breast on Sunday night. Repurpose leftovers into lunches and quick weeknight bowls.</p>
+
+          <h3 class="text-lg font-bold text-slate-900 dark:text-white pt-2">4. Embrace Recurring Grocery Lists</h3>
+          <p>Save recurring essentials into your FreshBasket account dashboard for quick 1-click cart replenishment every week.</p>
+        `
+      },
+      'blog-3': {
+        tag: 'Bakery Secrets • 6 Min Read',
+        title: 'The Science Behind Slow-Fermented Artisanal Sourdough Bread',
+        image: 'https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&w=1200&q=80',
+        content: `
+          <p class="text-base font-semibold text-slate-700 dark:text-slate-200">Why wild starter culture produces gut-friendly sourdough with rich earthy crusts and open, airy crumb structure.</p>
+
+          <h3 class="text-lg font-bold text-slate-900 dark:text-white pt-2">1. Wild Fermentation & Lactic Acid Bacteria</h3>
+          <p>Unlike commercial yeast, authentic sourdough relies on wild yeast and lactobacilli. The slow 24-hour fermentation breaks down complex starches and phytic acid, making nutrients easier to digest.</p>
+
+          <h3 class="text-lg font-bold text-slate-900 dark:text-white pt-2">2. Hydration & Gluten Network Development</h3>
+          <p>High hydration doughs (75%-85%) combined with gentle stretch-and-fold techniques create strong gluten strands that trap gas bubbles without heavy kneading.</p>
+
+          <h3 class="text-lg font-bold text-slate-900 dark:text-white pt-2">3. Baking in Dutch Ovens for Maximum Oven Spring</h3>
+          <p>Trapping steam during the first 20 minutes of baking keeps the outer crust soft, allowing the loaf to expand dramatically before forming a deep golden, crispy crust.</p>
+
+          <h3 class="text-lg font-bold text-slate-900 dark:text-white pt-2">4. Lower Glycemic Index Benefits</h3>
+          <p>The organic acids produced during sourdough fermentation slow down glucose absorption, resulting in a lower glycemic load compared to standard white bread.</p>
+        `
+      }
+    };
+
+    document.addEventListener('DOMContentLoaded', () => {
+      const urlParams = new URLSearchParams(window.location.search);
+      const articleId = urlParams.get('id') || 'blog-1';
+      const article = blogArticles[articleId] || blogArticles['blog-1'];
+
+      document.getElementById('blog-doc-title').textContent = `${article.title} — FreshBasket`;
+      document.getElementById('article-tag').textContent = article.tag;
+      document.getElementById('article-title').textContent = article.title;
+      document.getElementById('article-img').src = article.image;
+      document.getElementById('article-img').alt = article.title;
+      document.getElementById('article-body').innerHTML = article.content;
+    });
+  </script>
 </body>
 </html>

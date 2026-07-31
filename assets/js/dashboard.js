@@ -5,9 +5,22 @@
 
 class DashboardController {
   constructor() {
+    this.checkAuth();
     this.savedListsKey = 'freshbasket_saved_lists';
     this.savedLists = this.loadSavedLists();
     this.init();
+  }
+
+  checkAuth() {
+    const isLoggedIn = localStorage.getItem('freshbasket_logged_in');
+    if (isLoggedIn !== 'true') {
+      window.location.href = 'login.html';
+    }
+  }
+
+  logout() {
+    localStorage.setItem('freshbasket_logged_in', 'false');
+    window.location.href = 'login.html';
   }
 
   init() {
@@ -165,3 +178,8 @@ class DashboardController {
 document.addEventListener('DOMContentLoaded', () => {
   window.dashboardController = new DashboardController();
 });
+
+window.logoutUser = function() {
+  localStorage.setItem('freshbasket_logged_in', 'false');
+  window.location.href = 'login.html';
+};

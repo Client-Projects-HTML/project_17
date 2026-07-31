@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Admin Notifications — FreshBasket</title>
+  <title>Push Notifications — FreshAdmin</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
@@ -16,10 +16,10 @@
   <link rel="stylesheet" href="../assets/css/dark-mode.css" />
   <link rel="stylesheet" href="../assets/css/rtl.css" />
 </head>
-<body class="bg-slate-100 dark:bg-slate-900 text-slate-900 dark:text-slate-100 min-h-screen flex">
+<body class="bg-slate-100 dark:bg-slate-900 text-slate-900 dark:text-slate-100 min-h-screen flex flex-row">
 
-  <!-- SIDEBAR -->
-  <aside class="w-64 bg-white dark:bg-slate-900 text-slate-700 dark:text-slate-300 border-r border-slate-200 dark:border-slate-800 min-h-screen flex flex-col justify-between hidden md:flex flex-shrink-0 transition-colors duration-200">
+  <!-- FIXED LEFT SIDEBAR (TOP TO BOTTOM) -->
+  <aside class="fixed top-0 bottom-0 left-0 w-64 bg-white dark:bg-slate-900 text-slate-700 dark:text-slate-300 border-r border-slate-200 dark:border-slate-800 h-screen flex flex-col justify-between hidden md:flex flex-shrink-0 transition-colors duration-200 z-30">
     <div class="p-6 space-y-6">
       <a href="../index.html" class="flex items-center gap-2.5">
         <div class="w-9 h-9 bg-green-600 text-white rounded-xl flex items-center justify-center font-extrabold text-lg shadow-sm">
@@ -27,6 +27,7 @@
         </div>
         <span class="font-extrabold text-lg text-slate-900 dark:text-white">Fresh<span class="text-green-600 dark:text-green-500">Admin</span></span>
       </a>
+
       <nav class="space-y-1 text-xs font-semibold">
         <a href="index.html" class="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-slate-100 hover:text-slate-900 dark:hover:bg-slate-800 dark:hover:text-white transition-colors"><i class="fa-solid fa-chart-line text-sm"></i> Dashboard Overview</a>
         <a href="products.html" class="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-slate-100 hover:text-slate-900 dark:hover:bg-slate-800 dark:hover:text-white transition-colors"><i class="fa-solid fa-box text-sm"></i> Products Catalog</a>
@@ -36,22 +37,38 @@
         <a href="inventory.html" class="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-slate-100 hover:text-slate-900 dark:hover:bg-slate-800 dark:hover:text-white transition-colors"><i class="fa-solid fa-warehouse text-sm"></i> Inventory Alerts</a>
         <a href="deals.html" class="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-slate-100 hover:text-slate-900 dark:hover:bg-slate-800 dark:hover:text-white transition-colors"><i class="fa-solid fa-tags text-sm"></i> Weekly Deals</a>
         <a href="reviews.html" class="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-slate-100 hover:text-slate-900 dark:hover:bg-slate-800 dark:hover:text-white transition-colors"><i class="fa-solid fa-star text-sm"></i> Product Reviews</a>
-        <a href="notifications.html" class="flex items-center gap-3 px-4 py-3 rounded-xl bg-green-600 text-white shadow-md shadow-green-600/20"><i class="fa-solid fa-bell text-sm"></i> Notifications</a>
+        <a href="notifications.html" class="flex items-center gap-3 px-4 py-3 rounded-xl bg-green-600 text-white shadow-md shadow-green-600/20"><i class="fa-solid fa-bell text-sm"></i> Push Notifications</a>
         <a href="analytics.html" class="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-slate-100 hover:text-slate-900 dark:hover:bg-slate-800 dark:hover:text-white transition-colors"><i class="fa-solid fa-chart-pie text-sm"></i> Revenue Analytics</a>
         <a href="settings.html" class="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-slate-100 hover:text-slate-900 dark:hover:bg-slate-800 dark:hover:text-white transition-colors"><i class="fa-solid fa-gear text-sm"></i> Store Settings</a>
       </nav>
     </div>
 
     <div class="p-6 border-t border-slate-200 dark:border-slate-800">
-      <a href="../index.html" class="text-xs font-bold text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white flex items-center gap-2 transition-colors">
-        <i class="fa-solid fa-arrow-left"></i> Public Storefront
-      </a>
+      <button onclick="logoutAdmin()" class="w-full flex items-center justify-center gap-2.5 px-3 py-2.5 rounded-xl bg-red-50 text-red-600 hover:bg-red-600 hover:text-white dark:bg-red-950/40 dark:text-red-400 dark:hover:bg-red-600 dark:hover:text-white text-xs font-bold transition-colors shadow-sm">
+        <i class="fa-solid fa-right-from-bracket"></i> Logout
+      </button>
     </div>
   </aside>
 
-  <div class="flex-1 flex flex-col min-w-0">
-    <header class="bg-white dark:bg-slate-800 border-b border-slate-200 dark:border-slate-700 px-6 py-4 flex items-center justify-between">
-      <h1 class="text-xl font-extrabold text-slate-900 dark:text-white">Store Alert Dispatcher</h1>
+  <!-- MAIN AREA (RIGHT OF SIDEBAR) -->
+  <div class="md:ml-64 flex-1 flex flex-col min-w-0 min-h-screen">
+    <!-- FIXED TOP NAVBAR -->
+    <header class="sticky top-0 z-20 bg-white dark:bg-slate-800 border-b border-slate-200 dark:border-slate-700 px-6 py-4 flex items-center justify-between shadow-sm">
+      <div class="flex items-center gap-3">
+        <!-- Mobile Sidebar Toggle & Mobile Logo (ONLY visible on mobile < md) -->
+        <button id="admin-mobile-toggle" class="md:hidden p-2 rounded-xl text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-700 transition-colors" title="Toggle Navigation Menu">
+          <i class="fa-solid fa-bars text-lg"></i>
+        </button>
+        <a href="../index.html" class="flex items-center gap-2 md:hidden">
+          <div class="w-8 h-8 bg-green-600 text-white rounded-xl flex items-center justify-center font-extrabold text-base shadow-sm">
+            <i class="fa-solid fa-basket-shopping"></i>
+          </div>
+          <span class="font-extrabold text-base text-slate-900 dark:text-white">Fresh<span class="text-green-600 dark:text-green-500">Admin</span></span>
+        </a>
+
+        <!-- Page Heading (Displayed cleanly after sidebar space on desktop) -->
+        <h1 class="text-xl md:text-2xl font-extrabold text-slate-900 dark:text-white tracking-tight">Push Notifications</h1>
+      </div>
 
       <div class="flex items-center gap-3">
         <button type="button" onclick="event.preventDefault(); event.stopPropagation(); event.stopImmediatePropagation(); if(window.themeController) window.themeController.toggleRTL(); return false;" class="rtl-toggle-btn w-9 h-9 flex items-center justify-center bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-slate-200 border border-slate-200 dark:border-slate-600 rounded-xl hover:bg-slate-200 dark:hover:bg-slate-600 transition-colors" title="Toggle RTL/LTR" aria-label="Toggle RTL/LTR">
@@ -64,24 +81,35 @@
     </header>
 
     <main class="p-6 space-y-6 flex-1 overflow-y-auto">
-      <div class="bg-white dark:bg-slate-800 rounded-3xl border border-slate-200 dark:border-slate-700 p-6 shadow-sm space-y-4 max-w-xl">
-        <h3 class="font-bold text-slate-900 dark:text-white text-base">Broadcast Alert to Shoppers</h3>
-        <form onsubmit="event.preventDefault(); window.showToast('Push alert broadcasted to mobile users!', 'success');" class="space-y-3">
-          <div>
-            <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">Notification Title</label>
-            <input type="text" required placeholder="Flash Deal: Organic Apples 20% OFF" class="w-full p-2.5 bg-slate-100 dark:bg-slate-900 border-none rounded-xl text-sm dark:text-white" />
-          </div>
-          <div>
-            <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">Message Body</label>
-            <textarea rows="3" required placeholder="Order within 30 mins to get fresh apples delivered by noon..." class="w-full p-2.5 bg-slate-100 dark:bg-slate-900 border-none rounded-xl text-sm dark:text-white"></textarea>
-          </div>
-          <button type="submit" class="btn-primary w-full py-3 text-xs font-bold">Broadcast Push Notification</button>
-        </form>
+      <div class="bg-white dark:bg-slate-800 rounded-3xl border border-slate-200 dark:border-slate-700 p-6 shadow-sm responsive-table-card">
+        <table class="w-full text-left text-sm">
+          <thead>
+            <tr class="border-b border-slate-200 dark:border-slate-700 text-xs text-slate-400 uppercase font-semibold">
+              <th class="py-3 pl-4">ALERT TITLE</th>
+              <th class="py-3">TARGET AUDIENCE</th>
+              <th class="py-3 pr-4 text-right">STATUS</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="border-b border-slate-100 dark:border-slate-700">
+              <td class="py-3.5 pl-4 font-bold text-slate-900 dark:text-white">Flash Deal: Organic Apples 20% OFF</td>
+              <td class="py-3.5 text-slate-500 font-medium">All Registered Customers</td>
+              <td class="py-3.5 pr-4 text-right"><span class="bg-green-100 text-green-700 font-bold text-xs px-2.5 py-0.5 rounded-full">Sent</span></td>
+            </tr>
+            <tr class="border-b border-slate-100 dark:border-slate-700">
+              <td class="py-3.5 pl-4 font-bold text-slate-900 dark:text-white">Weekend Free Express Delivery Offer</td>
+              <td class="py-3.5 text-slate-500 font-medium">VIP Shoppers</td>
+              <td class="py-3.5 pr-4 text-right"><span class="bg-green-100 text-green-700 font-bold text-xs px-2.5 py-0.5 rounded-full">Sent</span></td>
+            </tr>
+          </tbody>
+        </table>
       </div>
     </main>
   </div>
 
   <script src="../assets/js/theme.js"></script>
+  <script src="../assets/js/admin-layout.js"></script>
+  <script src="../assets/js/admin.js"></script>
   <script src="../assets/js/main.js"></script>
 </body>
 </html>

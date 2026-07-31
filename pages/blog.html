@@ -19,7 +19,7 @@
 <body class="bg-slate-50 dark:bg-slate-900 text-slate-900 dark:text-slate-100 transition-colors duration-200">
 
   <!-- COMBINED FIXED HEADER (TOP UTILITY BAR + MAIN NAVBAR) -->
-  <header class="fixed top-0 left-0 right-0 z-50 w-full shadow-sm">
+  <header class="fixed top-0 left-0 right-0 z-50 w-full shadow-sm bg-white dark:bg-slate-900 transition-colors duration-200">
     
     <!-- TOP UTILITY BAR -->
     <div class="bg-slate-900 text-slate-300 text-xs py-2 border-b border-slate-800">
@@ -110,32 +110,60 @@
                 </div>
               </div>
               <!-- 3. Shop -->
-              <a href="shop.html" class="hover:text-green-600 dark:hover:text-green-400 transition-colors">Shop</a>
+              <a href="shop.html" class="hover:text-green-600 dark:hover:text-green-400 transition-colors flex items-center gap-1.5"><i class="fa-solid fa-store text-xs"></i> <span>Shop</span></a>
               <!-- 4. Categories -->
               <a href="categories.html" class="hover:text-green-600 dark:hover:text-green-400 transition-colors">Categories</a>
               <!-- 5. Deals -->
               <a href="deals.html" class="text-amber-600 dark:text-amber-400 hover:text-amber-500 transition-colors flex items-center gap-1">
                 <i class="fa-solid fa-fire text-xs"></i> Deals
               </a>
-              <!-- 6. Blog -->
-              <a href="blog.html" class="text-green-600 dark:text-green-400 font-bold transition-colors">Blog</a>
+              <!-- Blog -->
+              <a href="blog.html" class="hover:text-green-600 dark:hover:text-green-400 transition-colors">Blog</a>
+              <!-- 7. Account Dropdown -->
+              <div class="relative group account-dropdown-wrapper flex items-center">
+                <a href="register.html" class="hover:text-green-600 dark:hover:text-green-400 transition-colors flex items-center gap-1.5 py-2 font-semibold">
+                  <i class="fa-solid fa-user-circle text-xs"></i>
+                  <span>Account</span>
+                </a>
+                <button type="button" class="hover:text-green-600 dark:hover:text-green-400 p-1 text-xs cursor-pointer focus:outline-none" aria-label="Account Menu">
+                  <i class="fa-solid fa-chevron-down text-[10px]"></i>
+                </button>
+                
+                <div class="hidden group-hover:block absolute top-full right-0 w-56 mt-1 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-2xl shadow-xl z-50 p-2 space-y-1">
+                  <a href="../user/index.html" class="flex items-center gap-3 p-2.5 rounded-xl hover:bg-green-50 dark:hover:bg-green-950/40 text-slate-800 dark:text-slate-100 transition-colors group/item">
+                    <div class="w-8 h-8 rounded-lg bg-green-600 text-white flex items-center justify-center text-xs flex-shrink-0 shadow-sm">
+                      <i class="fa-solid fa-user"></i>
+                    </div>
+                    <div>
+                      <div class="font-bold text-xs">User Dashboard</div>
+                      <div class="text-[10px] text-slate-500 dark:text-slate-400">Manage orders & profile</div>
+                    </div>
+                  </a>
 
-              <!-- RTL Button -->
+                  <a href="../admin/index.html" class="flex items-center gap-3 p-2.5 rounded-xl hover:bg-amber-50 dark:hover:bg-amber-950/30 text-slate-800 dark:text-slate-100 transition-colors group/item">
+                    <div class="w-8 h-8 rounded-lg bg-amber-500 text-slate-950 flex items-center justify-center text-xs flex-shrink-0 shadow-sm">
+                      <i class="fa-solid fa-user-gear"></i>
+                    </div>
+                    <div>
+                      <div class="font-bold text-xs flex items-center gap-1">
+                        <span>Admin Portal</span>
+                        <span class="text-[8px] bg-amber-500/20 text-amber-600 px-1 py-0.2 rounded font-bold uppercase">Staff</span>
+                      </div>
+                      <div class="text-[10px] text-slate-500 dark:text-slate-400">Inventory & analytics</div>
+                    </div>
+                  </a>
+                </div>
+              </div>
+
+              <!-- Theme Toggle -->
               <button type="button" onclick="event.preventDefault(); event.stopPropagation(); event.stopImmediatePropagation(); if(window.themeController) window.themeController.toggleRTL(); return false;" class="rtl-toggle-btn w-9 h-9 flex items-center justify-center bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-200 border border-slate-200 dark:border-slate-700 rounded-xl hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors" title="Toggle RTL/LTR" aria-label="Toggle RTL/LTR">
                 <i class="fa-solid fa-globe text-base"></i>
               </button>
-
-              <!-- Theme Button -->
               <button type="button" onclick="event.preventDefault(); event.stopPropagation(); event.stopImmediatePropagation(); if(window.themeController) window.themeController.toggleDarkMode(); return false;" class="theme-toggle-btn w-9 h-9 flex items-center justify-center bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-200 border border-slate-200 dark:border-slate-700 rounded-xl hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors" title="Toggle Light/Dark Theme" aria-label="Toggle Light/Dark Theme">
                 <i class="fa-solid fa-moon text-base"></i>
               </button>
-
-              <!-- Admin Portal -->
-              <a href="../admin/index.html" class="text-xs font-semibold bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-200 border border-slate-200 dark:border-slate-700 px-3.5 py-1.5 rounded-full hover:bg-green-600 hover:text-white dark:hover:bg-green-600 dark:hover:text-white transition-colors flex items-center gap-1.5 flex-shrink-0">
-                <i class="fa-solid fa-user-gear"></i> Admin Portal
-              </a>
-
-              <!-- Cart Icon (Placed after Admin Portal) -->
+              
+              <!-- Cart Icon -->
               <button type="button" class="cart-drawer-trigger relative p-2.5 bg-green-50 dark:bg-green-950/40 text-green-600 dark:text-green-400 hover:bg-green-600 hover:text-white dark:hover:bg-green-600 dark:hover:text-white border border-green-200 dark:border-green-800/60 rounded-xl transition-all shadow-sm flex items-center justify-center" aria-label="Shopping Cart">
                 <i class="fa-solid fa-basket-shopping text-lg"></i>
                 <span class="cart-count-badge absolute -top-1.5 -right-1.5 w-5 h-5 bg-green-600 text-white rounded-full text-[11px] font-extrabold flex items-center justify-center border-2 border-white dark:border-slate-900 shadow">0</span>
@@ -144,7 +172,7 @@
 
           </div>
 
-          <!-- Mobile Right Controls -->
+          <!-- Mobile Right Controls (Cart, RTL, Theme) -->
           <div class="flex lg:hidden items-center gap-2">
             <button type="button" class="cart-drawer-trigger relative p-2 text-slate-700 dark:text-slate-200 hover:text-green-600 transition-colors" aria-label="Shopping Cart">
               <i class="fa-solid fa-basket-shopping text-lg"></i>
@@ -153,7 +181,7 @@
             <button type="button" onclick="event.preventDefault(); event.stopPropagation(); event.stopImmediatePropagation(); if(window.themeController) window.themeController.toggleRTL(); return false;" class="rtl-toggle-btn w-9 h-9 flex items-center justify-center bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-200 border border-slate-200 dark:border-slate-700 rounded-xl" title="Toggle RTL/LTR" aria-label="Toggle RTL/LTR">
               <i class="fa-solid fa-globe text-base"></i>
             </button>
-            <button type="button" onclick="event.preventDefault(); event.stopPropagation(); event.stopImmediatePropagation(); if(window.themeController) window.themeController.toggleDarkMode(); return false;" class="theme-toggle-btn w-9 h-9 flex items-center justify-center bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-200 border border-slate-200 dark:border-slate-700 rounded-xl" title="Toggle Theme" aria-label="Toggle Theme">
+            <button type="button" onclick="event.preventDefault(); event.stopPropagation(); event.stopImmediatePropagation(); if(window.themeController) window.themeController.toggleDarkMode(); return false;" class="theme-toggle-btn w-9 h-9 flex items-center justify-center bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-200 border border-slate-200 dark:border-slate-700 rounded-xl" title="Toggle Light/Dark Theme" aria-label="Toggle Light/Dark Theme">
               <i class="fa-solid fa-moon text-base"></i>
             </button>
           </div>
@@ -161,7 +189,6 @@
         </div>
       </div>
     </div>
-
   </header>
 
   <!-- MOBILE NAVIGATION DRAWER -->
@@ -182,15 +209,15 @@
       
       <!-- Mobile Home Accordion -->
       <div class="space-y-1">
-        <button id="mobile-home-dropdown-trigger" type="button" class="w-full flex items-center justify-between py-2 text-slate-700 dark:text-slate-200 font-bold">
+        <button id="mobile-home-dropdown-trigger" type="button" class="w-full flex items-center justify-between py-2 text-green-600 dark:text-green-400 font-bold">
           <span class="flex items-center gap-2">
             <i class="fa-solid fa-house text-xs"></i> Homepages
           </span>
           <i id="mobile-home-chevron" class="fa-solid fa-chevron-down text-xs transition-transform duration-200"></i>
         </button>
 
-        <div id="mobile-home-dropdown-menu" class="hidden pl-3 space-y-2 border-l-2 border-slate-300 dark:border-slate-700 my-1 py-1">
-          <a href="../index.html" class="flex items-center justify-between text-xs py-2 px-2.5 text-slate-700 dark:text-slate-200 font-semibold rounded-lg">
+        <div id="mobile-home-dropdown-menu" class="hidden pl-3 space-y-2 border-l-2 border-green-500/30 my-1 py-1">
+          <a href="../index.html" class="flex items-center justify-between text-xs py-2 px-2.5 bg-green-50 dark:bg-green-950/40 text-green-700 dark:text-green-300 font-bold rounded-lg">
             <span><i class="fa-solid fa-store text-green-600 mr-1.5"></i> Home 1 (Classic)</span>
           </a>
           <a href="home-premium.html" class="flex items-center justify-between text-xs py-2 px-2.5 text-slate-700 dark:text-slate-200 hover:text-amber-600 font-semibold rounded-lg">
@@ -199,20 +226,18 @@
           </a>
         </div>
       </div>
-      <a href="shop.html" class="block py-2 text-slate-700 dark:text-slate-200 hover:text-green-600">Shop</a>
+
+      <a href="shop.html" class="block py-2 text-slate-700 dark:text-slate-200 hover:text-green-600 flex items-center gap-2"><i class="fa-solid fa-store text-xs text-green-600"></i> <span>Shop</span></a>
       <a href="categories.html" class="block py-2 text-slate-700 dark:text-slate-200 hover:text-green-600">Categories</a>
       <a href="deals.html" class="block py-2 text-amber-600 dark:text-amber-400 flex items-center gap-2">
         <i class="fa-solid fa-fire text-xs"></i> Deals
       </a>
       <a href="blog.html" class="block py-2 text-green-600 dark:text-green-400 font-bold">Blog</a>
-      <hr class="border-slate-200 dark:border-slate-800 my-2" />
-      <a href="../admin/index.html" class="block py-2.5 px-4 bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200 rounded-xl text-xs font-bold text-center border border-slate-200 dark:border-slate-700">
-        <i class="fa-solid fa-user-gear mr-1"></i> Admin Portal
-      </a>
+      <a href="../user/index.html" class="block py-2 text-slate-700 dark:text-slate-200 hover:text-green-600 flex items-center gap-2"><i class="fa-solid fa-user-circle text-xs text-green-600"></i> <span>Account</span></a>
     </div>
   </div>
 
-  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-[140px] pb-12">
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-14">
     <div class="text-center max-w-xl mx-auto mb-12">
       <span class="text-xs font-bold text-green-600 uppercase tracking-widest block mb-1">Nutrition & Recipes</span>
       <h1 class="text-3xl sm:text-4xl font-extrabold text-slate-900 dark:text-white">Fresh Grocery Stories & Tips</h1>
@@ -220,36 +245,36 @@
 
     <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
       
-      <a href="blog-detail.html" class="bg-white dark:bg-slate-800 rounded-3xl border border-slate-200 dark:border-slate-700 overflow-hidden group shadow-sm hover:shadow-md transition-shadow">
+      <a href="blog-detail.html?id=blog-1" class="bg-white dark:bg-slate-800 rounded-3xl border border-slate-200 dark:border-slate-700 overflow-hidden group shadow-sm hover:shadow-md transition-shadow">
         <div class="h-48 overflow-hidden">
           <img src="https://images.unsplash.com/photo-1540420773420-3366772f4999?auto=format&fit=crop&w=600&q=80" alt="Storing Vegetables" class="w-full h-full object-cover group-hover:scale-105 transition-transform" />
         </div>
-        <div class="p-6">
+        <div class="p-7 sm:p-8 space-y-2">
           <span class="text-xs font-bold text-green-600 uppercase">Fresh Produce Tips</span>
           <h3 class="font-bold text-slate-900 dark:text-white text-lg mt-1 mb-2">10 Smart Ways To Store Fresh Vegetables For Maximum Shelf Life</h3>
-          <p class="text-xs text-slate-500 line-clamp-2">Discover how crisp greens and root vegetables stay fresh twice as long with proper humidity and airflow technique.</p>
+          <p class="text-xs text-slate-500 leading-relaxed line-clamp-2">Discover how crisp greens and root vegetables stay fresh twice as long with proper humidity and airflow technique.</p>
         </div>
       </a>
 
-      <a href="blog-detail.html" class="bg-white dark:bg-slate-800 rounded-3xl border border-slate-200 dark:border-slate-700 overflow-hidden group shadow-sm hover:shadow-md transition-shadow">
+      <a href="blog-detail.html?id=blog-2" class="bg-white dark:bg-slate-800 rounded-3xl border border-slate-200 dark:border-slate-700 overflow-hidden group shadow-sm hover:shadow-md transition-shadow">
         <div class="h-48 overflow-hidden">
           <img src="https://images.unsplash.com/photo-1498837167922-ddd27525d352?auto=format&fit=crop&w=600&q=80" alt="Meal Planning" class="w-full h-full object-cover group-hover:scale-105 transition-transform" />
         </div>
-        <div class="p-6">
+        <div class="p-7 sm:p-8 space-y-2">
           <span class="text-xs font-bold text-green-600 uppercase">Meal Prep</span>
           <h3 class="font-bold text-slate-900 dark:text-white text-lg mt-1 mb-2">Weekly Meal Planning Guide For Busy Families On A Budget</h3>
-          <p class="text-xs text-slate-500 line-clamp-2">Save up to $150 a month by structuring your weekly grocery order around seasonal organic ingredients.</p>
+          <p class="text-xs text-slate-500 leading-relaxed line-clamp-2">Save up to $150 a month by structuring your weekly grocery order around seasonal organic ingredients.</p>
         </div>
       </a>
 
-      <a href="blog-detail.html" class="bg-white dark:bg-slate-800 rounded-3xl border border-slate-200 dark:border-slate-700 overflow-hidden group shadow-sm hover:shadow-md transition-shadow">
+      <a href="blog-detail.html?id=blog-3" class="bg-white dark:bg-slate-800 rounded-3xl border border-slate-200 dark:border-slate-700 overflow-hidden group shadow-sm hover:shadow-md transition-shadow">
         <div class="h-48 overflow-hidden">
           <img src="https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&w=600&q=80" alt="Artisanal Bread" class="w-full h-full object-cover group-hover:scale-105 transition-transform" />
         </div>
-        <div class="p-6">
+        <div class="p-7 sm:p-8 space-y-2">
           <span class="text-xs font-bold text-green-600 uppercase">Bakery Secrets</span>
           <h3 class="font-bold text-slate-900 dark:text-white text-lg mt-1 mb-2">The Science Behind Slow-Fermented Artisanal Sourdough Bread</h3>
-          <p class="text-xs text-slate-500 line-clamp-2">Why wild starter culture produces gut-friendly sourdough with rich earthy crusts.</p>
+          <p class="text-xs text-slate-500 leading-relaxed line-clamp-2">Why wild starter culture produces gut-friendly sourdough with rich earthy crusts.</p>
         </div>
       </a>
 
