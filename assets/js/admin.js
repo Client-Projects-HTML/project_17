@@ -71,9 +71,50 @@ class AdminController {
     if (addProdBtn && modal) {
       addProdBtn.addEventListener('click', () => modal.classList.remove('hidden'));
     }
-    if (modalClose && modal) {
-      modalClose.addEventListener('click', () => modal.classList.add('hidden'));
+    // Mobile sidebar toggle handler
+    this.setupMobileSidebar();
+  }
+
+  setupMobileSidebar() {
+    const sidebar = document.getElementById('admin-sidebar') || document.querySelector('aside');
+    let overlay = document.getElementById('admin-sidebar-overlay');
+
+    if (!overlay) {
+      overlay = document.createElement('div');
+      overlay.id = 'admin-sidebar-overlay';
+      overlay.className = 'hidden fixed inset-0 bg-slate-950/80 backdrop-blur-sm z-40 md:hidden transition-opacity';
+      document.body.appendChild(overlay);
     }
+
+    const openSidebar = () => {
+      if (sidebar && overlay) {
+        sidebar.classList.remove('translate-x-full', '-translate-x-full');
+        sidebar.classList.add('translate-x-0');
+        overlay.classList.remove('hidden');
+      }
+    };
+
+    const closeSidebar = () => {
+      if (sidebar && overlay) {
+        sidebar.classList.add('translate-x-full');
+        sidebar.classList.remove('translate-x-0');
+        overlay.classList.add('hidden');
+      }
+    };
+
+    document.addEventListener('click', (e) => {
+      if (e.target.closest('#admin-mobile-toggle')) {
+        e.preventDefault();
+        if (sidebar && sidebar.classList.contains('translate-x-0')) {
+          closeSidebar();
+        } else {
+          openSidebar();
+        }
+      } else if (e.target.closest('#admin-sidebar-overlay')) {
+        e.preventDefault();
+        closeSidebar();
+      }
+    });
   }
 }
 

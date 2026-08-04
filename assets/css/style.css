@@ -97,6 +97,23 @@ body {
   color: var(--primary-dark);
 }
 
+/* Disable hover effect for View Cart button in cart drawer */
+#cart-drawer a[href*="cart.html"]:hover,
+.btn-secondary.no-hover:hover {
+  background-color: #f1f5f9 !important;
+  color: var(--text) !important;
+  transform: none !important;
+  box-shadow: none !important;
+}
+
+html.dark #cart-drawer a[href*="cart.html"]:hover,
+html.dark .btn-secondary.no-hover:hover {
+  background-color: #1e293b !important;
+  color: var(--text) !important;
+  transform: none !important;
+  box-shadow: none !important;
+}
+
 .btn-accent {
   background-color: var(--accent);
   color: #ffffff;
@@ -254,48 +271,17 @@ body {
 }
 
 /* Responsive Table Helper */
-@media (max-width: 768px) {
-  .responsive-table-card table, 
-  .responsive-table-card thead, 
-  .responsive-table-card tbody, 
-  .responsive-table-card th, 
-  .responsive-table-card td, 
-  .responsive-table-card tr {
-    display: block;
-  }
-  .responsive-table-card thead tr {
-    position: absolute;
-    top: -9999px;
-    left: -9999px;
-  }
-  .responsive-table-card tr {
-    border: 1px solid var(--border);
-    border-radius: var(--radius-md);
-    margin-bottom: 1rem;
-    background: var(--surface);
-    padding: 0.75rem;
-  }
-  .responsive-table-card td {
-    border: none;
-    position: relative;
-    padding-left: 45%;
-    text-align: right;
-    margin-bottom: 0.5rem;
-  }
-  .responsive-table-card td::before {
-    position: absolute;
-    top: 50%;
-    left: 0.75rem;
-    transform: translateY(-50%);
-    width: 40%;
-    padding-right: 10px;
-    white-space: nowrap;
-    text-align: left;
-    font-weight: 700;
-    color: var(--muted);
-    content: attr(data-label);
-  }
+.responsive-table-card {
+  width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
 }
+
+.responsive-table-card table {
+  min-width: 600px;
+  width: 100%;
+}
+
 
 /* Mobile Touch & Tap Interaction Optimizations */
 .touch-card, 
@@ -394,4 +380,335 @@ body {
     scroll-behavior: auto !important;
   }
 }
+
+/* ===== Leaflet Interactive Map Custom Styles ===== */
+.leaflet-container {
+  font-family: 'Plus Jakarta Sans', 'Inter', sans-serif !important;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  border-radius: 1rem;
+}
+
+.custom-leaflet-marker {
+  background: transparent !important;
+  border: none !important;
+}
+
+/* Custom Marker Styling */
+.map-marker-hub {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  background: linear-gradient(135deg, #16a34a, #15803d);
+  color: #ffffff;
+  border-radius: 50%;
+  box-shadow: 0 0 0 6px rgba(22, 163, 74, 0.3), 0 8px 20px rgba(0, 0, 0, 0.35);
+  border: 2.5px solid #ffffff;
+  font-size: 18px;
+  cursor: pointer;
+  transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.map-marker-hub:hover {
+  transform: scale(1.2);
+}
+
+.map-marker-shopper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  background: #0f172a;
+  color: #4ade80;
+  border-radius: 50%;
+  box-shadow: 0 0 0 4px rgba(74, 222, 128, 0.25), 0 4px 12px rgba(0,0,0,0.3);
+  border: 2px solid #22c55e;
+  font-size: 14px;
+  cursor: pointer;
+  animation: shopperPulse 2s infinite ease-in-out;
+  transition: transform 0.2s ease;
+}
+
+.map-marker-shopper:hover {
+  transform: scale(1.25);
+}
+
+@keyframes shopperPulse {
+  0%, 100% {
+    box-shadow: 0 0 0 4px rgba(34, 197, 94, 0.3), 0 4px 12px rgba(0,0,0,0.3);
+  }
+  50% {
+    box-shadow: 0 0 0 10px rgba(34, 197, 94, 0.1), 0 4px 16px rgba(0,0,0,0.4);
+  }
+}
+
+.map-marker-user {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+  background: #3b82f6;
+  color: #ffffff;
+  border-radius: 50%;
+  box-shadow: 0 0 0 6px rgba(59, 130, 246, 0.35), 0 6px 14px rgba(0,0,0,0.3);
+  border: 2px solid #ffffff;
+  font-size: 16px;
+  animation: bounceIn 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+@keyframes bounceIn {
+  0% { transform: scale(0); opacity: 0; }
+  70% { transform: scale(1.2); }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+/* Custom Leaflet Popups Styling */
+.leaflet-popup-content-wrapper {
+  background: #0f172a !important;
+  color: #f8fafc !important;
+  border-radius: 1rem !important;
+  padding: 4px 6px !important;
+  border: 1px solid rgba(255, 255, 255, 0.12) !important;
+  box-shadow: 0 12px 30px -5px rgba(0, 0, 0, 0.45) !important;
+}
+
+html:not(.dark) .leaflet-popup-content-wrapper {
+  background: #ffffff !important;
+  color: #0f172a !important;
+  border: 1px solid #e2e8f0 !important;
+  box-shadow: 0 12px 30px -5px rgba(15, 23, 42, 0.15) !important;
+}
+
+.leaflet-popup-tip {
+  background: #0f172a !important;
+}
+
+html:not(.dark) .leaflet-popup-tip {
+  background: #ffffff !important;
+}
+
+/* Leaflet Zoom Control Styling */
+.leaflet-touch .leaflet-control-layers, .leaflet-touch .leaflet-control-zoom {
+  border: 1px solid rgba(226, 232, 240, 0.8) !important;
+  border-radius: 0.75rem !important;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15) !important;
+}
+html.dark .leaflet-touch .leaflet-control-zoom {
+  border-color: rgba(51, 65, 85, 0.8) !important;
+}
+html.dark .leaflet-control-zoom a {
+  background-color: #1e293b !important;
+  color: #f8fafc !important;
+  border-bottom-color: #334155 !important;
+}
+
+/* ==========================================================================
+   RESPONSIVE BREAKPOINTS & MOBILE OPTIMIZATION SYSTEM
+   Mobile:     < 640px 
+   Tablet:     640px - 1024px 
+   Desktop:    1024px - 1280px 
+   Large:      > 1280px 
+   ========================================================================== */
+
+/* 1. TOUCH-FRIENDLY TARGETS (MINIMUM 44PX) FOR MOBILE (< 640px) */
+@media (max-width: 639px) {
+  button,
+  .btn-primary,
+  .btn-secondary,
+  .btn-accent,
+  input[type="button"],
+  input[type="submit"],
+  input[type="reset"],
+  input[type="text"],
+  input[type="email"],
+  input[type="password"],
+  input[type="tel"],
+  input[type="search"],
+  select,
+  .cart-drawer-trigger,
+  .rtl-toggle-btn,
+  .theme-toggle-btn,
+  #mobile-menu-toggle {
+    min-height: 44px;
+    touch-action: manipulation;
+  }
+
+  /* Ensure interactive icons have minimum 44px touch area */
+  #mobile-menu-toggle,
+  .cart-drawer-trigger,
+  .rtl-toggle-btn,
+  .theme-toggle-btn {
+    min-width: 44px;
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* 2. REDUCED ANIMATIONS ON MOBILE FOR PERFORMANCE & BATTERY SAVINGS */
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.25s !important;
+    transition-duration: 0.15s !important;
+  }
+
+  .animate-bounce,
+  .animate-pulse,
+  .animate-ping {
+    animation: none !important;
+  }
+
+  /* Disable heavy hover transforms on touch screens */
+  .product-card:hover {
+    transform: none !important;
+  }
+  .product-card:hover .product-img-wrapper img {
+    transform: none !important;
+  }
+
+  /* 3. SIMPLIFIED TABLES & RESPONSIVE DATA DISPLAY (< 640px) */
+  table.responsive-table,
+  .data-table {
+    display: block;
+    width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  table.responsive-table th,
+  table.responsive-table td {
+    padding: 0.75rem 0.5rem;
+    font-size: 0.75rem;
+    white-space: nowrap;
+  }
+
+  /* Stackable data table rows for mobile layout */
+  .table-stack {
+    display: block;
+    width: 100%;
+  }
+  .table-stack thead {
+    display: none;
+  }
+  .table-stack tr {
+    display: block;
+    margin-bottom: 1rem;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 0.75rem;
+  }
+  .table-stack td {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.5rem 0;
+    border-bottom: 1px solid var(--border);
+    font-size: 0.8125rem;
+  }
+  .table-stack td:last-child {
+    border-bottom: none;
+  }
+  .table-stack td::before {
+    content: attr(data-label);
+    font-weight: 700;
+    color: var(--muted);
+    margin-right: 1rem;
+  }
+
+  /* 4. OPTIMIZED IMAGE SIZES & DATA SAVING ON MOBILE */
+  img {
+    max-width: 100%;
+    height: auto;
+    content-visibility: auto;
+  }
+}
+
+/* 5. TABLET BREAKPOINT (640px - 1024px) */
+@media (min-width: 640px) and (max-width: 1023px) {
+  .container-responsive {
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+  }
+}
+
+/* 6. DESKTOP BREAKPOINT (1024px - 1280px) */
+@media (min-width: 1024px) and (max-width: 1279px) {
+  .container-responsive {
+    padding-left: 2rem;
+    padding-right: 2rem;
+  }
+}
+
+/* 7. LARGE DESKTOP BREAKPOINT (> 1280px) */
+@media (min-width: 1280px) {
+  .container-responsive {
+    max-width: 1280px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
+/* ==========================================================================
+   TRANSPARENT BACKGROUND & HIGHLIGHTED ICONS FOR CART, RTL, AND THEME
+   ========================================================================== */
+.cart-drawer-trigger,
+.rtl-toggle-btn,
+.theme-toggle-btn {
+  background-color: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  padding: 0.35rem !important;
+  transition: transform 0.2s ease, color 0.2s ease !important;
+}
+
+.cart-drawer-trigger:hover,
+.rtl-toggle-btn:hover,
+.theme-toggle-btn:hover {
+  transform: scale(1.15) !important;
+  background-color: rgba(241, 245, 249, 0.4) !important;
+  border-radius: 0.75rem !important;
+}
+
+.dark .cart-drawer-trigger:hover,
+.dark .rtl-toggle-btn:hover,
+.dark .theme-toggle-btn:hover {
+  background-color: rgba(30, 41, 59, 0.4) !important;
+}
+
+/* Highlighted Icon Colors & Glows */
+.cart-drawer-trigger i {
+  color: #16a34a !important; /* Green */
+  font-size: 1.25rem !important;
+  filter: drop-shadow(0 1px 4px rgba(22, 163, 74, 0.35));
+}
+.dark .cart-drawer-trigger i {
+  color: #4ade80 !important;
+}
+
+.rtl-toggle-btn i {
+  color: #2563eb !important; /* Blue */
+  font-size: 1.25rem !important;
+  filter: drop-shadow(0 1px 4px rgba(37, 99, 235, 0.35));
+}
+.dark .rtl-toggle-btn i {
+  color: #60a5fa !important;
+}
+
+.theme-toggle-btn i {
+  color: #d97706 !important; /* Amber */
+  font-size: 1.25rem !important;
+  filter: drop-shadow(0 1px 4px rgba(217, 119, 6, 0.35));
+}
+.dark .theme-toggle-btn i {
+  color: #f59e0b !important;
+}
+
 

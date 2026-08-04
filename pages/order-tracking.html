@@ -4,10 +4,16 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Live Order Tracking — FreshBasket Supermarket</title>
+  <link rel="icon" type="image/svg+xml" href="../assets/images/favicon.svg" />
+  <link rel="shortcut icon" href="../favicon.svg" />
+  <link rel="apple-touch-icon" href="../assets/images/favicon.svg" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <!-- Leaflet Map CSS & JS -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
     tailwind.config = { darkMode: 'class', theme: { extend: { colors: { brand: { 600: '#16a34a' } } } } }
@@ -22,7 +28,7 @@
   <header class="bg-white dark:bg-slate-800 border-b border-slate-200 dark:border-slate-700 py-4">
     <div class="max-w-7xl mx-auto px-4 flex items-center justify-between">
       <a href="../index.html" class="flex items-center gap-2">
-        <div class="w-9 h-9 bg-green-600 text-white rounded-xl flex items-center justify-center font-extrabold text-lg">
+        <div class="w-9 h-9 bg-green-600 text-white rounded-xl flex items-center justify-center font-extrabold text-lg shadow-md shadow-green-600/30">
           <i class="fa-solid fa-basket-shopping"></i>
         </div>
         <span class="font-extrabold text-xl dark:text-white">Fresh<span class="text-green-600">Basket</span> Live Tracker</span>
@@ -43,36 +49,36 @@
         </div>
         <div class="text-right">
           <span class="text-xs text-slate-400 block font-semibold">Estimated Doorstep Arrival</span>
-          <span id="track-eta" class="text-lg font-extrabold text-green-600">22 Minutes</span>
+          <span class="text-xl font-extrabold text-green-600 dark:text-green-400">14 - 22 Mins</span>
         </div>
       </div>
 
-      <!-- VISUAL STATUS TIMELINE -->
-      <div class="py-4">
-        <div class="grid grid-cols-5 gap-2 text-center text-xs">
+      <!-- TRACKING TIMELINE STEPS -->
+      <div class="relative">
+        <div class="grid grid-cols-5 text-center text-xs relative z-10 gap-2">
           
           <div class="space-y-2">
-            <div id="step-icon-1" class="w-10 h-10 rounded-full bg-green-600 text-white flex items-center justify-center mx-auto text-sm font-bold shadow-lg shadow-green-600/30">
-              <i class="fa-solid fa-file-invoice"></i>
+            <div class="w-10 h-10 rounded-full bg-green-600 text-white flex items-center justify-center mx-auto text-sm font-bold shadow-lg shadow-green-600/30">
+              <i class="fa-solid fa-check"></i>
             </div>
-            <span class="font-bold text-slate-800 dark:text-white block">Order Placed</span>
-            <span class="text-[10px] text-slate-400">10:15 AM</span>
+            <span class="font-bold text-slate-900 dark:text-white block">Order Placed</span>
+            <span class="text-[10px] text-slate-400">10:42 AM</span>
           </div>
 
           <div class="space-y-2">
             <div id="step-icon-2" class="w-10 h-10 rounded-full bg-green-600 text-white flex items-center justify-center mx-auto text-sm font-bold shadow-lg shadow-green-600/30">
-              <i class="fa-solid fa-basket-shopping"></i>
+              <i class="fa-solid fa-person-walking-luggage"></i>
             </div>
-            <span class="font-bold text-slate-800 dark:text-white block">Picking Items</span>
-            <span class="text-[10px] text-green-600 font-bold">In Progress</span>
+            <span class="font-bold text-slate-900 dark:text-white block">Shopper Assigned</span>
+            <span class="text-[10px] text-slate-400">10:44 AM</span>
           </div>
 
           <div class="space-y-2">
-            <div id="step-icon-3" class="w-10 h-10 rounded-full bg-slate-200 dark:bg-slate-700 text-slate-500 flex items-center justify-center mx-auto text-sm font-bold">
-              <i class="fa-solid fa-box flex"></i>
+            <div id="step-icon-3" class="w-10 h-10 rounded-full bg-amber-500 text-white flex items-center justify-center mx-auto text-sm font-bold ring-4 ring-amber-100 dark:ring-amber-900/40 animate-pulse">
+              <i class="fa-solid fa-basket-shopping"></i>
             </div>
-            <span class="font-bold text-slate-400 block">Packed</span>
-            <span class="text-[10px] text-slate-400">Pending</span>
+            <span class="font-bold text-amber-600 dark:text-amber-400 block">Packing Items</span>
+            <span class="text-[10px] text-amber-500 font-semibold">In Progress</span>
           </div>
 
           <div class="space-y-2">
@@ -94,21 +100,34 @@
         </div>
       </div>
 
-      <!-- MAP PLACEHOLDER -->
-      <div class="bg-slate-900 rounded-2xl h-64 relative overflow-hidden flex items-center justify-center border border-slate-700">
-        <div class="text-center space-y-2 z-10">
-          <div class="w-12 h-12 bg-green-500 text-white rounded-full flex items-center justify-center mx-auto text-xl animate-bounce">
-            <i class="fa-solid fa-location-arrow"></i>
+      <!-- LIVE GPS TRACKING MAP CANVAS -->
+      <div class="relative rounded-3xl overflow-hidden border border-slate-200 dark:border-slate-700 shadow-lg">
+        <div id="live-tracking-map" class="h-80 w-full z-10 bg-slate-100 dark:bg-slate-950"></div>
+        
+        <!-- Live GPS Floating Status Overlay -->
+        <div class="absolute top-4 left-4 z-[400] bg-white/90 dark:bg-slate-900/90 backdrop-blur-md px-4 py-2.5 rounded-2xl border border-slate-200/80 dark:border-slate-700/80 shadow-lg flex items-center gap-3">
+          <div class="relative flex h-3.5 w-3.5">
+            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+            <span class="relative inline-flex rounded-full h-3.5 w-3.5 bg-green-500"></span>
           </div>
-          <h4 class="font-bold text-white text-base">Personal Shopper En Route to Store</h4>
-          <p class="text-xs text-slate-400">Live GPS tracking updating every 10 seconds</p>
+          <div>
+            <div class="text-xs font-extrabold text-slate-900 dark:text-white flex items-center gap-1.5">
+              <span>Personal Shopper En Route to Store</span>
+              <span class="bg-green-500/10 text-green-600 dark:text-green-400 text-[9px] px-2 py-0.5 rounded-full font-extrabold">LIVE GPS</span>
+            </div>
+            <div class="text-[11px] text-slate-500 dark:text-slate-400">Updating live location every 3 seconds • ETA ~14 mins</div>
+          </div>
         </div>
+
+        <button id="recenter-tracker-btn" class="absolute bottom-4 right-4 z-[400] p-3 bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-200 rounded-2xl shadow-xl border border-slate-200 dark:border-slate-700 hover:bg-green-50 dark:hover:bg-slate-700 transition-all active:scale-95 flex items-center gap-2 text-xs font-bold" title="Recenter on Shopper">
+          <i class="fa-solid fa-crosshairs text-sm text-green-600"></i> Recenter
+        </button>
       </div>
 
       <!-- DRIVER CARD -->
       <div class="bg-slate-50 dark:bg-slate-900 p-6 rounded-2xl border border-slate-200 dark:border-slate-700 flex flex-col sm:flex-row items-center justify-between gap-4">
         <div class="flex items-center gap-4">
-          <img class="w-14 h-14 rounded-full object-cover border-2 border-green-600" src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=150&q=80" alt="Marcus V." />
+          <img class="w-14 h-14 rounded-full object-cover border-2 border-green-600 shadow-md" src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=150&q=80" alt="Marcus V." />
           <div>
             <span class="text-xs text-slate-400 block font-semibold">Your Personal Shopper</span>
             <h4 class="font-bold text-slate-900 dark:text-white text-base">Marcus Vance</h4>
@@ -126,13 +145,116 @@
 
   <script src="../assets/js/theme.js"></script>
   <script>
-    // Simulate real-time status updates demo logic
     document.addEventListener('DOMContentLoaded', () => {
+      // Saved Order check
       const saved = localStorage.getItem('freshbasket_last_order');
       if (saved) {
-        const order = JSON.parse(saved);
-        const orderIdEl = document.getElementById('track-order-id');
-        if (orderIdEl) orderIdEl.innerText = `Order #${order.orderId}`;
+        try {
+          const order = JSON.parse(saved);
+          const orderIdEl = document.getElementById('track-order-id');
+          if (orderIdEl) orderIdEl.innerText = `Order #${order.orderId}`;
+        } catch(e){}
+      }
+
+      // Initialize Leaflet Live GPS Map
+      if (typeof L !== 'undefined') {
+        const storePos = [40.7580, -73.9855]; // FreshBasket Store Hub (Times Square)
+        const userPos = [40.7484, -73.9857];  // Customer Home (Empire State Building)
+        
+        // Start shopper position halfway en route
+        let shopperLat = 40.7630;
+        let shopperLng = -73.9840;
+
+        const isDarkMode = document.documentElement.classList.contains('dark');
+        const tileUrl = isDarkMode
+          ? 'https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png'
+          : 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
+
+        const trackerMap = L.map('live-tracking-map', {
+          center: [40.7540, -73.9848],
+          zoom: 14,
+          zoomControl: false
+        });
+
+        const tileLayer = L.tileLayer(tileUrl, {
+          attribution: '&copy; OpenStreetMap & CartoDB',
+          maxZoom: 19
+        }).addTo(trackerMap);
+
+        // Store Hub Icon
+        const storeIcon = L.divIcon({
+          className: 'custom-store-pin',
+          html: `<div class="w-10 h-10 bg-green-600 text-white rounded-2xl flex items-center justify-center shadow-lg border-2 border-white text-base"><i class="fa-solid fa-basket-shopping"></i></div>`,
+          iconSize: [40, 40],
+          iconAnchor: [20, 20]
+        });
+
+        // Customer Home Icon
+        const userIcon = L.divIcon({
+          className: 'custom-user-pin',
+          html: `<div class="w-10 h-10 bg-blue-600 text-white rounded-2xl flex items-center justify-center shadow-lg border-2 border-white text-base"><i class="fa-solid fa-house-chimney"></i></div>`,
+          iconSize: [40, 40],
+          iconAnchor: [20, 20]
+        });
+
+        // Shopper Moving Pin
+        const shopperIcon = L.divIcon({
+          className: 'custom-shopper-pin',
+          html: `<div class="relative flex items-center justify-center">
+                  <span class="animate-ping absolute inline-flex h-12 w-12 rounded-full bg-amber-400 opacity-60"></span>
+                  <div class="w-11 h-11 bg-amber-500 text-white rounded-full flex items-center justify-center shadow-2xl border-2 border-white text-lg relative z-10">
+                    <i class="fa-solid fa-person-walking-luggage"></i>
+                  </div>
+                </div>`,
+          iconSize: [48, 48],
+          iconAnchor: [24, 24]
+        });
+
+        L.marker(storePos, { icon: storeIcon }).addTo(trackerMap).bindPopup('<b>FreshBasket Central Store</b><br>Shopper is assembling fresh items.');
+        L.marker(userPos, { icon: userIcon }).addTo(trackerMap).bindPopup('<b>Your Delivery Address</b><br>Customer Doorstep Arrival ~14 mins.');
+        
+        const shopperMarker = L.marker([shopperLat, shopperLng], { icon: shopperIcon }).addTo(trackerMap).bindPopup('<b>Personal Shopper: Marcus Vance</b><br>En route to Store for pickup');
+
+        // Draw dotted green route polyline
+        const routePoints = [
+          [shopperLat, shopperLng],
+          storePos,
+          [40.7525, -73.9860],
+          userPos
+        ];
+        L.polyline(routePoints, {
+          color: '#16a34a',
+          weight: 4,
+          opacity: 0.8,
+          dashArray: '8, 8'
+        }).addTo(trackerMap);
+
+        // Recenter Button
+        const recenterBtn = document.getElementById('recenter-tracker-btn');
+        if (recenterBtn) {
+          recenterBtn.addEventListener('click', () => {
+            trackerMap.flyTo(shopperMarker.getLatLng(), 15, { animate: true, duration: 1 });
+          });
+        }
+
+        // Live Movement Simulation every 3 seconds
+        let step = 0;
+        setInterval(() => {
+          step = (step + 1) % 10;
+          shopperLat -= 0.0005;
+          shopperLng -= 0.0001;
+          shopperMarker.setLatLng([shopperLat, shopperLng]);
+        }, 3000);
+
+        // Listen for Theme Mode Changes to switch map tiles
+        const observer = new MutationObserver(() => {
+          const dark = document.documentElement.classList.contains('dark');
+          const newTile = dark
+            ? 'https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png'
+            : 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
+          tileLayer.setUrl(newTile);
+        });
+        observer.observe(document.documentElement, { attributes: true, attributeFilter: ['class'] });
       }
 
       // Simulated timeline progression after 5 seconds

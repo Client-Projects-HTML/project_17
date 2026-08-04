@@ -45,11 +45,13 @@ class ThemeController {
   }
 
   toggleDarkMode() {
+    document.documentElement.classList.add('theme-transitioning');
     if (document.documentElement.classList.contains('dark')) {
       this.disableDarkMode();
     } else {
       this.enableDarkMode();
     }
+    setTimeout(() => document.documentElement.classList.remove('theme-transitioning'), 300);
   }
 
   enableRTL() {
@@ -67,12 +69,14 @@ class ThemeController {
   }
 
   toggleRTL() {
+    document.documentElement.classList.add('theme-transitioning');
     const isRTL = document.documentElement.getAttribute('dir') === 'rtl';
     if (isRTL) {
       this.disableRTL();
     } else {
       this.enableRTL();
     }
+    setTimeout(() => document.documentElement.classList.remove('theme-transitioning'), 300);
   }
 
   updateThemeIcons(isDark) {

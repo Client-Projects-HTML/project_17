@@ -4,6 +4,9 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Shopping Cart — FreshBasket Supermarket</title>
+  <link rel="icon" type="image/svg+xml" href="../assets/images/favicon.svg" />
+  <link rel="shortcut icon" href="../favicon.svg" />
+  <link rel="apple-touch-icon" href="../assets/images/favicon.svg" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
@@ -11,6 +14,22 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
     tailwind.config = { darkMode: 'class', theme: { extend: { colors: { brand: { 600: '#16a34a' } } } } }
+  </script>
+  <script>
+    (function() {
+      const savedTheme = localStorage.getItem('freshbasket_theme');
+      const systemPrefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+      if (savedTheme === 'dark' || (!savedTheme && systemPrefersDark)) {
+        document.documentElement.classList.add('dark');
+      } else {
+        document.documentElement.classList.remove('dark');
+      }
+      const savedRTL = localStorage.getItem('freshbasket_rtl');
+      if (savedRTL === 'true') {
+        document.documentElement.setAttribute('dir', 'rtl');
+        document.documentElement.setAttribute('lang', 'ar');
+      }
+    })();
   </script>
   <link rel="stylesheet" href="../assets/css/style.css" />
   <link rel="stylesheet" href="../assets/css/dark-mode.css" />
@@ -37,37 +56,56 @@
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex items-center justify-between h-20 gap-4">
 
-          <!-- Mobile Left: Hamburger Toggle & Logo -->
-          <div class="flex items-center gap-3 lg:hidden">
-            <button id="mobile-menu-toggle"
-              class="p-2 rounded-xl text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
-              aria-label="Open Navigation">
-              <i class="fa-solid fa-bars text-xl"></i>
-            </button>
-            <a href="../index.html" class="flex items-center gap-2">
-              <div class="w-9 h-9 bg-green-600 text-white rounded-xl flex items-center justify-center font-extrabold text-lg shadow-md shadow-green-600/30">
-                <i class="fa-solid fa-basket-shopping"></i>
-              </div>
-              <span class="font-extrabold text-lg tracking-tight text-slate-900 dark:text-white">Fresh<span class="text-green-600">Basket</span></span>
-            </a>
+          <!-- Mobile Header Bar (Strict Single Row) -->
+          <div class="flex lg:hidden items-center justify-between w-full h-16 py-1 gap-2">
+            <!-- Mobile Left: Logo -->
+            <div class="flex items-center gap-2 min-w-0">
+              <a href="../index.html" class="flex items-center gap-1.5 min-w-0">
+                <div class="w-8 h-8 bg-green-600 text-white rounded-xl flex items-center justify-center font-extrabold text-base shadow-md shadow-green-600/30 flex-shrink-0">
+                  <i class="fa-solid fa-basket-shopping"></i>
+                </div>
+                <span class="font-extrabold text-base tracking-tight text-slate-900 dark:text-white truncate">Fresh<span class="text-green-600">Basket</span></span>
+              </a>
+            </div>
+
+            <!-- Mobile Right Controls (Cart, RTL, Theme, Hamburger) -->
+            <div class="flex items-center gap-1.5 flex-shrink-0">
+              <button type="button" class="cart-drawer-trigger relative w-9 h-9 flex items-center justify-center" aria-label="Shopping Cart">
+                <i class="fa-solid fa-basket-shopping text-base"></i>
+                <span class="cart-count-badge absolute -top-1 -right-1 w-4 h-4 bg-green-600 text-white rounded-full text-[10px] font-extrabold flex items-center justify-center">0</span>
+              </button>
+              <button type="button" onclick="event.preventDefault(); event.stopPropagation(); event.stopImmediatePropagation(); if(window.themeController) window.themeController.toggleRTL(); return false;" class="rtl-toggle-btn w-9 h-9 flex items-center justify-center" title="Toggle RTL/LTR" aria-label="Toggle RTL/LTR">
+                <i class="fa-solid fa-globe text-base"></i>
+              </button>
+              <button type="button" onclick="event.preventDefault(); event.stopPropagation(); event.stopImmediatePropagation(); if(window.themeController) window.themeController.toggleDarkMode(); return false;" class="theme-toggle-btn w-9 h-9 flex items-center justify-center" title="Toggle Light/Dark Theme" aria-label="Toggle Light/Dark Theme">
+                <i class="fa-solid fa-moon text-base"></i>
+              </button>
+              <button id="mobile-menu-toggle" type="button" onclick="if(window.toggleMobileMenu) window.toggleMobileMenu(); return false;"
+                class="w-9 h-9 flex items-center justify-center rounded-xl text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors flex-shrink-0"
+                aria-label="Open Navigation">
+                <i class="fa-solid fa-bars text-lg"></i>
+              </button>
+            </div>
           </div>
 
-          <!-- Desktop Unified Single-Row Main Navbar -->
+          <!-- Desktop Unified Single-Row Main Navbar (Exact Centered Layout) -->
           <div class="hidden lg:flex items-center justify-between w-full gap-4 xl:gap-6">
             
-            <!-- 1. FRESHBASKET LOGO / BRAND POSITION -->
-            <a href="../index.html" class="flex items-center gap-2.5 flex-shrink-0 group">
-              <div class="w-11 h-11 bg-green-600 text-white rounded-2xl flex items-center justify-center font-extrabold text-xl shadow-lg shadow-green-600/30 group-hover:scale-105 transition-transform">
-                <i class="fa-solid fa-basket-shopping"></i>
-              </div>
-              <div>
-                <span class="font-extrabold text-xl tracking-tight text-slate-900 dark:text-white">Fresh<span class="text-green-600">Basket</span></span>
-                <span class="block text-[10px] uppercase font-bold tracking-widest text-slate-400 -mt-1">Supermarket</span>
-              </div>
-            </a>
+            <!-- 1. FRESHBASKET LOGO / BRAND POSITION (LEFT) -->
+            <div class="flex items-center justify-start flex-1">
+              <a href="../index.html" class="flex items-center gap-2.5 flex-shrink-0 group">
+                <div class="w-11 h-11 bg-green-600 text-white rounded-2xl flex items-center justify-center font-extrabold text-xl shadow-lg shadow-green-600/30 group-hover:scale-105 transition-transform">
+                  <i class="fa-solid fa-basket-shopping"></i>
+                </div>
+                <div>
+                  <span class="font-extrabold text-xl tracking-tight text-slate-900 dark:text-white">Fresh<span class="text-green-600">Basket</span></span>
+                  <span class="block text-[10px] uppercase font-bold tracking-widest text-slate-400 -mt-1">Supermarket</span>
+                </div>
+              </a>
+            </div>
 
-            <!-- Navigation Links (2 to 6) & Action Buttons (7 to 10) -->
-            <nav class="flex items-center gap-5 xl:gap-7 text-sm font-semibold text-slate-700 dark:text-slate-200">
+            <!-- CENTER NAVIGATION BUTTONS (DEAD CENTER) -->
+            <nav class="flex items-center justify-center gap-5 xl:gap-7 text-sm font-semibold text-slate-700 dark:text-slate-200 flex-shrink-0">
               <!-- 2. Home Dropdown Menu -->
               <div class="relative home-dropdown-wrapper">
                 <button id="home-dropdown-trigger" type="button" class="hover:text-green-600 dark:hover:text-green-400 transition-colors flex items-center gap-1.5 py-2 focus:outline-none" aria-expanded="false" aria-haspopup="true">
@@ -103,46 +141,47 @@
                 </div>
               </div>
               <!-- 3. Shop -->
-              <a href="shop.html" class="hover:text-green-600 dark:hover:text-green-400 transition-colors flex items-center gap-1.5"><i class="fa-solid fa-store text-xs"></i> <span>Shop</span></a>
+              <a href="shop.html" class="hover:text-green-600 dark:hover:text-green-400 transition-colors">Shop</a>
               <!-- 4. Categories -->
               <a href="categories.html" class="hover:text-green-600 dark:hover:text-green-400 transition-colors">Categories</a>
               <!-- 5. Deals -->
-              <a href="deals.html" class="text-amber-600 dark:text-amber-400 hover:text-amber-500 transition-colors flex items-center gap-1">
-                <i class="fa-solid fa-fire text-xs"></i> Deals
-              </a>
+              <a href="deals.html" class="hover:text-amber-600 dark:hover:text-amber-400 transition-colors">Deals</a>
               <!-- 6. Blog -->
               <a href="blog.html" class="hover:text-green-600 dark:hover:text-green-400 transition-colors">Blog</a>
-              <!-- 7. Account Dropdown -->
-              <div class="relative group account-dropdown-wrapper flex items-center">
-                <a href="register.html" class="hover:text-green-600 dark:hover:text-green-400 transition-colors flex items-center gap-1.5 py-2 font-semibold">
-                  <i class="fa-solid fa-user-circle text-xs"></i>
-                  <span>Account</span>
+            </nav>
+
+            <!-- RIGHT ACTION CONTROLS (RIGHT) -->
+            <div class="flex items-center justify-end gap-3 flex-1">
+              <!-- Highlighted Login Button with Dropdown (Moved Before RTL Button) -->
+              <div class="relative group login-dropdown-wrapper inline-flex items-center">
+                <a href="login.html" id="nav-login-btn" class="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-500 hover:to-emerald-500 text-white font-bold text-xs sm:text-sm rounded-xl shadow-md shadow-green-600/25 hover:shadow-lg hover:shadow-green-600/40 hover:-translate-y-0.5 active:translate-y-0 transition-all duration-200 group/btn">
+                  <i class="fa-solid fa-right-to-bracket text-xs group-hover/btn:scale-110 transition-transform"></i>
+                  <span>Login</span>
+                  <i class="fa-solid fa-chevron-down text-[10px] ml-0.5 opacity-80"></i>
                 </a>
-                <button type="button" class="hover:text-green-600 dark:hover:text-green-400 p-1 text-xs cursor-pointer focus:outline-none" aria-label="Account Menu">
-                  <i class="fa-solid fa-chevron-down text-[10px]"></i>
-                </button>
-                
-                <div class="hidden group-hover:block absolute top-full right-0 w-56 mt-1 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-2xl shadow-xl z-50 p-2 space-y-1">
-                  <a href="../user/index.html" class="flex items-center gap-3 p-2.5 rounded-xl hover:bg-green-50 dark:hover:bg-green-950/40 text-slate-800 dark:text-slate-100 transition-colors group/item">
-                    <div class="w-8 h-8 rounded-lg bg-green-600 text-white flex items-center justify-center text-xs flex-shrink-0 shadow-sm">
+
+                <!-- Login Dropdown Menu -->
+                <div class="hidden group-hover:block absolute top-full right-0 w-60 mt-1 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-2xl shadow-xl z-50 p-2 space-y-1 text-slate-800 dark:text-slate-100">
+                  <a href="../user/index.html" class="flex items-center gap-3 p-2.5 rounded-xl hover:bg-green-50 dark:hover:bg-green-950/40 transition-colors group/item">
+                    <div class="w-8 h-8 rounded-lg bg-emerald-600 text-white flex items-center justify-center text-xs flex-shrink-0 shadow-sm">
                       <i class="fa-solid fa-user"></i>
                     </div>
                     <div>
                       <div class="font-bold text-xs">User Dashboard</div>
-                      <div class="text-[10px] text-slate-500 dark:text-slate-400">Manage orders & profile</div>
+                      <div class="text-[10px] text-slate-500 dark:text-slate-400 font-normal">Manage orders & profile</div>
                     </div>
                   </a>
 
-                  <a href="../admin/index.html" class="flex items-center gap-3 p-2.5 rounded-xl hover:bg-amber-50 dark:hover:bg-amber-950/30 text-slate-800 dark:text-slate-100 transition-colors group/item">
+                  <a href="../admin/index.html" class="flex items-center gap-3 p-2.5 rounded-xl hover:bg-amber-50 dark:hover:bg-amber-950/30 transition-colors group/item">
                     <div class="w-8 h-8 rounded-lg bg-amber-500 text-slate-950 flex items-center justify-center text-xs flex-shrink-0 shadow-sm">
                       <i class="fa-solid fa-user-gear"></i>
                     </div>
                     <div>
                       <div class="font-bold text-xs flex items-center gap-1">
-                        <span>Admin Portal</span>
+                        <span>Admin Dashboard</span>
                         <span class="text-[8px] bg-amber-500/20 text-amber-600 px-1 py-0.2 rounded font-bold uppercase">Staff</span>
                       </div>
-                      <div class="text-[10px] text-slate-500 dark:text-slate-400">Inventory & analytics</div>
+                      <div class="text-[10px] text-slate-500 dark:text-slate-400 font-normal">Inventory & analytics</div>
                     </div>
                   </a>
                 </div>
@@ -157,6 +196,7 @@
               <button type="button" onclick="event.preventDefault(); event.stopPropagation(); event.stopImmediatePropagation(); if(window.themeController) window.themeController.toggleDarkMode(); return false;" class="theme-toggle-btn w-9 h-9 flex items-center justify-center bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-200 border border-slate-200 dark:border-slate-700 rounded-xl hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors" title="Toggle Light/Dark Theme" aria-label="Toggle Light/Dark Theme">
                 <i class="fa-solid fa-moon text-base"></i>
               </button>
+            </div>
               
               <!-- Cart Icon -->
               <button type="button" class="cart-drawer-trigger relative p-2.5 bg-green-50 dark:bg-green-950/40 text-green-600 dark:text-green-400 hover:bg-green-600 hover:text-white dark:hover:bg-green-600 dark:hover:text-white border border-green-200 dark:border-green-800/60 rounded-xl transition-all shadow-sm flex items-center justify-center" aria-label="Shopping Cart">
@@ -167,28 +207,14 @@
 
           </div>
 
-          <!-- Mobile Right Controls (Cart, RTL, Theme) -->
-          <div class="flex lg:hidden items-center gap-2">
-            <button type="button" class="cart-drawer-trigger relative p-2 text-slate-700 dark:text-slate-200 hover:text-green-600 transition-colors" aria-label="Shopping Cart">
-              <i class="fa-solid fa-basket-shopping text-lg"></i>
-              <span class="cart-count-badge absolute -top-1 -right-1.5 w-4 h-4 bg-green-600 text-white rounded-full text-[10px] font-extrabold flex items-center justify-center">0</span>
-            </button>
-            <button type="button" onclick="event.preventDefault(); event.stopPropagation(); event.stopImmediatePropagation(); if(window.themeController) window.themeController.toggleRTL(); return false;" class="rtl-toggle-btn w-9 h-9 flex items-center justify-center bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-200 border border-slate-200 dark:border-slate-700 rounded-xl" title="Toggle RTL/LTR" aria-label="Toggle RTL/LTR">
-              <i class="fa-solid fa-globe text-base"></i>
-            </button>
-            <button type="button" onclick="event.preventDefault(); event.stopPropagation(); event.stopImmediatePropagation(); if(window.themeController) window.themeController.toggleDarkMode(); return false;" class="theme-toggle-btn w-9 h-9 flex items-center justify-center bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-200 border border-slate-200 dark:border-slate-700 rounded-xl" title="Toggle Light/Dark Theme" aria-label="Toggle Light/Dark Theme">
-              <i class="fa-solid fa-moon text-base"></i>
-            </button>
-          </div>
-
         </div>
       </div>
     </div>
   </header>
 
-  <!-- MOBILE NAVIGATION DRAWER -->
-  <div id="mobile-menu-overlay" class="hidden fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 transition-opacity lg:hidden"></div>
-  <div id="mobile-menu-drawer" class="fixed top-0 left-0 w-4/5 max-w-xs h-full bg-white dark:bg-slate-900 z-50 shadow-2xl transform -translate-x-full transition-transform duration-300 flex flex-col lg:hidden">
+  <!-- MOBILE NAVIGATION DRAWER (OPENS FROM RIGHT) -->
+  <div id="mobile-menu-overlay" onclick="if(window.toggleMobileMenu) window.toggleMobileMenu(); return false;" class="hidden fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 transition-opacity lg:hidden"></div>
+  <div id="mobile-menu-drawer" class="fixed top-0 right-0 w-4/5 max-w-xs h-full bg-white dark:bg-slate-900 z-50 shadow-2xl transform translate-x-full transition-transform duration-300 flex flex-col lg:hidden">
     <div class="p-5 border-b border-slate-200 dark:border-slate-800 flex items-center justify-between">
       <a href="../index.html" class="flex items-center gap-2">
         <div class="w-9 h-9 bg-green-600 text-white rounded-xl flex items-center justify-center font-extrabold text-lg">
@@ -196,9 +222,6 @@
         </div>
         <span class="font-extrabold text-lg text-slate-900 dark:text-white">Fresh<span class="text-green-600">Basket</span></span>
       </a>
-      <button id="mobile-menu-close" class="p-2 text-slate-400 hover:text-slate-600 dark:hover:text-white" aria-label="Close Menu">
-        <i class="fa-solid fa-xmark text-lg"></i>
-      </button>
     </div>
     <div class="p-5 space-y-4 flex-1 overflow-y-auto font-semibold text-sm">
       
@@ -206,13 +229,13 @@
       <div class="space-y-1">
         <button id="mobile-home-dropdown-trigger" type="button" class="w-full flex items-center justify-between py-2 text-green-600 dark:text-green-400 font-bold">
           <span class="flex items-center gap-2">
-            <i class="fa-solid fa-house text-xs"></i> Homepages
+            <i class="fa-solid fa-house text-xs"></i> Home
           </span>
           <i id="mobile-home-chevron" class="fa-solid fa-chevron-down text-xs transition-transform duration-200"></i>
         </button>
 
         <div id="mobile-home-dropdown-menu" class="hidden pl-3 space-y-2 border-l-2 border-green-500/30 my-1 py-1">
-          <a href="../index.html" class="flex items-center justify-between text-xs py-2 px-2.5 bg-green-50 dark:bg-green-950/40 text-green-700 dark:text-green-300 font-bold rounded-lg">
+          <a href="../index.html" class="flex items-center justify-between text-xs py-2 px-2.5 text-slate-700 dark:text-slate-200 hover:text-green-600 font-semibold rounded-lg">
             <span><i class="fa-solid fa-store text-green-600 mr-1.5"></i> Home 1 (Classic)</span>
           </a>
           <a href="home-premium.html" class="flex items-center justify-between text-xs py-2 px-2.5 text-slate-700 dark:text-slate-200 hover:text-amber-600 font-semibold rounded-lg">
@@ -222,13 +245,32 @@
         </div>
       </div>
 
-      <a href="shop.html" class="block py-2 text-slate-700 dark:text-slate-200 hover:text-green-600 flex items-center gap-2"><i class="fa-solid fa-store text-xs text-green-600"></i> <span>Shop</span></a>
+      <a href="shop.html" class="block py-2 text-slate-700 dark:text-slate-200 hover:text-green-600">Shop</a>
       <a href="categories.html" class="block py-2 text-slate-700 dark:text-slate-200 hover:text-green-600">Categories</a>
-      <a href="deals.html" class="block py-2 text-amber-600 dark:text-amber-400 flex items-center gap-2">
-        <i class="fa-solid fa-fire text-xs"></i> Deals
-      </a>
+      <a href="deals.html" class="block py-2 text-slate-700 dark:text-slate-200 hover:text-green-600">Deals</a>
       <a href="blog.html" class="block py-2 text-slate-700 dark:text-slate-200 hover:text-green-600">Blog</a>
-      <a href="../user/index.html" class="block py-2 text-slate-700 dark:text-slate-200 hover:text-green-600 flex items-center gap-2"><i class="fa-solid fa-user-circle text-xs text-green-600"></i> <span>Account</span></a>
+      
+      <!-- Mobile Login Accordion -->
+      <div class="space-y-1 border-t border-slate-100 dark:border-slate-800 pt-3">
+        <div class="flex items-center justify-between">
+          <a href="login.html" class="flex items-center gap-2 py-1.5 text-green-600 dark:text-green-400 font-bold">
+            <i class="fa-solid fa-right-to-bracket text-xs"></i>
+            <span>Login</span>
+          </a>
+          <button id="mobile-login-dropdown-trigger" type="button" class="p-1.5 text-slate-500 hover:text-green-600 focus:outline-none" aria-label="Toggle Login Options">
+            <i id="mobile-login-chevron" class="fa-solid fa-chevron-down text-xs transition-transform duration-200"></i>
+          </button>
+        </div>
+
+        <div id="mobile-login-dropdown-menu" class="hidden pl-3 space-y-2 border-l-2 border-green-500/30 my-1 py-1">
+          <a href="../user/index.html" class="flex items-center gap-2 text-xs py-2 px-2.5 text-slate-700 dark:text-slate-200 hover:text-green-600 font-semibold rounded-lg">
+            <i class="fa-solid fa-user text-emerald-600 text-xs"></i> User Dashboard
+          </a>
+          <a href="../admin/index.html" class="flex items-center gap-2 text-xs py-2 px-2.5 text-slate-700 dark:text-slate-200 hover:text-amber-600 font-semibold rounded-lg">
+            <i class="fa-solid fa-user-gear text-amber-500 text-xs"></i> Admin Dashboard
+          </a>
+        </div>
+      </div>
     </div>
   </div>
 
@@ -300,10 +342,10 @@
   <!-- GLOBAL FOOTER -->
   <footer class="bg-slate-100 text-slate-600 border-t border-slate-200 dark:bg-slate-900 dark:text-slate-400 dark:border-slate-800 text-sm transition-colors duration-300 mt-16">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10">
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-12">
 
         <!-- Brand Info -->
-        <div class="lg:col-span-2 space-y-4">
+        <div class="space-y-4">
           <a href="../index.html" class="flex items-center gap-2.5">
             <div class="w-10 h-10 bg-green-600 text-white rounded-2xl flex items-center justify-center font-extrabold text-lg">
               <i class="fa-solid fa-basket-shopping"></i>
@@ -313,59 +355,56 @@
           <p class="text-xs text-slate-600 dark:text-slate-400 leading-relaxed max-w-sm">
             FreshBasket is your trusted neighborhood supermarket delivering farm-fresh produce, daily essentials, and organic groceries straight to your doorstep.
           </p>
-          <div class="flex items-center gap-4 pt-2">
-            <a href="#" class="w-9 h-9 bg-white text-slate-700 border border-slate-200 dark:bg-slate-800 dark:text-slate-300 dark:border-slate-700 rounded-full flex items-center justify-center hover:bg-green-600 hover:text-white dark:hover:bg-green-600 dark:hover:text-white hover:border-green-600 transition-colors shadow-sm" aria-label="Facebook" title="Facebook"><i class="fa-brands fa-facebook-f text-sm"></i></a>
-            <a href="#" class="w-9 h-9 bg-white text-slate-700 border border-slate-200 dark:bg-slate-800 dark:text-slate-300 dark:border-slate-700 rounded-full flex items-center justify-center hover:bg-green-600 hover:text-white dark:hover:bg-green-600 dark:hover:text-white hover:border-green-600 transition-colors shadow-sm" aria-label="Twitter" title="Twitter"><i class="fa-brands fa-twitter text-sm"></i></a>
-            <a href="#" class="w-9 h-9 bg-white text-slate-700 border border-slate-200 dark:bg-slate-800 dark:text-slate-300 dark:border-slate-700 rounded-full flex items-center justify-center hover:bg-green-600 hover:text-white dark:hover:bg-green-600 dark:hover:text-white hover:border-green-600 transition-colors shadow-sm" aria-label="Instagram" title="Instagram"><i class="fa-brands fa-instagram text-sm"></i></a>
+          <div class="flex items-center gap-3 pt-2">
+            <a href="#" class="w-9 h-9 bg-white text-slate-700 border border-slate-200 dark:bg-slate-800 dark:text-slate-300 dark:border-slate-700 rounded-xl flex items-center justify-center hover:bg-green-600 hover:text-white dark:hover:bg-green-600 dark:hover:text-white transition-colors shadow-sm" aria-label="Facebook" title="Facebook"><i class="fa-brands fa-facebook-f text-sm"></i></a>
+            <a href="#" class="w-9 h-9 bg-white text-slate-700 border border-slate-200 dark:bg-slate-800 dark:text-slate-300 dark:border-slate-700 rounded-xl flex items-center justify-center hover:bg-green-600 hover:text-white dark:hover:bg-green-600 dark:hover:text-white transition-colors shadow-sm" aria-label="Twitter" title="Twitter"><i class="fa-brands fa-twitter text-sm"></i></a>
+            <a href="#" class="w-9 h-9 bg-white text-slate-700 border border-slate-200 dark:bg-slate-800 dark:text-slate-300 dark:border-slate-700 rounded-xl flex items-center justify-center hover:bg-green-600 hover:text-white dark:hover:bg-green-600 dark:hover:text-white transition-colors shadow-sm" aria-label="Instagram" title="Instagram"><i class="fa-brands fa-instagram text-sm"></i></a>
           </div>
         </div>
 
-        <!-- Quick Links -->
+        <!-- Quick Navigation -->
         <div>
-          <h4 class="text-slate-900 dark:text-white font-bold text-sm mb-4">Company</h4>
-          <ul class="space-y-2 text-xs">
-            <li><a href="about.html" class="text-slate-600 dark:text-slate-400 hover:text-green-600 dark:hover:text-white transition-colors">About FreshBasket</a></li>
-            <li><a href="blog.html" class="text-slate-600 dark:text-slate-400 hover:text-green-600 dark:hover:text-white transition-colors">Grocery Blog & Recipes</a></li>
-            <li><a href="contact.html" class="text-slate-600 dark:text-slate-400 hover:text-green-600 dark:hover:text-white transition-colors">Contact Store</a></li>
-            <li><a href="coming-soon.html" class="text-slate-600 dark:text-slate-400 hover:text-green-600 dark:hover:text-white transition-colors">Careers & Hiring</a></li>
+          <h4 class="text-slate-900 dark:text-white font-bold text-sm mb-4">Quick Navigation</h4>
+          <ul class="space-y-2 text-xs font-medium">
+            <li><a href="../index.html" class="text-slate-600 dark:text-slate-400 hover:text-green-600 dark:hover:text-white transition-colors">Home</a></li>
+            <li><a href="shop.html" class="text-slate-600 dark:text-slate-400 hover:text-green-600 dark:hover:text-white transition-colors">Shop</a></li>
+            <li><a href="categories.html" class="text-slate-600 dark:text-slate-400 hover:text-green-600 dark:hover:text-white transition-colors">Categories</a></li>
+            <li><a href="deals.html" class="text-slate-600 dark:text-slate-400 hover:text-green-600 dark:hover:text-white transition-colors">Deals</a></li>
+            <li><a href="blog.html" class="text-slate-600 dark:text-slate-400 hover:text-green-600 dark:hover:text-white transition-colors">Blog</a></li>
           </ul>
         </div>
 
+        <!-- Shop Categories -->
         <div>
           <h4 class="text-slate-900 dark:text-white font-bold text-sm mb-4">Shop Categories</h4>
-          <ul class="space-y-2 text-xs">
+          <ul class="space-y-2 text-xs font-medium">
             <li><a href="shop.html" class="text-slate-600 dark:text-slate-400 hover:text-green-600 dark:hover:text-white transition-colors">All Products</a></li>
             <li><a href="categories.html" class="text-slate-600 dark:text-slate-400 hover:text-green-600 dark:hover:text-white transition-colors">Fruits & Vegetables</a></li>
             <li><a href="categories.html" class="text-slate-600 dark:text-slate-400 hover:text-green-600 dark:hover:text-white transition-colors">Dairy & Fresh Milk</a></li>
+            <li><a href="categories.html" class="text-slate-600 dark:text-slate-400 hover:text-green-600 dark:hover:text-white transition-colors">Meat & Seafood</a></li>
             <li><a href="deals.html" class="text-slate-600 dark:text-slate-400 hover:text-green-600 dark:hover:text-white transition-colors">Weekly Super Deals</a></li>
           </ul>
         </div>
 
+        <!-- Customer Support -->
         <div>
           <h4 class="text-slate-900 dark:text-white font-bold text-sm mb-4">Customer Support</h4>
-          <ul class="space-y-2 text-xs">
+          <ul class="space-y-2 text-xs font-medium">
             <li><a href="contact.html" class="text-slate-600 dark:text-slate-400 hover:text-green-600 dark:hover:text-white transition-colors">Help & FAQ Center</a></li>
             <li><a href="order-tracking.html" class="text-slate-600 dark:text-slate-400 hover:text-green-600 dark:hover:text-white transition-colors">Live Order Tracking</a></li>
             <li><a href="orders.html" class="text-slate-600 dark:text-slate-400 hover:text-green-600 dark:hover:text-white transition-colors">Order History</a></li>
             <li><a href="404.html" class="text-slate-600 dark:text-slate-400 hover:text-green-600 dark:hover:text-white transition-colors">Returns & Refunds</a></li>
+            <li><a href="coming-soon.html" class="text-slate-600 dark:text-slate-400 hover:text-green-600 dark:hover:text-white transition-colors">Terms of Service</a></li>
           </ul>
         </div>
 
       </div>
 
       <div class="mt-12 pt-8 border-t border-slate-200 dark:border-slate-800 flex flex-col sm:flex-row items-center justify-between text-xs text-slate-500 dark:text-slate-400 gap-4">
-        <div>
-          <p>© 2026 FreshBasket Supermarket Inc. All rights reserved.</p>
-          <div class="mt-1 text-[11px] text-slate-500 dark:text-slate-400 flex flex-wrap items-center gap-1.5">
-            <span>Developed by</span>
-            <span class="text-slate-900 dark:text-slate-100 font-extrabold tracking-wide text-green-700 dark:text-green-400">Abhivorn Technologies Pvt.Ltd.</span>
-          </div>
-        </div>
-        <div class="flex items-center gap-6">
-          <a href="coming-soon.html" class="hover:text-slate-700 dark:hover:text-slate-300 transition-colors">Privacy Policy</a>
-          <a href="coming-soon.html" class="hover:text-slate-700 dark:hover:text-slate-300 transition-colors">Terms of Service</a>
-          <a href="../index.html" class="hover:text-slate-700 dark:hover:text-slate-300 transition-colors">Home 1</a>
-          <a href="home-premium.html" class="text-amber-600 dark:text-amber-400 font-bold hover:underline">Home 2 (Premium)</a>
+        <p>© 2026 FreshBasket Supermarket Inc. All rights reserved.</p>
+        <div class="flex items-center gap-1.5 font-medium">
+          <span>Developed by</span>
+          <span class="font-extrabold text-green-700 dark:text-green-400">Abhivorn Technologies Pvt.Ltd.</span>
         </div>
       </div>
     </div>
@@ -410,7 +449,7 @@
         <span id="cart-drawer-total" class="font-extrabold text-green-600 dark:text-green-400">$0.00</span>
       </div>
       <div class="grid grid-cols-2 gap-3 pt-2">
-        <a href="cart.html" class="btn-secondary text-center text-xs py-3">View Cart</a>
+        <a href="cart.html" class="btn-secondary no-hover text-center text-xs py-3">View Cart</a>
         <a href="checkout.html" class="btn-primary text-center text-xs py-3">Checkout</a>
       </div>
     </div>

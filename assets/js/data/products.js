@@ -971,28 +971,7 @@ const productsData = [
     isWeeklyDeal: false,
     isPopular: false
   },
-  {
-    id: "prod-44",
-    name: "Cinnamon Raisin Bagels 6 Pack",
-    category: "Bakery",
-    categoryId: "bakery",
-    brand: "Bakehouse Hearth",
-    price: 3.99,
-    originalPrice: 4.49,
-    discount: 11,
-    rating: 4.8,
-    reviewCount: 205,
-    weight: "18 oz pack",
-    stock: 45,
-    tags: ["Chewy", "Sweet Raisins"],
-    image: "https://images.unsplash.com/photo-1585478259715-876a6a81ae08?auto=format&fit=crop&w=600&q=80",
-    description: "Boiled and baked New York style bagels packed with sweet raisins and cinnamon.",
-    ingredients: "Wheat Flour, Water, Raisins, Sugar, Cinnamon, Yeast, Salt",
-    nutrition: { calories: "260 kcal", fat: "1.5g", carbs: "53g", protein: "9g" },
-    dietary: ["Vegetarian"],
-    isWeeklyDeal: false,
-    isPopular: true
-  },
+
   {
     id: "prod-45",
     name: "Organic Raw Honey 16 oz",

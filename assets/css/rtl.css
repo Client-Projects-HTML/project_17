@@ -34,10 +34,10 @@
   left: auto !important;
 }
 
-[dir="rtl"] #mobile-menu-drawer.-translate-x-full {
-  transform: translateX(-100%) !important;
-  left: 0 !important;
-  right: auto !important;
+[dir="rtl"] #mobile-menu-drawer.translate-x-full {
+  transform: translateX(100%) !important;
+  right: 0 !important;
+  left: auto !important;
 }
 
 [dir="rtl"] .fa-arrow-right::before {
@@ -78,3 +78,31 @@
     opacity: 1;
   }
 }
+
+/* Admin Sidebar positioning & transforms in RTL mode */
+[dir="rtl"] #admin-sidebar {
+  left: auto !important;
+  right: 0 !important;
+  border-right-width: 0 !important;
+  border-left-width: 1px !important;
+}
+
+[dir="rtl"] #admin-sidebar.-translate-x-full {
+  transform: translateX(100%) !important;
+}
+
+[dir="rtl"] #admin-sidebar.translate-x-0 {
+  transform: translateX(0) !important;
+}
+
+@media (min-width: 768px) {
+  [dir="rtl"] #admin-sidebar.md\:translate-x-0 {
+    transform: translateX(0) !important;
+  }
+
+  [dir="rtl"] .md\:ml-64 {
+    margin-left: 0 !important;
+    margin-right: 16rem !important;
+  }
+}
+

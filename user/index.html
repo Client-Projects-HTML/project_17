@@ -4,6 +4,9 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>User Dashboard — FreshBasket Supermarket</title>
+  <link rel="icon" type="image/svg+xml" href="../assets/images/favicon.svg" />
+  <link rel="shortcut icon" href="../favicon.svg" />
+  <link rel="apple-touch-icon" href="../assets/images/favicon.svg" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
@@ -12,14 +15,33 @@
   <script>
     tailwind.config = { darkMode: 'class', theme: { extend: { colors: { brand: { 600: '#16a34a' } } } } }
   </script>
+  <script>
+    (function() {
+      const savedTheme = localStorage.getItem('freshbasket_theme');
+      const systemPrefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+      if (savedTheme === 'dark' || (!savedTheme && systemPrefersDark)) {
+        document.documentElement.classList.add('dark');
+      } else {
+        document.documentElement.classList.remove('dark');
+      }
+      const savedRTL = localStorage.getItem('freshbasket_rtl');
+      if (savedRTL === 'true') {
+        document.documentElement.setAttribute('dir', 'rtl');
+        document.documentElement.setAttribute('lang', 'ar');
+      }
+    })();
+  </script>
   <link rel="stylesheet" href="../assets/css/style.css" />
   <link rel="stylesheet" href="../assets/css/dark-mode.css" />
   <link rel="stylesheet" href="../assets/css/rtl.css" />
 </head>
-<body class="bg-slate-100 dark:bg-slate-900 text-slate-900 dark:text-slate-100 min-h-screen flex">
+<body class="bg-slate-100 dark:bg-slate-900 text-slate-900 dark:text-slate-100 h-screen overflow-hidden flex">
+
+  <!-- MOBILE SIDEBAR BACKDROP OVERLAY -->
+  <div id="user-sidebar-overlay" onclick="toggleUserSidebar()" class="hidden fixed inset-0 bg-slate-950/80 backdrop-blur-sm z-40 md:hidden transition-opacity"></div>
 
   <!-- USER SIDEBAR -->
-  <aside id="user-sidebar" class="w-64 bg-white dark:bg-slate-900 text-slate-700 dark:text-slate-300 border-r border-slate-200 dark:border-slate-800 min-h-screen flex flex-col justify-between hidden md:flex flex-shrink-0 transition-colors duration-200 sticky top-0 h-screen z-30">
+  <aside id="user-sidebar" class="fixed inset-y-0 right-0 md:left-0 w-64 bg-white dark:bg-slate-900 text-slate-700 dark:text-slate-300 border-l md:border-r border-slate-200 dark:border-slate-800 flex flex-col justify-between z-50 transform translate-x-full md:translate-x-0 transition-transform duration-300 md:static md:z-30 md:h-screen md:sticky md:top-0">
     <div class="p-6 space-y-6 overflow-y-auto">
       <a href="../index.html" class="flex items-center gap-2.5">
         <div class="w-9 h-9 bg-green-600 text-white rounded-xl flex items-center justify-center font-extrabold text-lg shadow-sm">
@@ -77,41 +99,33 @@
   </aside>
 
   <!-- MAIN AREA (RIGHT OF SIDEBAR) -->
-  <div class="flex-1 flex flex-col min-w-0 min-h-screen">
+  <div class="flex-1 flex flex-col min-w-0 h-screen overflow-hidden">
 
-    <!-- TOP HEADER BAR -->
-    <header class="sticky top-0 z-20 bg-white dark:bg-slate-800 border-b border-slate-200 dark:border-slate-700/80 px-6 py-4 md:px-8 shadow-sm flex flex-col sm:flex-row sm:items-center justify-between gap-4 transition-colors">
-      <div class="flex items-center gap-3">
-        <!-- Mobile Sidebar Toggle -->
-        <button type="button" onclick="toggleUserSidebar()" class="md:hidden w-9 h-9 flex items-center justify-center bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-slate-200 border border-slate-200 dark:border-slate-600 rounded-xl hover:bg-slate-200 dark:hover:bg-slate-600 transition-colors" title="Toggle Sidebar Navigation">
-          <i class="fa-solid fa-bars text-sm"></i>
-        </button>
-
-        <a href="../index.html" class="flex items-center gap-2 md:hidden">
+    <!-- TOP HEADER BAR (STRICT SINGLE ROW ON MOBILE) -->
+    <header class="sticky top-0 z-40 flex-shrink-0 bg-white/95 dark:bg-slate-800/95 backdrop-blur-md border-b border-slate-200 dark:border-slate-700/80 px-4 py-3 sm:px-6 md:px-8 shadow-sm flex items-center justify-between gap-2 transition-colors">
+      <!-- Left: Logo & Title -->
+      <div class="flex items-center gap-2 sm:gap-3 min-w-0">
+        <a href="../index.html" class="flex items-center gap-1.5 md:hidden flex-shrink-0">
           <div class="w-8 h-8 bg-green-600 text-white rounded-xl flex items-center justify-center font-extrabold text-base shadow-sm">
             <i class="fa-solid fa-basket-shopping"></i>
           </div>
-          <span class="font-extrabold text-base text-slate-900 dark:text-white">Fresh<span class="text-green-600 dark:text-green-500">User</span></span>
+          <span class="font-extrabold text-sm sm:text-base text-slate-900 dark:text-white">Fresh<span class="text-green-600 dark:text-green-500">User</span></span>
         </a>
-
-        <div>
-          <div class="flex items-center gap-2.5">
-            <h1 id="topbar-title" class="text-lg md:text-xl font-extrabold text-slate-900 dark:text-white">Welcome back, Sarah! 👋</h1>
-            <span class="bg-green-100 text-green-700 dark:bg-green-950/70 dark:text-green-300 text-[10px] font-extrabold px-2.5 py-0.5 rounded-full uppercase tracking-wider hidden sm:inline-block border border-green-200 dark:border-green-800">VIP Member</span>
-          </div>
-          <p id="topbar-subtitle" class="text-xs text-slate-500 dark:text-slate-400 hidden sm:block">Track your fresh grocery deliveries, rewards, and 1-click reorders.</p>
-        </div>
       </div>
 
-      <div class="flex items-center gap-3">
-        <a href="../pages/shop.html" class="btn-primary text-xs px-4 py-2.5 font-bold shadow-md flex items-center gap-2">
-          <i class="fa-solid fa-store"></i> <span class="hidden sm:inline">Shop Store</span>
+      <!-- Right: Action Controls & Mobile Hamburger -->
+      <div class="flex items-center gap-1.5 sm:gap-3 flex-shrink-0">
+        <a href="../pages/shop.html" class="w-9 h-9 sm:w-auto sm:px-4 sm:py-2.5 bg-green-600 hover:bg-green-700 text-white rounded-xl font-bold text-xs shadow-md shadow-green-600/20 flex items-center justify-center gap-2 transition-all">
+          <i class="fa-solid fa-store text-sm sm:text-xs"></i> <span class="hidden sm:inline">Shop Store</span>
         </a>
         <button type="button" onclick="event.preventDefault(); event.stopPropagation(); event.stopImmediatePropagation(); if(window.themeController) window.themeController.toggleRTL(); return false;" class="rtl-toggle-btn w-9 h-9 flex items-center justify-center bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-slate-200 border border-slate-200 dark:border-slate-600 rounded-xl hover:bg-slate-200 dark:hover:bg-slate-600 transition-colors" title="Toggle RTL/LTR" aria-label="Toggle RTL/LTR">
-          <i class="fa-solid fa-globe text-base"></i>
+          <i class="fa-solid fa-globe text-sm"></i>
         </button>
         <button type="button" onclick="event.preventDefault(); event.stopPropagation(); event.stopImmediatePropagation(); if(window.themeController) window.themeController.toggleDarkMode(); return false;" class="theme-toggle-btn w-9 h-9 flex items-center justify-center bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-slate-200 border border-slate-200 dark:border-slate-600 rounded-xl hover:bg-slate-200 dark:hover:bg-slate-600 transition-colors" title="Toggle Light/Dark Theme" aria-label="Toggle Light/Dark Theme">
-          <i class="fa-solid fa-moon text-base"></i>
+          <i class="fa-solid fa-moon text-sm"></i>
+        </button>
+        <button type="button" onclick="toggleUserSidebar()" class="md:hidden w-9 h-9 flex-shrink-0 flex items-center justify-center bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-slate-200 border border-slate-200 dark:border-slate-600 rounded-xl hover:bg-slate-200 dark:hover:bg-slate-600 transition-colors" title="Toggle Sidebar Navigation">
+          <i class="fa-solid fa-bars text-sm"></i>
         </button>
       </div>
     </header>
@@ -122,7 +136,16 @@
     <!-- SECTION 1: DASHBOARD OVERVIEW -->
     <div id="section-dashboard" class="user-section space-y-8">
       
-      <!-- LIVE ORDER DELIVERY TRACKER BANNER -->
+      <!-- DASHBOARD PAGE HEADER -->
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+        <div>
+          <div class="flex items-center gap-3">
+            <h1 class="text-2xl font-extrabold text-slate-900 dark:text-white">User Dashboard</h1>
+            <span class="bg-green-100 text-green-700 dark:bg-green-950/70 dark:text-green-300 text-xs font-extrabold px-3 py-1 rounded-full uppercase tracking-wider border border-green-200 dark:border-green-800">VIP Member</span>
+          </div>
+          <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">Welcome back, Sarah! 👋 Track your fresh grocery deliveries, rewards, and 1-click reorders.</p>
+        </div>
+      </div>
       <div class="bg-gradient-to-r from-green-600 to-emerald-700 text-white rounded-3xl p-6 shadow-xl flex flex-col md:flex-row md:items-center justify-between gap-6 relative overflow-hidden">
         <div class="absolute right-0 top-0 bottom-0 opacity-10 pointer-events-none text-9xl flex items-center">
           <i class="fa-solid fa-truck-fast"></i>
@@ -281,7 +304,7 @@
                   <span class="text-[10px] text-slate-500">1 Gallon • $4.49</span>
                 </div>
               </div>
-              <button onclick="quickAddCart('Whole Organic Milk', 4.49, this)" class="w-8 h-8 rounded-xl bg-green-600 text-white flex items-center justify-center text-xs hover:bg-green-700 shadow-sm transition-transform active:scale-95" title="Add Whole Organic Milk to Cart">
+              <button onclick="quickAddCart('Whole Organic Milk', 4.49, this, 'https://images.unsplash.com/photo-1550583724-b2692b85b150?auto=format&fit=crop&w=600&q=80', '1 Gallon', 'prod-6')" class="w-8 h-8 rounded-xl bg-green-600 text-white flex items-center justify-center text-xs hover:bg-green-700 shadow-sm transition-transform active:scale-95" title="Add Whole Organic Milk to Cart">
                 <i class="fa-solid fa-plus"></i>
               </button>
             </div>
@@ -294,20 +317,20 @@
                   <span class="text-[10px] text-slate-500">1 Bunch (approx 3 lbs) • $2.99</span>
                 </div>
               </div>
-              <button onclick="quickAddCart('Organic Bananas', 2.99, this)" class="w-8 h-8 rounded-xl bg-green-600 text-white flex items-center justify-center text-xs hover:bg-green-700 shadow-sm transition-transform active:scale-95" title="Add Organic Bananas to Cart">
+              <button onclick="quickAddCart('Organic Bananas', 2.99, this, 'https://images.unsplash.com/photo-1571771894821-ce9b6c11b08e?auto=format&fit=crop&w=600&q=80', '1 Bunch', 'prod-1')" class="w-8 h-8 rounded-xl bg-green-600 text-white flex items-center justify-center text-xs hover:bg-green-700 shadow-sm transition-transform active:scale-95" title="Add Organic Bananas to Cart">
                 <i class="fa-solid fa-plus"></i>
               </button>
             </div>
 
             <div class="flex items-center justify-between p-3 rounded-2xl bg-slate-50 dark:bg-slate-900/60 border border-slate-200/80 dark:border-slate-700/60">
               <div class="flex items-center gap-3">
-                <img src="https://images.unsplash.com/photo-1518492104633-130d0cc84637?auto=format&fit=crop&w=100&q=80" alt="Avocados" class="w-10 h-10 rounded-xl object-cover" />
+                <img src="https://images.unsplash.com/photo-1523049673857-eb18f1d7b578?auto=format&fit=crop&w=100&q=80" alt="Avocados" class="w-10 h-10 rounded-xl object-cover" />
                 <div>
                   <h4 class="font-bold text-xs text-slate-900 dark:text-white">Hass Avocados</h4>
                   <span class="text-[10px] text-slate-500">4 Count Bag • $5.20</span>
                 </div>
               </div>
-              <button onclick="quickAddCart('Hass Avocados', 5.20, this)" class="w-8 h-8 rounded-xl bg-green-600 text-white flex items-center justify-center text-xs hover:bg-green-700 shadow-sm transition-transform active:scale-95" title="Add Hass Avocados to Cart">
+              <button onclick="quickAddCart('Hass Avocados', 5.20, this, 'https://images.unsplash.com/photo-1523049673857-eb18f1d7b578?auto=format&fit=crop&w=600&q=80', '4 Count Bag', 'prod-5')" class="w-8 h-8 rounded-xl bg-green-600 text-white flex items-center justify-center text-xs hover:bg-green-700 shadow-sm transition-transform active:scale-95" title="Add Hass Avocados to Cart">
                 <i class="fa-solid fa-plus"></i>
               </button>
             </div>
@@ -454,7 +477,7 @@
           <h2 class="text-xl font-extrabold text-slate-900 dark:text-white">Wishlist & Saved Favorites</h2>
           <p class="text-xs text-slate-500">Your favorite items saved for easy reordering.</p>
         </div>
-        <a href="../pages/wishlist.html" class="text-xs font-bold text-green-600 hover:underline">View Full Wishlist Page →</a>
+
       </div>
 
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -466,18 +489,18 @@
             <p class="text-xs text-slate-500">1 lb Container • In Stock</p>
             <div class="text-base font-extrabold text-green-600">$4.99</div>
           </div>
-          <button onclick="addToCartFromWishlist('Fresh Organic Strawberries', 4.99, this)" class="w-full py-2.5 bg-green-600 text-white rounded-xl text-xs font-bold hover:bg-green-700 transition-colors shadow-sm">Add to Cart</button>
+          <button onclick="addToCartFromWishlist('Fresh Organic Strawberries', 4.99, this, 'https://images.unsplash.com/photo-1464965911861-746a04b4bca6?auto=format&fit=crop&w=400&q=80', '1 lb Container', 'prod-wish-1')" class="w-full py-2.5 bg-green-600 text-white rounded-xl text-xs font-bold hover:bg-green-700 transition-colors shadow-sm">Add to Cart</button>
         </div>
 
         <!-- Item 2 -->
         <div class="bg-white dark:bg-slate-800 rounded-3xl border border-slate-200 dark:border-slate-700 p-5 shadow-sm space-y-4">
-          <img src="https://images.unsplash.com/photo-1603048588665-791ca8aea617?auto=format&fit=crop&w=400&q=80" alt="Ribeye Steak" class="w-full h-36 rounded-2xl object-cover" />
+          <img src="https://images.unsplash.com/photo-1558030006-450675393462?auto=format&fit=crop&w=400&q=80" alt="Ribeye Steak" class="w-full h-36 rounded-2xl object-cover" />
           <div class="space-y-1">
             <h4 class="font-extrabold text-sm text-slate-900 dark:text-white">Grass-Fed Ribeye Steak</h4>
             <p class="text-xs text-slate-500">12 oz Cut • Organic</p>
             <div class="text-base font-extrabold text-green-600">$14.99</div>
           </div>
-          <button onclick="addToCartFromWishlist('Grass-Fed Ribeye Steak', 14.99, this)" class="w-full py-2.5 bg-green-600 text-white rounded-xl text-xs font-bold hover:bg-green-700 transition-colors shadow-sm">Add to Cart</button>
+          <button onclick="addToCartFromWishlist('Grass-Fed Ribeye Steak', 14.99, this, 'https://images.unsplash.com/photo-1558030006-450675393462?auto=format&fit=crop&w=400&q=80', '12 oz Cut', 'prod-wish-2')" class="w-full py-2.5 bg-green-600 text-white rounded-xl text-xs font-bold hover:bg-green-700 transition-colors shadow-sm">Add to Cart</button>
         </div>
 
         <!-- Item 3 -->
@@ -488,7 +511,7 @@
             <p class="text-xs text-slate-500">32 oz Bottle</p>
             <div class="text-base font-extrabold text-green-600">$6.49</div>
           </div>
-          <button onclick="addToCartFromWishlist('Cold Brew Organic Coffee', 6.49, this)" class="w-full py-2.5 bg-green-600 text-white rounded-xl text-xs font-bold hover:bg-green-700 transition-colors shadow-sm">Add to Cart</button>
+          <button onclick="addToCartFromWishlist('Cold Brew Organic Coffee', 6.49, this, 'https://images.unsplash.com/photo-1517701604599-bb29b565090c?auto=format&fit=crop&w=400&q=80', '32 oz Bottle', 'prod-wish-3')" class="w-full py-2.5 bg-green-600 text-white rounded-xl text-xs font-bold hover:bg-green-700 transition-colors shadow-sm">Add to Cart</button>
         </div>
       </div>
     </div>
@@ -816,7 +839,10 @@
   <!-- TOAST NOTIFICATION CONTAINER -->
   <div id="toast-container" class="fixed bottom-5 right-5 z-50 flex flex-col gap-2 pointer-events-none"></div>
 
+  <script src="../assets/js/data/products.js"></script>
   <script src="../assets/js/theme.js"></script>
+  <script src="../assets/js/cart.js"></script>
+  <script src="../assets/js/wishlist.js"></script>
   <script>
     let currentWalletBalance = 85.00;
     let selectedTopupAmt = 50;
@@ -883,12 +909,7 @@
         document.getElementById('section-dashboard').classList.remove('hidden');
       }
 
-      // Update top bar text dynamically
-      const info = sectionTitles[sectionId] || sectionTitles['dashboard'];
-      const titleEl = document.getElementById('topbar-title');
-      const subTitleEl = document.getElementById('topbar-subtitle');
-      if (titleEl) titleEl.textContent = info.title;
-      if (subTitleEl) subTitleEl.textContent = info.subtitle;
+
 
       const activeClass = 'user-nav-link flex items-center gap-3 px-4 py-3 rounded-xl bg-green-600 text-white shadow-md shadow-green-600/20';
       const inactiveClass = 'user-nav-link flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-slate-100 hover:text-slate-900 dark:hover:bg-slate-800 dark:hover:text-white transition-colors';
@@ -901,7 +922,30 @@
       if (activeLink) {
         activeLink.className = activeClass;
       }
+
+      // Close mobile drawer on navigation selection
+      const sidebar = document.getElementById('user-sidebar');
+      const overlay = document.getElementById('user-sidebar-overlay');
+      if (sidebar && overlay && window.innerWidth < 768) {
+        sidebar.classList.add('translate-x-full');
+        overlay.classList.add('hidden');
+      }
     }
+
+    window.toggleUserSidebar = function() {
+      const sidebar = document.getElementById('user-sidebar');
+      const overlay = document.getElementById('user-sidebar-overlay');
+      if (sidebar && overlay) {
+        const isHidden = sidebar.classList.contains('translate-x-full') || sidebar.classList.contains('-translate-x-full');
+        if (isHidden) {
+          sidebar.classList.remove('translate-x-full', '-translate-x-full');
+          overlay.classList.remove('hidden');
+        } else {
+          sidebar.classList.add('translate-x-full');
+          overlay.classList.add('hidden');
+        }
+      }
+    };
 
     // BUTTON HANDLERS
     function redeemCoupon(code) {
@@ -912,6 +956,16 @@
     }
 
     function reorderItems(orderId, btn) {
+      if (window.cartManager) {
+        if (window.productsData && window.productsData.length >= 3) {
+          window.cartManager.addItem(window.productsData[0], 2);
+          window.cartManager.addItem(window.productsData[1], 1);
+          window.cartManager.addItem(window.productsData[2], 1);
+        } else {
+          window.cartManager.addItem({ id: 'prod-6', name: 'Fresh Whole Milk 1 Gallon', price: 3.89, image: 'https://images.unsplash.com/photo-1550583724-b2692b85b150?auto=format&fit=crop&w=600&q=80', weight: '1 Gallon' }, 1);
+          window.cartManager.addItem({ id: 'prod-1', name: 'Organic Cavendish Bananas', price: 1.99, image: 'https://images.unsplash.com/photo-1571771894821-ce9b6c11b08e?auto=format&fit=crop&w=600&q=80', weight: '1 bunch' }, 1);
+        }
+      }
       if (btn) {
         const origText = btn.innerHTML;
         btn.innerHTML = `<i class="fa-solid fa-check"></i> Added!`;
@@ -921,7 +975,21 @@
       showToast(`Items from Order #${orderId} added to your cart for 1-click checkout.`, 'fa-basket-shopping');
     }
 
-    function quickAddCart(itemName, price, btn) {
+    function quickAddCart(itemName, price, btn, image, weight, id) {
+      if (window.cartManager) {
+        const found = window.productsData ? window.productsData.find(p => p.name.toLowerCase().includes(itemName.toLowerCase())) : null;
+        if (found) {
+          window.cartManager.addItem(found, 1);
+        } else {
+          window.cartManager.addItem({
+            id: id || ('prod-quick-' + Date.now()),
+            name: itemName,
+            price: parseFloat(price),
+            image: image || 'https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&w=600&q=80',
+            weight: weight || ''
+          }, 1);
+        }
+      }
       if (btn) {
         btn.innerHTML = `<i class="fa-solid fa-check"></i>`;
         btn.classList.replace('bg-green-600', 'bg-emerald-700');
@@ -930,7 +998,7 @@
           btn.classList.replace('bg-emerald-700', 'bg-green-600');
         }, 1800);
       }
-      showToast(`Added ${itemName} ($${price.toFixed(2)}) to your cart!`, 'fa-cart-plus');
+      showToast(`Added ${itemName} ($${parseFloat(price).toFixed(2)}) to your cart!`, 'fa-cart-plus');
     }
 
     function filterOrderList(status, btn) {
@@ -955,6 +1023,18 @@
     }
 
     function addListToCart(listName, total, count, btn) {
+      if (window.cartManager) {
+        if (listName.includes('Organic Produce')) {
+          window.cartManager.addItem({ id: 'prod-3', name: 'Baby Spinach Leaves', price: 2.99, image: 'https://images.unsplash.com/photo-1576045057995-568f588f82fb?auto=format&fit=crop&w=600&q=80', weight: '8 oz tub' }, 1);
+          window.cartManager.addItem({ id: 'prod-4', name: 'Vine-Ripe Tomatoes', price: 2.49, image: 'https://images.unsplash.com/photo-1592924357228-91a4daadcfea?auto=format&fit=crop&w=600&q=80', weight: '1 lb' }, 1);
+          window.cartManager.addItem({ id: 'prod-17', name: 'Extra Virgin Olive Oil', price: 9.99, image: 'https://images.unsplash.com/photo-1474979266404-7eaacbcd87c5?auto=format&fit=crop&w=600&q=80', weight: '500ml' }, 1);
+        } else {
+          window.cartManager.addItem({ id: 'prod-6', name: 'Fresh Whole Milk 1 Gallon', price: 3.89, image: 'https://images.unsplash.com/photo-1550583724-b2692b85b150?auto=format&fit=crop&w=600&q=80', weight: '1 Gallon' }, 1);
+          window.cartManager.addItem({ id: 'prod-1', name: 'Organic Cavendish Bananas', price: 1.99, image: 'https://images.unsplash.com/photo-1571771894821-ce9b6c11b08e?auto=format&fit=crop&w=600&q=80', weight: '1 bunch' }, 1);
+          window.cartManager.addItem({ id: 'prod-7', name: 'Large Grade A Brown Eggs', price: 4.29, image: 'https://images.unsplash.com/photo-1516467508483-a7212febe31a?auto=format&fit=crop&w=600&q=80', weight: '12 count' }, 1);
+          window.cartManager.addItem({ id: 'prod-14', name: 'Artisanal Sourdough Bread', price: 4.49, image: 'https://images.unsplash.com/photo-1586444248902-2f64eddc13df?auto=format&fit=crop&w=600&q=80', weight: '24 oz loaf' }, 1);
+        }
+      }
       if (btn) {
         const orig = btn.innerText;
         btn.innerText = `Added ${count} Items to Cart! ✓`;
@@ -967,7 +1047,21 @@
       showToast(`Added all ${count} items from '${listName}' ($${total.toFixed(2)}) to cart!`, 'fa-basket-shopping');
     }
 
-    function addToCartFromWishlist(itemName, price, btn) {
+    function addToCartFromWishlist(itemName, price, btn, image, weight, id) {
+      if (window.cartManager) {
+        const found = window.productsData ? window.productsData.find(p => p.name.toLowerCase().includes(itemName.toLowerCase())) : null;
+        if (found) {
+          window.cartManager.addItem(found, 1);
+        } else {
+          window.cartManager.addItem({
+            id: id || ('prod-wish-' + Date.now()),
+            name: itemName,
+            price: parseFloat(price),
+            image: image || 'https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&w=600&q=80',
+            weight: weight || ''
+          }, 1);
+        }
+      }
       if (btn) {
         btn.innerText = 'In Cart ✓';
         btn.classList.replace('bg-green-600', 'bg-emerald-700');
@@ -976,7 +1070,7 @@
           btn.classList.replace('bg-emerald-700', 'bg-green-600');
         }, 2000);
       }
-      showToast(`Moved '${itemName}' ($${price.toFixed(2)}) to cart!`, 'fa-heart');
+      showToast(`Moved '${itemName}' ($${parseFloat(price).toFixed(2)}) to cart!`, 'fa-heart');
     }
 
     // TOPUP MODAL

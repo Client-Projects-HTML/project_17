@@ -4,6 +4,9 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Account Sign In — FreshBasket Supermarket</title>
+  <link rel="icon" type="image/svg+xml" href="../assets/images/favicon.svg" />
+  <link rel="shortcut icon" href="../favicon.svg" />
+  <link rel="apple-touch-icon" href="../assets/images/favicon.svg" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
@@ -36,19 +39,19 @@
   <main class="max-w-md mx-auto w-full px-4 py-4 sm:py-6">
     <div class="bg-white dark:bg-slate-800 rounded-3xl border border-slate-200 dark:border-slate-700 p-6 sm:p-7 shadow-xl space-y-5">
       
-      <!-- Role Tab Switcher -->
-      <div class="flex rounded-2xl bg-slate-100 dark:bg-slate-900 p-1 border border-slate-200 dark:border-slate-700">
-        <button id="tab-user" type="button" onclick="switchLoginTab('user')" class="flex-1 py-2.5 text-xs font-bold rounded-xl transition-all bg-green-600 text-white shadow-md flex items-center justify-center gap-1.5">
-          <i class="fa-solid fa-user"></i> User Login
-        </button>
-        <button id="tab-admin" type="button" onclick="switchLoginTab('admin')" class="flex-1 py-2.5 text-xs font-bold rounded-xl transition-all text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white flex items-center justify-center gap-1.5">
-          <i class="fa-solid fa-user-gear"></i> Admin Login
-        </button>
+      <div class="text-center space-y-1">
+        <h1 id="login-heading" class="text-2xl font-extrabold text-slate-900 dark:text-white">User Login</h1>
+        <p id="login-subheading" class="text-xs text-slate-500 dark:text-slate-400">Login to access your saved grocery lists, orders, and VIP member perks.</p>
       </div>
 
-      <div class="text-center space-y-1">
-        <h1 id="login-heading" class="text-2xl font-extrabold text-slate-900 dark:text-white">User Sign In</h1>
-        <p id="login-subheading" class="text-xs text-slate-500 dark:text-slate-400">Sign in to access your saved grocery lists, orders, and VIP member perks.</p>
+      <!-- User Account & Admin Staff Role Tabs -->
+      <div class="flex rounded-2xl bg-slate-100 dark:bg-slate-900 p-1 border border-slate-200 dark:border-slate-700">
+        <button id="tab-user" type="button" onclick="switchLoginTab('user')" class="flex-1 py-3 text-xs font-bold rounded-xl transition-all bg-green-600 text-white shadow-md flex items-center justify-center gap-2">
+          <i class="fa-solid fa-user"></i> User Account
+        </button>
+        <button id="tab-admin" type="button" onclick="switchLoginTab('admin')" class="flex-1 py-3 text-xs font-bold rounded-xl transition-all text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white flex items-center justify-center gap-2">
+          <i class="fa-solid fa-user-gear"></i> Admin Staff
+        </button>
       </div>
 
       <form id="login-form" class="space-y-4" onsubmit="handleLoginSubmit(event)">
@@ -75,7 +78,7 @@
         </div>
 
         <button id="login-submit-btn" type="submit" class="btn-primary w-full py-3.5 text-sm font-bold shadow-lg shadow-green-600/30">
-          Sign In to Dashboard
+          Login to Dashboard
         </button>
       </form>
 
@@ -109,18 +112,18 @@
       if (role === 'admin') {
         adminBtn.className = 'flex-1 py-2.5 text-xs font-bold rounded-xl transition-all bg-amber-500 text-slate-950 shadow-md flex items-center justify-center gap-1.5';
         userBtn.className = 'flex-1 py-2.5 text-xs font-bold rounded-xl transition-all text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white flex items-center justify-center gap-1.5';
-        heading.textContent = 'Admin Portal Sign In';
-        subheading.textContent = 'Sign in to access inventory, orders, customer management, and analytics.';
+        heading.textContent = 'Admin Portal Login';
+        subheading.textContent = 'Login to access inventory, orders, customer management, and analytics.';
         emailInput.value = 'admin@freshbasket.com';
-        submitBtn.textContent = 'Sign In to Admin Portal';
+        submitBtn.textContent = 'Login to Admin Portal';
         submitBtn.className = 'btn-accent w-full py-3.5 text-sm font-bold shadow-lg shadow-amber-500/20';
       } else {
         userBtn.className = 'flex-1 py-2.5 text-xs font-bold rounded-xl transition-all bg-green-600 text-white shadow-md flex items-center justify-center gap-1.5';
         adminBtn.className = 'flex-1 py-2.5 text-xs font-bold rounded-xl transition-all text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white flex items-center justify-center gap-1.5';
-        heading.textContent = 'User Sign In';
-        subheading.textContent = 'Sign in to access your saved grocery lists, orders, and VIP member perks.';
+        heading.textContent = 'User Login';
+        subheading.textContent = 'Login to access your saved grocery lists, orders, and VIP member perks.';
         emailInput.value = 'customer@freshbasket.com';
-        submitBtn.textContent = 'Sign In to Dashboard';
+        submitBtn.textContent = 'Login to Dashboard';
         submitBtn.className = 'btn-primary w-full py-3.5 text-sm font-bold shadow-lg shadow-green-600/30';
       }
     }

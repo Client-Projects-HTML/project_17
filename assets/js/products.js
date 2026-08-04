@@ -17,8 +17,9 @@ class ProductCatalogController {
   }
 
   init() {
-    this.bindEvents();
     this.parseURLParams();
+    this.bindEvents();
+    this.syncUIWithFilters();
     this.renderCatalog();
   }
 
@@ -35,6 +36,32 @@ class ProductCatalogController {
     }
   }
 
+  syncUIWithFilters() {
+    // Sync Category Radio
+    const catRadios = document.querySelectorAll('input[name="cat-filter"]');
+    catRadios.forEach(radio => {
+      const val = radio.value;
+      if (val === this.currentCategory || (radio.getAttribute('onclick') && radio.getAttribute('onclick').includes(`'${this.currentCategory}'`))) {
+        radio.checked = true;
+      } else {
+        radio.checked = false;
+      }
+    });
+
+    // Sync Price Range
+    const priceRange = document.getElementById('filter-price-range');
+    const priceVal = document.getElementById('filter-price-val');
+    if (priceRange) priceRange.value = this.currentMaxPrice;
+    if (priceVal) priceVal.innerText = `$${this.currentMaxPrice}`;
+
+    // Sync Dietary Checkboxes
+    const dietaryInputs = document.querySelectorAll('input[data-dietary]');
+    dietaryInputs.forEach(input => {
+      const val = input.getAttribute('data-dietary');
+      input.checked = this.selectedDietary.includes(val);
+    });
+  }
+
   renderProductCard(p) {
     const isFav = window.wishlistManager ? window.wishlistManager.hasItem(p.id) : false;
     const safeName = (p.name || '').replace(/"/g, '&quot;');
@@ -42,7 +69,7 @@ class ProductCatalogController {
     
     if (this.viewMode === 'list') {
       return `
-        <div class="product-card flex flex-col sm:flex-row items-center p-4 gap-6 cursor-pointer" onclick="if(!event.target.closest('.add-to-cart-btn') && !event.target.closest('.wishlist-toggle-btn')) window.location.href='product.html?id=${p.id}'">
+        <div class="product-card flex flex-col sm:flex-row items-center p-4 gap-6 cursor-pointer bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 shadow-sm hover:border-green-500 transition-all" onclick="if(!event.target.closest('.add-to-cart-btn') && !event.target.closest('.wishlist-toggle-btn')) window.location.href='product.html?id=${p.id}'">
           <div class="product-img-wrapper w-full sm:w-48 h-48 rounded-xl flex-shrink-0 relative overflow-hidden">
             <a href="product.html?id=${p.id}" class="block w-full h-full">
               <img src="${p.image}" alt="${safeName}" loading="lazy" onerror="this.onerror=null; this.src='${fallbackImg}';" class="w-full h-full object-cover" />
@@ -70,7 +97,7 @@ class ProductCatalogController {
                 ${p.originalPrice ? `<span class="text-sm text-slate-400 line-through ml-2">$${p.originalPrice.toFixed(2)}</span>` : ''}
               </div>
               <div class="flex items-center gap-2">
-                <button data-product-id="${p.id}" class="wishlist-toggle-btn w-10 h-10 border border-slate-200 dark:border-slate-700 rounded-xl flex items-center justify-center hover:bg-slate-100 dark:hover:bg-slate-800">
+                <button data-product-id="${p.id}" class="wishlist-toggle-btn w-10 h-10 border border-slate-200 dark:border-slate-700 rounded-xl flex items-center justify-center hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors">
                   <i class="${isFav ? 'fa-solid fa-heart text-red-500' : 'fa-regular fa-heart text-slate-600 dark:text-slate-400'}"></i>
                 </button>
                 <button class="add-to-cart-btn btn-primary" data-product-id="${p.id}">
@@ -84,11 +111,11 @@ class ProductCatalogController {
     }
 
     return `
-      <div class="product-card flex flex-col justify-between cursor-pointer" onclick="if(!event.target.closest('.add-to-cart-btn') && !event.target.closest('.wishlist-toggle-btn')) window.location.href='product.html?id=${p.id}'">
+      <div class="product-card flex flex-col justify-between cursor-pointer bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 shadow-sm hover:border-green-500 transition-all overflow-hidden" onclick="if(!event.target.closest('.add-to-cart-btn') && !event.target.closest('.wishlist-toggle-btn')) window.location.href='product.html?id=${p.id}'">
         <div>
-          <div class="product-img-wrapper cursor-pointer">
-            <a href="product.html?id=${p.id}" class="block w-full h-full">
-              <img src="${p.image}" alt="${safeName}" loading="lazy" onerror="this.onerror=null; this.src='${fallbackImg}';" />
+          <div class="product-img-wrapper cursor-pointer relative">
+            <a href="product.html?id=${p.id}" class="block w-full h-48 overflow-hidden">
+              <img src="${p.image}" alt="${safeName}" loading="lazy" onerror="this.onerror=null; this.src='${fallbackImg}';" class="w-full h-full object-cover" />
             </a>
             ${p.discount ? `<span class="absolute top-3 left-3 badge-discount">-${p.discount}% OFF</span>` : ''}
             <button data-product-id="${p.id}" class="wishlist-toggle-btn absolute top-3 right-3 w-9 h-9 bg-white/90 dark:bg-slate-900/90 rounded-full flex items-center justify-center shadow-md hover:scale-110 transition-transform">
@@ -128,28 +155,61 @@ class ProductCatalogController {
     if (!window.productsData) return [];
     let list = [...window.productsData];
 
-    // Category filter
-    if (this.currentCategory !== 'all') {
+    // Category filter - STRICT MATCHING
+    if (this.currentCategory && this.currentCategory !== 'all') {
       if (this.currentCategory === 'deals') {
         list = list.filter(p => p.isWeeklyDeal);
       } else {
-        const cat = this.currentCategory.toLowerCase();
-        list = list.filter(p => 
-          (p.categoryId && p.categoryId.toLowerCase() === cat) ||
-          (p.category && p.category.toLowerCase() === cat) ||
-          (p.category && p.category.toLowerCase().replace(/[^a-z0-9]/g, '-').includes(cat)) ||
-          (cat.includes('fruit') && (p.categoryId === 'fruits-veggies' || (p.category && p.category.includes('Fruit')))) ||
-          (cat.includes('dairy') && (p.categoryId === 'dairy-eggs' || (p.category && p.category.includes('Dairy')))) ||
-          (cat.includes('meat') && (p.categoryId === 'meat-seafood' || (p.category && p.category.includes('Meat')))) ||
-          (cat.includes('baker') && (p.categoryId === 'bakery' || (p.category && p.category.includes('Bakery'))))
-        );
+        const targetCat = this.currentCategory.toLowerCase().trim();
+        list = list.filter(p => {
+          const pCatId = (p.categoryId || '').toLowerCase().trim();
+          const pCat = (p.category || '').toLowerCase().trim();
+
+          // Direct categoryId / category match
+          if (pCatId === targetCat || pCat === targetCat) return true;
+
+          // Fruits & Vegetables
+          if (targetCat === 'fruits-veggies' || targetCat === 'fruits' || targetCat === 'vegetables' || targetCat === 'produce') {
+            return pCatId === 'fruits-veggies' || pCat.includes('fruit') || pCat.includes('vegetable');
+          }
+          // Dairy & Eggs
+          if (targetCat === 'dairy-eggs' || targetCat === 'dairy' || targetCat === 'eggs') {
+            return pCatId === 'dairy-eggs' || pCat.includes('dairy') || pCat.includes('egg');
+          }
+          // Meat & Seafood
+          if (targetCat === 'meat-seafood' || targetCat === 'meat' || targetCat === 'seafood') {
+            return pCatId === 'meat-seafood' || pCat.includes('meat') || pCat.includes('seafood') || pCat.includes('fish');
+          }
+          // Bakery
+          if (targetCat === 'bakery' || targetCat === 'bread') {
+            return pCatId === 'bakery' || pCat.includes('bakery') || pCat.includes('bread');
+          }
+          // Pantry Staples
+          if (targetCat === 'pantry' || targetCat === 'pantry-staples' || targetCat === 'groceries' || targetCat === 'oil' || targetCat === 'honey') {
+            return pCatId === 'pantry' || pCat.includes('pantry') || pCat.includes('staple');
+          }
+          // Beverages
+          if (targetCat === 'beverages' || targetCat === 'drinks') {
+            return pCatId === 'beverages' || pCat.includes('beverage') || pCat.includes('drink');
+          }
+          // Snacks & Sweets
+          if (targetCat === 'snacks' || targetCat === 'sweets') {
+            return pCatId === 'snacks' || pCat.includes('snack') || pCat.includes('sweet');
+          }
+          // Frozen Foods
+          if (targetCat === 'frozen') {
+            return pCatId === 'frozen' || pCat.includes('frozen');
+          }
+
+          return pCat.replace(/[^a-z0-9]/g, '-').includes(targetCat);
+        });
       }
     }
 
     // Search query filter
     if (this.currentSearch) {
       const q = this.currentSearch.toLowerCase();
-      list = list.filter(p => p.name.toLowerCase().includes(q) || p.brand.toLowerCase().includes(q) || p.category.toLowerCase().includes(q));
+      list = list.filter(p => (p.name || '').toLowerCase().includes(q) || (p.brand || '').toLowerCase().includes(q) || (p.category || '').toLowerCase().includes(q));
     }
 
     // Max price filter
@@ -158,13 +218,34 @@ class ProductCatalogController {
     }
 
     // Brand filter
-    if (this.selectedBrands.length > 0) {
+    if (this.selectedBrands && this.selectedBrands.length > 0) {
       list = list.filter(p => this.selectedBrands.includes(p.brand));
     }
 
     // Dietary filter
-    if (this.selectedDietary.length > 0) {
-      list = list.filter(p => p.dietary && p.dietary.some(d => this.selectedDietary.includes(d)));
+    if (this.selectedDietary && this.selectedDietary.length > 0) {
+      list = list.filter(p => {
+        const itemDiet = (p.dietary || []).map(d => d.toLowerCase());
+        const itemTags = (p.tags || []).map(t => t.toLowerCase());
+        const itemName = (p.name || '').toLowerCase();
+        
+        return this.selectedDietary.every(selectedKey => {
+          const key = selectedKey.toLowerCase();
+          if (key.includes('organic')) {
+            return itemDiet.some(d => d.includes('organic')) || itemTags.some(t => t.includes('organic')) || itemName.includes('organic');
+          }
+          if (key.includes('gluten')) {
+            return itemDiet.some(d => d.includes('gluten')) || itemTags.some(t => t.includes('gluten')) || itemName.includes('gluten');
+          }
+          if (key.includes('vegan')) {
+            return itemDiet.some(d => d.includes('vegan') || d.includes('plant')) || itemTags.some(t => t.includes('vegan')) || itemName.includes('vegan');
+          }
+          if (key.includes('keto')) {
+            return itemDiet.some(d => d.includes('keto')) || itemTags.some(t => t.includes('keto')) || itemName.includes('keto');
+          }
+          return itemDiet.some(d => d.includes(key)) || itemTags.some(t => t.includes(key));
+        });
+      });
     }
 
     // Sort order
@@ -175,10 +256,20 @@ class ProductCatalogController {
     } else if (this.currentSort === 'rating') {
       list.sort((a, b) => b.rating - a.rating);
     } else if (this.currentSort === 'newest') {
-      list.sort((a, b) => b.id.localeCompare(a.id));
+      list.sort((a, b) => (b.id || '').localeCompare(a.id || ''));
     }
 
     return list;
+  }
+
+  toggleDietary(key) {
+    const idx = this.selectedDietary.indexOf(key);
+    if (idx > -1) {
+      this.selectedDietary.splice(idx, 1);
+    } else {
+      this.selectedDietary.push(key);
+    }
+    this.renderCatalog();
   }
 
   renderCatalog() {
@@ -197,8 +288,8 @@ class ProductCatalogController {
             <i class="fa-solid fa-magnifying-glass"></i>
           </div>
           <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-1">No products match your filter</h3>
-          <p class="text-sm text-slate-500 dark:text-slate-400 mb-6">Try resetting your price range or adjusting selected category filters.</p>
-          <button onclick="productCatalog.resetFilters()" class="btn-secondary text-sm">Reset All Filters</button>
+          <p class="text-sm text-slate-500 dark:text-slate-400 mb-6">Try resetting your price range or adjusting selected category and dietary filters.</p>
+          <button onclick="productCatalog.resetFilters()" class="btn-secondary text-sm px-4 py-2 bg-slate-100 hover:bg-slate-200 dark:bg-slate-700 dark:hover:bg-slate-600 font-semibold rounded-xl transition-colors">Reset All Filters</button>
         </div>
       `;
       return;
@@ -214,15 +305,37 @@ class ProductCatalogController {
   resetFilters() {
     this.currentCategory = 'all';
     this.currentSearch = '';
-    this.currentMaxPrice = 20;
+    this.currentMaxPrice = 100;
     this.selectedBrands = [];
     this.selectedDietary = [];
     this.selectedRating = 0;
+    this.currentSort = 'popular';
     
+    // Reset Price Range Slider
     const priceRange = document.getElementById('filter-price-range');
-    if (priceRange) priceRange.value = 20;
+    if (priceRange) priceRange.value = 100;
     const priceVal = document.getElementById('filter-price-val');
-    if (priceVal) priceVal.innerText = '$20';
+    if (priceVal) priceVal.innerText = '$100';
+
+    // Reset Category Radio Buttons
+    const catRadios = document.querySelectorAll('input[name="cat-filter"]');
+    catRadios.forEach(radio => {
+      if (radio.value === 'all' || (radio.getAttribute('onclick') && radio.getAttribute('onclick').includes("'all'"))) {
+        radio.checked = true;
+      } else {
+        radio.checked = false;
+      }
+    });
+
+    // Reset Dietary Checkboxes
+    const dietaryInputs = document.querySelectorAll('input[data-dietary]');
+    dietaryInputs.forEach(input => {
+      input.checked = false;
+    });
+
+    // Reset Sort dropdown select
+    const sortSelect = document.getElementById('shop-sort-select');
+    if (sortSelect) sortSelect.value = 'popular';
 
     this.renderCatalog();
   }

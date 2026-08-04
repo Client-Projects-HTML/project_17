@@ -72,6 +72,7 @@ html.dark input::placeholder {
 
 html.dark .product-card,
 html.dark .category-card,
+html.dark .btn-secondary,
 html.dark .bg-white.shadow-sm,
 html.dark .bg-white.shadow-md {
   background-color: var(--surface) !important;
@@ -97,9 +98,10 @@ html.dark table tbody tr {
   border-bottom-color: var(--border) !important;
 }
 
-/* Global smooth theme transition */
-body, header, nav, main, footer, section, div, card, button, input, select, textarea, a, span {
-  transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+/* Smooth theme transition when toggled */
+html.theme-transitioning,
+html.theme-transitioning * {
+  transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease !important;
 }
 
 @media (prefers-reduced-motion: reduce) {

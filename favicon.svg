@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#22c55e" />
+      <stop offset="100%" stop-color="#15803d" />
+    </linearGradient>
+  </defs>
+  <!-- Background rounded rectangle -->
+  <rect width="512" height="512" rx="120" fill="url(#bgGrad)" />
+  <!-- Basket Handle -->
+  <path d="M170 210 C170 120, 342 120, 342 210" fill="none" stroke="#ffffff" stroke-width="34" stroke-linecap="round"/>
+  <!-- Basket Body -->
+  <path d="M105 210 L407 210 L372 405 C367 430, 346 448, 320 448 L192 448 C166 448, 145 430, 140 405 Z" fill="#ffffff" />
+  <!-- Basket Inner Shadow / Weave Detail -->
+  <path d="M155 270 L357 270 M170 330 L342 330 M185 390 L327 390" stroke="#16a34a" stroke-width="16" stroke-linecap="round" opacity="0.3"/>
+  <!-- Fresh Leaf Accent -->
+  <path d="M330 140 C330 90, 385 65, 425 75 C435 115, 410 170, 360 170 C330 170, 330 140, 330 140 Z" fill="#4ade80" />
+  <path d="M330 140 C360 125, 395 100, 425 75" stroke="#15803d" stroke-width="10" stroke-linecap="round" fill="none" opacity="0.6"/>
+</svg>

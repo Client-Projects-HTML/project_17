@@ -1,34 +1,27 @@
 /**
  * FreshBasket Master AdminLayout Helper
- * Shared helper utilities for the Admin Panel.
+ * Shared helper utilities for the Admin Panel layout.
  */
 
 class AdminLayout {
   static init() {
-    this.bindMobileToggle();
+    // Shared admin layout helpers
   }
 
   static toggleSidebar() {
-    const sidebar = document.querySelector('aside');
+    const sidebar = document.getElementById('admin-sidebar') || document.querySelector('aside');
+    const overlay = document.getElementById('admin-sidebar-overlay');
     if (!sidebar) return;
 
-    if (sidebar.classList.contains('hidden')) {
-      sidebar.classList.remove('hidden');
-      sidebar.classList.add('flex', 'z-50', 'bg-white', 'dark:bg-slate-900');
+    if (sidebar.classList.contains('translate-x-full') || sidebar.classList.contains('-translate-x-full')) {
+      sidebar.classList.remove('translate-x-full', '-translate-x-full');
+      sidebar.classList.add('translate-x-0');
+      if (overlay) overlay.classList.remove('hidden');
     } else {
-      sidebar.classList.add('hidden');
-      sidebar.classList.remove('z-50');
+      sidebar.classList.add('translate-x-full');
+      sidebar.classList.remove('translate-x-0');
+      if (overlay) overlay.classList.add('hidden');
     }
-  }
-
-  static bindMobileToggle() {
-    document.addEventListener('click', (e) => {
-      const btn = e.target.closest('#admin-mobile-toggle');
-      if (btn) {
-        e.preventDefault();
-        this.toggleSidebar();
-      }
-    });
   }
 }
 
