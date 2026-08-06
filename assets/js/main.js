@@ -98,21 +98,7 @@ class AppMain {
   }
 
   setupLoginDropdown() {
-    document.querySelectorAll('.login-dropdown-wrapper').forEach(wrapper => {
-      const trigger = wrapper.querySelector('a#nav-login-btn') || wrapper.querySelector('a');
-      const menu = wrapper.querySelector('div');
-      if (trigger && menu) {
-        trigger.addEventListener('click', (e) => {
-          // Allow normal navigation if clicking directly on link text or dropdown items
-          if (e.target.closest('a') && !e.target.closest('.fa-chevron-down')) {
-            return;
-          }
-          e.preventDefault();
-          e.stopPropagation();
-          menu.classList.toggle('hidden');
-        });
-      }
-    });
+    // Login dropdown removed - direct link to login page
   }
 
   setupAccountDropdown() {
@@ -129,12 +115,12 @@ class AppMain {
     });
 
     document.addEventListener('click', (e) => {
-      const btn = e.target.closest('#mobile-account-dropdown-trigger, #mobile-login-dropdown-trigger');
+      const btn = e.target.closest('#mobile-account-dropdown-trigger');
       if (btn) {
         e.preventDefault();
         e.stopPropagation();
-        const mobileMenu = document.getElementById('mobile-account-dropdown-menu') || document.getElementById('mobile-login-dropdown-menu');
-        const mobileChevron = document.getElementById('mobile-account-chevron') || document.getElementById('mobile-login-chevron');
+        const mobileMenu = document.getElementById('mobile-account-dropdown-menu');
+        const mobileChevron = document.getElementById('mobile-account-chevron');
         if (mobileMenu) {
           mobileMenu.classList.toggle('hidden');
         }
@@ -215,50 +201,7 @@ class AppMain {
     });
   }
 
-  setupLoginDropdown() {
-    // Desktop Login Dropdown
-    document.querySelectorAll('.login-dropdown-wrapper').forEach(wrapper => {
-      const trigger = wrapper.querySelector('#login-dropdown-trigger, .login-dropdown-trigger');
-      const menu = wrapper.querySelector('#login-dropdown-menu, .login-dropdown-menu');
 
-      if (trigger && menu) {
-        trigger.addEventListener('click', (e) => {
-          e.preventDefault();
-          e.stopPropagation();
-          menu.classList.toggle('hidden');
-        });
-
-        wrapper.addEventListener('mouseenter', () => {
-          menu.classList.remove('hidden');
-        });
-        wrapper.addEventListener('mouseleave', () => {
-          menu.classList.add('hidden');
-        });
-      }
-    });
-
-    document.addEventListener('click', (e) => {
-      if (!e.target.closest('.login-dropdown-wrapper')) {
-        document.querySelectorAll('.login-dropdown-menu').forEach(m => m.classList.add('hidden'));
-      }
-    });
-
-    // Mobile Navigation Drawer Login Accordion
-    const mobileTrigger = document.getElementById('mobile-login-dropdown-trigger');
-    const mobileMenu = document.getElementById('mobile-login-dropdown-menu');
-    const mobileChevron = document.getElementById('mobile-login-chevron');
-
-    if (mobileTrigger && mobileMenu) {
-      mobileTrigger.addEventListener('click', (e) => {
-        e.preventDefault();
-        e.stopPropagation();
-        mobileMenu.classList.toggle('hidden');
-        if (mobileChevron) {
-          mobileChevron.classList.toggle('rotate-180');
-        }
-      });
-    }
-  }
 
   setupMobileTouchFeedback() {
     // Enable active tap feedback state on mobile touch devices

@@ -158,40 +158,11 @@
 
             <!-- RIGHT ACTION CONTROLS (RIGHT) -->
             <div class="flex items-center justify-end gap-3 flex-1">
-              <!-- Highlighted Login Button with Dropdown (Moved Before RTL Button) -->
-              <div class="relative group login-dropdown-wrapper inline-flex items-center">
-                <a href="login.html" id="nav-login-btn" class="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-500 hover:to-emerald-500 text-white font-bold text-xs sm:text-sm rounded-xl shadow-md shadow-green-600/25 hover:shadow-lg hover:shadow-green-600/40 hover:-translate-y-0.5 active:translate-y-0 transition-all duration-200 group/btn">
-                  <i class="fa-solid fa-right-to-bracket text-xs group-hover/btn:scale-110 transition-transform"></i>
-                  <span>Login</span>
-                  <i class="fa-solid fa-chevron-down text-[10px] ml-0.5 opacity-80"></i>
-                </a>
-
-                <!-- Login Dropdown Menu -->
-                <div class="hidden group-hover:block absolute top-full right-0 w-60 mt-1 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-2xl shadow-xl z-50 p-2 space-y-1 text-slate-800 dark:text-slate-100">
-                  <a href="../user/index.html" class="flex items-center gap-3 p-2.5 rounded-xl hover:bg-green-50 dark:hover:bg-green-950/40 transition-colors group/item">
-                    <div class="w-8 h-8 rounded-lg bg-emerald-600 text-white flex items-center justify-center text-xs flex-shrink-0 shadow-sm">
-                      <i class="fa-solid fa-user"></i>
-                    </div>
-                    <div>
-                      <div class="font-bold text-xs">User Dashboard</div>
-                      <div class="text-[10px] text-slate-500 dark:text-slate-400 font-normal">Manage orders & profile</div>
-                    </div>
-                  </a>
-
-                  <a href="../admin/index.html" class="flex items-center gap-3 p-2.5 rounded-xl hover:bg-amber-50 dark:hover:bg-amber-950/30 transition-colors group/item">
-                    <div class="w-8 h-8 rounded-lg bg-amber-500 text-slate-950 flex items-center justify-center text-xs flex-shrink-0 shadow-sm">
-                      <i class="fa-solid fa-user-gear"></i>
-                    </div>
-                    <div>
-                      <div class="font-bold text-xs flex items-center gap-1">
-                        <span>Admin Dashboard</span>
-                        <span class="text-[8px] bg-amber-500/20 text-amber-600 px-1 py-0.2 rounded font-bold uppercase">Staff</span>
-                      </div>
-                      <div class="text-[10px] text-slate-500 dark:text-slate-400 font-normal">Inventory & analytics</div>
-                    </div>
-                  </a>
-                </div>
-              </div>
+              <!-- Highlighted Login Button (Moved Before RTL Button) -->
+              <a href="login.html" id="nav-login-btn" class="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-500 hover:to-emerald-500 text-white font-bold text-xs sm:text-sm rounded-xl shadow-md shadow-green-600/25 hover:shadow-lg hover:shadow-green-600/40 hover:-translate-y-0.5 active:translate-y-0 transition-all duration-200 group/btn">
+                <i class="fa-solid fa-right-to-bracket text-xs group-hover/btn:scale-110 transition-transform"></i>
+                <span>Login</span>
+              </a>
 
               <button type="button" onclick="event.preventDefault(); event.stopPropagation(); event.stopImmediatePropagation(); if(window.themeController) window.themeController.toggleRTL(); return false;" class="rtl-toggle-btn w-9 h-9 flex items-center justify-center bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-200 border border-slate-200 dark:border-slate-700 rounded-xl hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors" title="Toggle RTL/LTR" aria-label="Toggle RTL/LTR">
                 <i class="fa-solid fa-globe text-base"></i>
@@ -253,28 +224,14 @@
       <a href="categories.html" class="block py-2 text-slate-700 dark:text-slate-200 hover:text-green-600">Categories</a>
       <a href="deals.html" class="block py-2 text-slate-700 dark:text-slate-200 hover:text-green-600">Deals</a>
       <a href="blog.html" class="block py-2 text-slate-700 dark:text-slate-200 hover:text-green-600">Blog</a>
-      
-      <!-- Mobile Login Accordion -->
-      <div class="space-y-1 border-t border-slate-100 dark:border-slate-800 pt-3">
-        <div class="flex items-center justify-between">
-          <a href="login.html" class="flex items-center gap-2 py-1.5 text-green-600 dark:text-green-400 font-bold">
-            <i class="fa-solid fa-right-to-bracket text-xs"></i>
-            <span>Login</span>
-          </a>
-          <button id="mobile-login-dropdown-trigger" type="button" class="p-1.5 text-slate-500 hover:text-green-600 focus:outline-none" aria-label="Toggle Login Options">
-            <i id="mobile-login-chevron" class="fa-solid fa-chevron-down text-xs transition-transform duration-200"></i>
-          </button>
-        </div>
+    </div>
 
-        <div id="mobile-login-dropdown-menu" class="hidden pl-3 space-y-2 border-l-2 border-green-500/30 my-1 py-1">
-          <a href="../user/index.html" class="flex items-center gap-2 text-xs py-2 px-2.5 text-slate-700 dark:text-slate-200 hover:text-green-600 font-semibold rounded-lg">
-            <i class="fa-solid fa-user text-emerald-600 text-xs"></i> User Dashboard
-          </a>
-          <a href="../admin/index.html" class="flex items-center gap-2 text-xs py-2 px-2.5 text-slate-700 dark:text-slate-200 hover:text-amber-600 font-semibold rounded-lg">
-            <i class="fa-solid fa-user-gear text-amber-500 text-xs"></i> Admin Dashboard
-          </a>
-        </div>
-      </div>
+    <!-- Pinned Mobile Login Footer -->
+    <div class="p-5 border-t border-slate-200 dark:border-slate-800 mt-auto bg-white dark:bg-slate-900">
+      <a href="login.html" class="w-full inline-flex items-center justify-center gap-2 px-4 py-3 bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-500 hover:to-emerald-500 text-white font-bold text-sm rounded-xl shadow-md shadow-green-600/25 transition-all duration-200">
+        <i class="fa-solid fa-right-to-bracket text-xs"></i>
+        <span>Login</span>
+      </a>
     </div>
   </div>
 

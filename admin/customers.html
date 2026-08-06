@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -9,59 +10,89 @@
   <link rel="apple-touch-icon" href="../assets/images/favicon.svg" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
+    rel="stylesheet" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
     tailwind.config = { darkMode: 'class', theme: { extend: { colors: { brand: { 600: '#16a34a' } } } } }
   </script>
   <script>
-    (function() {
-      const savedTheme = localStorage.getItem('freshbasket_theme');
-      const systemPrefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
-      if (savedTheme === 'dark' || (!savedTheme && systemPrefersDark)) {
-        document.documentElement.classList.add('dark');
-      } else {
-        document.documentElement.classList.remove('dark');
-      }
-      const savedRTL = localStorage.getItem('freshbasket_rtl');
-      if (savedRTL === 'true') {
-        document.documentElement.setAttribute('dir', 'rtl');
-        document.documentElement.setAttribute('lang', 'ar');
-      }
-    })();
+      (function () {
+        const savedTheme = localStorage.getItem('freshbasket_theme');
+        const systemPrefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+        if (savedTheme === 'dark' || (!savedTheme && systemPrefersDark)) {
+          document.documentElement.classList.add('dark');
+        } else {
+          document.documentElement.classList.remove('dark');
+        }
+        const savedRTL = localStorage.getItem('freshbasket_rtl');
+        if (savedRTL === 'true') {
+          document.documentElement.setAttribute('dir', 'rtl');
+          document.documentElement.setAttribute('lang', 'ar');
+        }
+      })();
   </script>
   <link rel="stylesheet" href="../assets/css/style.css" />
   <link rel="stylesheet" href="../assets/css/dark-mode.css" />
   <link rel="stylesheet" href="../assets/css/rtl.css" />
 </head>
-<body class="bg-slate-100 dark:bg-slate-900 text-slate-900 dark:text-slate-100 h-screen overflow-hidden font-sans antialiased">  <!-- FIXED LEFT SIDEBAR (TOP TO BOTTOM) -->
-  <aside id="admin-sidebar" class="fixed top-0 bottom-0 right-0 md:left-0 w-64 bg-white dark:bg-slate-900 text-slate-700 dark:text-slate-300 border-l md:border-r border-slate-200 dark:border-slate-800 h-screen flex flex-col justify-between z-50 transform translate-x-full md:translate-x-0 transition-transform duration-300">
+
+<body
+  class="bg-slate-100 dark:bg-slate-900 text-slate-900 dark:text-slate-100 h-screen overflow-hidden font-sans antialiased">
+  <!-- FIXED LEFT SIDEBAR (TOP TO BOTTOM) -->
+  <aside id="admin-sidebar"
+    class="fixed top-0 bottom-0 right-0 md:left-0 w-64 bg-white dark:bg-slate-900 text-slate-700 dark:text-slate-300 border-l md:border-r border-slate-200 dark:border-slate-800 h-screen flex flex-col justify-between z-50 transform translate-x-full md:translate-x-0 transition-transform duration-300">
     <div class="p-6 space-y-6">
       <a href="../index.html" class="flex items-center gap-2.5">
-        <div class="w-9 h-9 bg-green-600 text-white rounded-xl flex items-center justify-center font-extrabold text-lg shadow-sm">
+        <div
+          class="w-9 h-9 bg-green-600 text-white rounded-xl flex items-center justify-center font-extrabold text-lg shadow-sm">
           <i class="fa-solid fa-basket-shopping"></i>
         </div>
-        <span class="font-extrabold text-lg text-slate-900 dark:text-white">Fresh<span class="text-green-600 dark:text-green-500">Admin</span></span>
+        <span class="font-extrabold text-lg text-slate-900 dark:text-white">Fresh<span
+            class="text-green-600 dark:text-green-500">Admin</span></span>
       </a>
 
       <nav class="space-y-1 text-xs font-semibold">
-        <a href="index.html" class="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-slate-100 hover:text-slate-900 dark:hover:bg-slate-800 dark:hover:text-white transition-colors"><i class="fa-solid fa-chart-line text-sm"></i> Dashboard Overview</a>
-        <a href="products.html" class="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-slate-100 hover:text-slate-900 dark:hover:bg-slate-800 dark:hover:text-white transition-colors"><i class="fa-solid fa-box text-sm"></i> Products Catalog</a>
-        <a href="categories.html" class="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-slate-100 hover:text-slate-900 dark:hover:bg-slate-800 dark:hover:text-white transition-colors"><i class="fa-solid fa-layer-group text-sm"></i> Categories</a>
-        <a href="orders.html" class="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-slate-100 hover:text-slate-900 dark:hover:bg-slate-800 dark:hover:text-white transition-colors"><i class="fa-solid fa-truck-ramp-box text-sm"></i> Orders & Delivery</a>
-        <a href="customers.html" class="flex items-center gap-3 px-4 py-3 rounded-xl bg-green-600 text-white shadow-md shadow-green-600/20"><i class="fa-solid fa-users text-sm"></i> Customers</a>
-        <a href="inventory.html" class="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-slate-100 hover:text-slate-900 dark:hover:bg-slate-800 dark:hover:text-white transition-colors"><i class="fa-solid fa-warehouse text-sm"></i> Inventory Alerts</a>
-        <a href="deals.html" class="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-slate-100 hover:text-slate-900 dark:hover:bg-slate-800 dark:hover:text-white transition-colors"><i class="fa-solid fa-tags text-sm"></i> Weekly Deals</a>
-        <a href="reviews.html" class="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-slate-100 hover:text-slate-900 dark:hover:bg-slate-800 dark:hover:text-white transition-colors"><i class="fa-solid fa-star text-sm"></i> Product Reviews</a>
-        <a href="notifications.html" class="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-slate-100 hover:text-slate-900 dark:hover:bg-slate-800 dark:hover:text-white transition-colors"><i class="fa-solid fa-bell text-sm"></i> Push Notifications</a>
-        <a href="analytics.html" class="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-slate-100 hover:text-slate-900 dark:hover:bg-slate-800 dark:hover:text-white transition-colors"><i class="fa-solid fa-chart-pie text-sm"></i> Revenue Analytics</a>
-        <a href="settings.html" class="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-slate-100 hover:text-slate-900 dark:hover:bg-slate-800 dark:hover:text-white transition-colors"><i class="fa-solid fa-gear text-sm"></i> Store Settings</a>
+        <a href="index.html"
+          class="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-slate-100 hover:text-slate-900 dark:hover:bg-slate-800 dark:hover:text-white transition-colors"><i
+            class="fa-solid fa-chart-line text-sm"></i> Dashboard Overview</a>
+        <a href="products.html"
+          class="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-slate-100 hover:text-slate-900 dark:hover:bg-slate-800 dark:hover:text-white transition-colors"><i
+            class="fa-solid fa-box text-sm"></i> Products Catalog</a>
+        <a href="categories.html"
+          class="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-slate-100 hover:text-slate-900 dark:hover:bg-slate-800 dark:hover:text-white transition-colors"><i
+            class="fa-solid fa-layer-group text-sm"></i> Categories</a>
+        <a href="orders.html"
+          class="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-slate-100 hover:text-slate-900 dark:hover:bg-slate-800 dark:hover:text-white transition-colors"><i
+            class="fa-solid fa-truck-ramp-box text-sm"></i> Orders & Delivery</a>
+        <a href="customers.html"
+          class="flex items-center gap-3 px-4 py-3 rounded-xl bg-green-600 text-white shadow-md shadow-green-600/20"><i
+            class="fa-solid fa-users text-sm"></i> Customers</a>
+        <a href="inventory.html"
+          class="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-slate-100 hover:text-slate-900 dark:hover:bg-slate-800 dark:hover:text-white transition-colors"><i
+            class="fa-solid fa-warehouse text-sm"></i> Inventory Alerts</a>
+        <a href="deals.html"
+          class="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-slate-100 hover:text-slate-900 dark:hover:bg-slate-800 dark:hover:text-white transition-colors"><i
+            class="fa-solid fa-tags text-sm"></i> Weekly Deals</a>
+        <a href="reviews.html"
+          class="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-slate-100 hover:text-slate-900 dark:hover:bg-slate-800 dark:hover:text-white transition-colors"><i
+            class="fa-solid fa-star text-sm"></i> Product Reviews</a>
+        <a href="notifications.html"
+          class="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-slate-100 hover:text-slate-900 dark:hover:bg-slate-800 dark:hover:text-white transition-colors"><i
+            class="fa-solid fa-bell text-sm"></i> Push Notifications</a>
+        <a href="analytics.html"
+          class="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-slate-100 hover:text-slate-900 dark:hover:bg-slate-800 dark:hover:text-white transition-colors"><i
+            class="fa-solid fa-chart-pie text-sm"></i> Revenue Analytics</a>
+        <a href="settings.html"
+          class="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-slate-100 hover:text-slate-900 dark:hover:bg-slate-800 dark:hover:text-white transition-colors"><i
+            class="fa-solid fa-gear text-sm"></i> Store Settings</a>
       </nav>
     </div>
 
     <div class="p-6 border-t border-slate-200 dark:border-slate-800">
-      <button onclick="logoutAdmin()" class="w-full flex items-center justify-center gap-2.5 px-3 py-2.5 rounded-xl bg-red-50 text-red-600 hover:bg-red-600 hover:text-white dark:bg-red-950/40 dark:text-red-400 dark:hover:bg-red-600 dark:hover:text-white text-xs font-bold transition-colors shadow-sm">
+      <button onclick="logoutAdmin()"
+        class="w-full flex items-center justify-center gap-2.5 px-3 py-2.5 rounded-xl bg-red-50 text-red-600 hover:bg-red-600 hover:text-white dark:bg-red-950/40 dark:text-red-400 dark:hover:bg-red-600 dark:hover:text-white text-xs font-bold transition-colors shadow-sm">
         <i class="fa-solid fa-right-from-bracket"></i> Logout
       </button>
     </div>
@@ -70,39 +101,52 @@
   <!-- MAIN AREA (RIGHT OF SIDEBAR) -->
   <div class="md:ml-64 flex-1 flex flex-col min-w-0 h-screen overflow-hidden">
     <!-- FIXED TOP NAVBAR -->
-    <header class="sticky top-0 z-40 flex-shrink-0 bg-white/95 dark:bg-slate-800/95 backdrop-blur-md border-b border-slate-200 dark:border-slate-700 px-6 py-4 flex items-center justify-between shadow-sm transition-colors">
+    <header
+      class="sticky top-0 z-20 flex-shrink-0 bg-white/95 dark:bg-slate-800/95 backdrop-blur-md border-b border-slate-200 dark:border-slate-700 px-6 py-4 flex items-center justify-between shadow-sm transition-colors">
       <div class="flex items-center gap-3">
         <!-- Mobile Logo (ONLY visible on mobile < md) -->
         <a href="../index.html" class="flex items-center gap-2 md:hidden">
-          <div class="w-8 h-8 bg-green-600 text-white rounded-xl flex items-center justify-center font-extrabold text-base shadow-sm">
+          <div
+            class="w-8 h-8 bg-green-600 text-white rounded-xl flex items-center justify-center font-extrabold text-base shadow-sm">
             <i class="fa-solid fa-basket-shopping"></i>
           </div>
-          <span class="font-extrabold text-base text-slate-900 dark:text-white">Fresh<span class="text-green-600 dark:text-green-500">Admin</span></span>
+          <span class="font-extrabold text-base text-slate-900 dark:text-white">Fresh<span
+              class="text-green-600 dark:text-green-500">Admin</span></span>
         </a>
       </div>
 
       <div class="flex items-center gap-3">
-        <button type="button" onclick="event.preventDefault(); event.stopPropagation(); event.stopImmediatePropagation(); if(window.themeController) window.themeController.toggleRTL(); return false;" class="rtl-toggle-btn w-9 h-9 flex items-center justify-center bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-slate-200 border border-slate-200 dark:border-slate-600 rounded-xl hover:bg-slate-200 dark:hover:bg-slate-600 transition-colors" title="Toggle RTL/LTR" aria-label="Toggle RTL/LTR">
+        <button type="button"
+          onclick="event.preventDefault(); event.stopPropagation(); event.stopImmediatePropagation(); if(window.themeController) window.themeController.toggleRTL(); return false;"
+          class="rtl-toggle-btn w-9 h-9 flex items-center justify-center bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-slate-200 border border-slate-200 dark:border-slate-600 rounded-xl hover:bg-slate-200 dark:hover:bg-slate-600 transition-colors"
+          title="Toggle RTL/LTR" aria-label="Toggle RTL/LTR">
           <i class="fa-solid fa-globe text-sm"></i>
         </button>
-        <button type="button" onclick="event.preventDefault(); event.stopPropagation(); event.stopImmediatePropagation(); if(window.themeController) window.themeController.toggleDarkMode(); return false;" class="theme-toggle-btn w-9 h-9 flex items-center justify-center bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-slate-200 border border-slate-200 dark:border-slate-600 rounded-xl hover:bg-slate-200 dark:hover:bg-slate-600 transition-colors" title="Toggle Light/Dark Theme" aria-label="Toggle Light/Dark Theme">
+        <button type="button"
+          onclick="event.preventDefault(); event.stopPropagation(); event.stopImmediatePropagation(); if(window.themeController) window.themeController.toggleDarkMode(); return false;"
+          class="theme-toggle-btn w-9 h-9 flex items-center justify-center bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-slate-200 border border-slate-200 dark:border-slate-600 rounded-xl hover:bg-slate-200 dark:hover:bg-slate-600 transition-colors"
+          title="Toggle Light/Dark Theme" aria-label="Toggle Light/Dark Theme">
           <i class="fa-solid fa-moon text-sm"></i>
         </button>
-        <button id="admin-mobile-toggle" class="md:hidden p-2 rounded-xl text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-700 transition-colors" title="Toggle Navigation Menu">
+        <button id="admin-mobile-toggle"
+          class="md:hidden p-2 rounded-xl text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-700 transition-colors"
+          title="Toggle Navigation Menu">
           <i class="fa-solid fa-bars text-lg"></i>
         </button>
       </div>
-    </header>r>
+    </header>
 
     <main class="p-6 space-y-6 flex-1 overflow-y-auto">
       <!-- PAGE HEADING (BELOW NAVBAR) -->
       <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 pb-2">
         <div>
           <h1 class="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white tracking-tight">Customers</h1>
-          <p class="text-xs sm:text-sm text-slate-500 dark:text-slate-400 mt-1">View registered users, order history, and account status.</p>
+          <p class="text-xs sm:text-sm text-slate-500 dark:text-slate-400 mt-1">View registered users, order history,
+            and account status.</p>
         </div>
       </div>
-      <div class="bg-white dark:bg-slate-800 rounded-3xl border border-slate-200 dark:border-slate-700 p-6 shadow-sm responsive-table-card">
+      <div
+        class="bg-white dark:bg-slate-800 rounded-3xl border border-slate-200 dark:border-slate-700 p-6 shadow-sm responsive-table-card">
         <table class="w-full text-left text-sm">
           <thead>
             <tr class="border-b border-slate-200 dark:border-slate-700 text-xs text-slate-400 uppercase font-semibold">
@@ -136,4 +180,5 @@
   <script src="../assets/js/admin.js"></script>
   <script src="../assets/js/main.js"></script>
 </body>
+
 </html>

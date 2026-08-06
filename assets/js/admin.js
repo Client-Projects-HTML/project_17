@@ -82,7 +82,7 @@ class AdminController {
     if (!overlay) {
       overlay = document.createElement('div');
       overlay.id = 'admin-sidebar-overlay';
-      overlay.className = 'hidden fixed inset-0 bg-slate-950/80 backdrop-blur-sm z-40 md:hidden transition-opacity';
+      overlay.className = 'hidden fixed inset-0 bg-slate-950/80 backdrop-blur-md z-40 md:hidden transition-opacity';
       document.body.appendChild(overlay);
     }
 
