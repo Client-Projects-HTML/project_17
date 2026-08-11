@@ -44,7 +44,7 @@
 <body class="bg-slate-50 dark:bg-slate-900 text-slate-900 dark:text-slate-100 transition-colors duration-200">
 
   <!-- COMBINED FIXED HEADER (TOP UTILITY BAR + MAIN NAVBAR) -->
-  <header class="fixed top-0 left-0 right-0 z-50 w-full shadow-sm bg-white dark:bg-slate-900 transition-colors duration-200">
+  <header class="fixed top-0 left-0 right-0 z-[1000] w-full shadow-sm bg-white dark:bg-slate-900 transition-colors duration-200">
     
     <!-- TOP UTILITY BAR -->
     <div class="bg-slate-900 text-slate-300 text-xs py-2 border-b border-slate-800">
@@ -70,33 +70,33 @@
         <div class="flex items-center justify-between h-20 gap-4">
 
           <!-- Mobile Header Bar (Strict Single Row) -->
-          <div class="flex lg:hidden items-center justify-between w-full h-16 py-1 gap-2">
+          <div class="flex lg:hidden items-center justify-between w-full h-16 py-1 gap-1 xs:gap-2">
             <!-- Mobile Left: Logo -->
-            <div class="flex items-center gap-2 min-w-0">
-              <a href="../index.html" class="flex items-center gap-1.5 min-w-0">
-                <div class="w-8 h-8 bg-green-600 text-white rounded-xl flex items-center justify-center font-extrabold text-base shadow-md shadow-green-600/30 flex-shrink-0">
+            <div class="flex items-center gap-1.5 xs:gap-2 flex-shrink-0 min-w-max">
+              <a href="../index.html" class="flex items-center gap-1.5 flex-shrink-0 min-w-max">
+                <div class="w-7.5 h-7.5 xs:w-8 xs:h-8 bg-green-600 text-white rounded-xl flex items-center justify-center font-extrabold text-sm xs:text-base shadow-md shadow-green-600/30 flex-shrink-0">
                   <i class="fa-solid fa-basket-shopping"></i>
                 </div>
-                <span class="font-extrabold text-base tracking-tight text-slate-900 dark:text-white truncate">Fresh<span class="text-green-600">Basket</span></span>
+                <span class="font-extrabold text-sm xs:text-base tracking-tight text-slate-900 dark:text-white whitespace-nowrap">Fresh<span class="text-green-600">Basket</span></span>
               </a>
             </div>
 
             <!-- Mobile Right Controls (Cart, RTL, Theme, Hamburger) -->
-            <div class="flex items-center gap-1.5 flex-shrink-0">
-              <button type="button" class="cart-drawer-trigger relative w-9 h-9 flex items-center justify-center" aria-label="Shopping Cart">
-                <i class="fa-solid fa-basket-shopping text-base"></i>
+            <div class="flex items-center gap-1 xs:gap-1.5 flex-shrink-0">
+              <button type="button" class="cart-drawer-trigger relative w-8 h-8 xs:w-9 xs:h-9 flex items-center justify-center" aria-label="Shopping Cart">
+                <i class="fa-solid fa-basket-shopping text-sm xs:text-base"></i>
                 <span class="cart-count-badge absolute -top-1 -right-1 w-4 h-4 bg-green-600 text-white rounded-full text-[10px] font-extrabold flex items-center justify-center">0</span>
               </button>
-              <button type="button" onclick="event.preventDefault(); event.stopPropagation(); event.stopImmediatePropagation(); if(window.themeController) window.themeController.toggleRTL(); return false;" class="rtl-toggle-btn w-9 h-9 flex items-center justify-center" title="Toggle RTL/LTR" aria-label="Toggle RTL/LTR">
-                <i class="fa-solid fa-globe text-base"></i>
+              <button type="button" onclick="event.preventDefault(); event.stopPropagation(); event.stopImmediatePropagation(); if(window.themeController) window.themeController.toggleRTL(); return false;" class="rtl-toggle-btn w-8 h-8 xs:w-9 xs:h-9 flex items-center justify-center" title="Toggle RTL/LTR" aria-label="Toggle RTL/LTR">
+                <i class="fa-solid fa-globe text-sm xs:text-base"></i>
               </button>
-              <button type="button" onclick="event.preventDefault(); event.stopPropagation(); event.stopImmediatePropagation(); if(window.themeController) window.themeController.toggleDarkMode(); return false;" class="theme-toggle-btn w-9 h-9 flex items-center justify-center" title="Toggle Light/Dark Theme" aria-label="Toggle Light/Dark Theme">
-                <i class="fa-solid fa-moon text-base"></i>
+              <button type="button" onclick="event.preventDefault(); event.stopPropagation(); event.stopImmediatePropagation(); if(window.themeController) window.themeController.toggleDarkMode(); return false;" class="theme-toggle-btn w-8 h-8 xs:w-9 xs:h-9 flex items-center justify-center" title="Toggle Light/Dark Theme" aria-label="Toggle Light/Dark Theme">
+                <i class="fa-solid fa-moon text-sm xs:text-base"></i>
               </button>
               <button id="mobile-menu-toggle" type="button" onclick="if(window.toggleMobileMenu) window.toggleMobileMenu(); return false;"
-                class="w-9 h-9 flex items-center justify-center rounded-xl text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors flex-shrink-0"
+                class="w-8 h-8 xs:w-9 xs:h-9 flex items-center justify-center rounded-xl text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors flex-shrink-0"
                 aria-label="Open Navigation">
-                <i class="fa-solid fa-bars text-lg"></i>
+                <i class="fa-solid fa-bars text-base xs:text-lg"></i>
               </button>
             </div>
           </div>
@@ -112,7 +112,6 @@
                 </div>
                 <div>
                   <span class="font-extrabold text-xl tracking-tight text-slate-900 dark:text-white">Fresh<span class="text-green-600">Basket</span></span>
-                  <span class="block text-[10px] uppercase font-bold tracking-widest text-slate-400 -mt-1">Supermarket</span>
                 </div>
               </a>
             </div>
@@ -161,16 +160,12 @@
               <a href="deals.html" class="hover:text-amber-600 dark:hover:text-amber-400 transition-colors">Deals</a>
               <!-- 6. Blog -->
               <a href="blog.html" class="hover:text-green-600 dark:hover:text-green-400 transition-colors">Blog</a>
+              <!-- 7. Contact -->
+              <a href="contact.html" class="hover:text-green-600 dark:hover:text-green-400 transition-colors">Contact</a>
             </nav>
 
             <!-- RIGHT ACTION CONTROLS (RIGHT) -->
-            <div class="flex items-center justify-end gap-3 flex-1">
-              <!-- Highlighted Login Button (Moved Before RTL Button) -->
-              <a href="login.html" id="nav-login-btn" class="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-500 hover:to-emerald-500 text-white font-bold text-xs sm:text-sm rounded-xl shadow-md shadow-green-600/25 hover:shadow-lg hover:shadow-green-600/40 hover:-translate-y-0.5 active:translate-y-0 transition-all duration-200 group/btn">
-                <i class="fa-solid fa-right-to-bracket text-xs group-hover/btn:scale-110 transition-transform"></i>
-                <span>Login</span>
-              </a>
-
+            <div class="flex items-center justify-end gap-2.5 sm:gap-3.5 flex-1">
               <!-- RTL Button -->
               <button type="button" onclick="event.preventDefault(); event.stopPropagation(); event.stopImmediatePropagation(); if(window.themeController) window.themeController.toggleRTL(); return false;" class="rtl-toggle-btn w-9 h-9 flex items-center justify-center bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-200 border border-slate-200 dark:border-slate-700 rounded-xl hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors" title="Toggle RTL/LTR" aria-label="Toggle RTL/LTR">
                 <i class="fa-solid fa-globe text-base"></i>
@@ -184,6 +179,12 @@
                 <i class="fa-solid fa-basket-shopping text-lg"></i>
                 <span class="cart-count-badge absolute -top-1.5 -right-1.5 w-5 h-5 bg-green-600 text-white rounded-full text-[11px] font-extrabold flex items-center justify-center border-2 border-white dark:border-slate-900 shadow">0</span>
               </button>
+
+              <!-- Login Button -->
+              <a href="login.html" class="inline-flex items-center gap-1.5 px-3.5 py-2 bg-green-600 hover:bg-green-700 text-white font-bold text-xs rounded-xl shadow-md shadow-green-600/20 hover:shadow-lg transition-all" title="Login / Account">
+                <i class="fa-solid fa-right-to-bracket text-xs"></i>
+                <span>Login</span>
+              </a>
             </div>
 
           </div>
@@ -231,6 +232,7 @@
       <a href="categories.html" class="block py-2 text-slate-700 dark:text-slate-200 hover:text-green-600">Categories</a>
       <a href="deals.html" class="block py-2 text-slate-700 dark:text-slate-200 hover:text-green-600">Deals</a>
       <a href="blog.html" class="block py-2 text-slate-700 dark:text-slate-200 hover:text-green-600">Blog</a>
+      <a href="contact.html" class="block py-2 text-slate-700 dark:text-slate-200 hover:text-green-600">Contact</a>
     </div>
 
     <!-- Pinned Mobile Login Footer -->
@@ -354,13 +356,15 @@
       <!-- PRODUCT GRID & SORT CONTROLS -->
       <main class="lg:col-span-9 space-y-6">
         <!-- Top Toolbar -->
-        <div class="bg-white dark:bg-slate-800 p-4 rounded-2xl border border-slate-200 dark:border-slate-700 flex flex-col sm:flex-row items-center justify-between gap-4 shadow-sm">
-          <span id="shop-product-count" class="text-sm font-semibold text-slate-600 dark:text-slate-300">Loading products...</span>
+        <div class="bg-white dark:bg-slate-800 p-3.5 sm:p-4 rounded-2xl border border-slate-200 dark:border-slate-700 flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 sm:gap-4 shadow-sm">
+          <div class="flex items-center justify-between">
+            <span id="shop-product-count" class="text-xs sm:text-sm font-bold text-slate-700 dark:text-slate-200">Loading products...</span>
+          </div>
           
-          <div class="flex items-center gap-4">
-            <div class="flex items-center gap-2 text-sm">
-              <span class="text-slate-500">Sort By:</span>
-              <select id="shop-sort-select" class="px-3 py-1.5 bg-slate-100 dark:bg-slate-900 border-none rounded-xl text-sm font-semibold dark:text-white">
+          <div class="flex items-center justify-between sm:justify-end gap-2 sm:gap-4 w-full sm:w-auto">
+            <div class="flex items-center gap-1.5 sm:gap-2 text-xs sm:text-sm flex-1 sm:flex-initial min-w-0">
+              <span class="text-slate-500 font-semibold flex-shrink-0">Sort By:</span>
+              <select id="shop-sort-select" class="w-full sm:w-auto px-2.5 sm:px-3 py-1.5 bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-700/80 rounded-xl text-xs sm:text-sm font-semibold dark:text-white focus:outline-none focus:ring-2 focus:ring-green-500 truncate">
                 <option value="popular">Most Popular</option>
                 <option value="price-low">Price: Low to High</option>
                 <option value="price-high">Price: High to Low</option>
@@ -369,9 +373,9 @@
               </select>
             </div>
 
-            <div class="flex items-center gap-1 bg-slate-100 dark:bg-slate-900 p-1 rounded-xl">
-              <button id="view-grid-btn" class="w-9 h-9 flex items-center justify-center rounded-lg bg-green-600 text-white" aria-label="Grid View"><i class="fa-solid fa-grid-2"></i></button>
-              <button id="view-list-btn" class="w-9 h-9 flex items-center justify-center rounded-lg text-slate-500" aria-label="List View"><i class="fa-solid fa-list"></i></button>
+            <div class="flex items-center gap-1 bg-slate-100 dark:bg-slate-900 p-1 rounded-xl flex-shrink-0">
+              <button id="view-grid-btn" class="w-8 h-8 sm:w-9 sm:h-9 flex items-center justify-center rounded-lg bg-green-600 text-white" aria-label="Grid View" title="Grid View"><i class="fa-solid fa-table-cells text-xs sm:text-sm"></i></button>
+              <button id="view-list-btn" class="w-8 h-8 sm:w-9 sm:h-9 flex items-center justify-center rounded-lg text-slate-500" aria-label="List View" title="List View"><i class="fa-solid fa-list text-xs sm:text-sm"></i></button>
             </div>
           </div>
         </div>
@@ -438,7 +442,7 @@
             <li><a href="order-tracking.html" class="text-slate-600 dark:text-slate-400 hover:text-green-600 dark:hover:text-white transition-colors">Live Order Tracking</a></li>
             <li><a href="orders.html" class="text-slate-600 dark:text-slate-400 hover:text-green-600 dark:hover:text-white transition-colors">Order History</a></li>
             <li><a href="404.html" class="text-slate-600 dark:text-slate-400 hover:text-green-600 dark:hover:text-white transition-colors">Returns & Refunds</a></li>
-            <li><a href="coming-soon.html" class="text-slate-600 dark:text-slate-400 hover:text-green-600 dark:hover:text-white transition-colors">Terms of Service</a></li>
+            <li><a href="coming-soon.html" class="text-slate-600 dark:text-slate-400 hover:text-green-600 dark:hover:text-white transition-colors">Store Policies & Terms</a></li>
           </ul>
         </div>
 
@@ -458,8 +462,23 @@
   <div id="cart-drawer-overlay" class="hidden fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50"></div>
   <div id="cart-drawer" class="fixed top-0 right-0 w-full max-w-md h-full bg-white dark:bg-slate-900 z-50 shadow-2xl transform translate-x-full transition-transform duration-300 flex flex-col">
     <div class="p-6 border-b border-slate-200 dark:border-slate-800 flex items-center justify-between">
-      <h3 class="font-bold text-lg text-slate-900 dark:text-white">Your Cart</h3>
-      <button id="cart-drawer-close" class="p-2 text-slate-400 hover:text-slate-600"><i class="fa-solid fa-xmark text-lg"></i></button>
+      <div class="flex items-center gap-2">
+        <div class="w-8 h-8 bg-green-100 dark:bg-green-950/50 text-green-600 rounded-lg flex items-center justify-center font-bold">
+          <i class="fa-solid fa-basket-shopping text-sm"></i>
+        </div>
+        <h3 class="font-bold text-lg text-slate-900 dark:text-white">Your Cart</h3>
+      </div>
+      <div class="flex items-center gap-2">
+        <button type="button" onclick="event.preventDefault(); event.stopPropagation(); event.stopImmediatePropagation(); if(window.themeController) window.themeController.toggleRTL(); return false;" class="rtl-toggle-btn w-8 h-8 flex items-center justify-center bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-200 border border-slate-200 dark:border-slate-700 rounded-lg hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors" title="Toggle RTL/LTR" aria-label="Toggle RTL/LTR">
+          <i class="fa-solid fa-globe text-sm"></i>
+        </button>
+        <button type="button" onclick="event.preventDefault(); event.stopPropagation(); event.stopImmediatePropagation(); if(window.themeController) window.themeController.toggleDarkMode(); return false;" class="theme-toggle-btn w-8 h-8 flex items-center justify-center bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-200 border border-slate-200 dark:border-slate-700 rounded-lg hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors" title="Toggle Light/Dark Theme" aria-label="Toggle Light/Dark Theme">
+          <i class="fa-solid fa-moon text-sm"></i>
+        </button>
+        <button id="cart-drawer-close" class="w-8 h-8 flex items-center justify-center bg-slate-100 dark:bg-slate-800 text-slate-400 hover:text-slate-600 dark:hover:text-white border border-slate-200 dark:border-slate-700 rounded-lg hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors" aria-label="Close Cart">
+          <i class="fa-solid fa-xmark text-sm"></i>
+        </button>
+      </div>
     </div>
     <div class="bg-slate-50 dark:bg-slate-800/80 p-4 border-b border-slate-200 dark:border-slate-700">
       <p id="cart-free-shipping-text" class="text-xs text-slate-600 mb-2">Calculating shipping...</p>

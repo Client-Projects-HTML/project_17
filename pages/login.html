@@ -22,82 +22,95 @@
 <body class="bg-slate-50 dark:bg-slate-900 text-slate-900 dark:text-slate-100 min-h-screen flex flex-col justify-between transition-colors duration-200">
 
   <!-- HEADER -->
-  <header class="py-3 px-4 max-w-7xl mx-auto w-full flex items-center justify-between">
-    <a href="../index.html" class="flex items-center gap-2">
-      <div class="w-10 h-10 bg-green-600 text-white rounded-2xl flex items-center justify-center font-extrabold text-xl shadow-md shadow-green-600/30">
-        <i class="fa-solid fa-basket-shopping"></i>
-      </div>
-      <span class="font-extrabold text-xl dark:text-white">Fresh<span class="text-green-600">Basket</span></span>
+  <header class="py-2 px-4 max-w-7xl mx-auto w-full flex items-center justify-between">
+    <a href="../index.html" class="inline-flex items-center gap-2 px-3.5 py-1.5 bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-200 border border-slate-200 dark:border-slate-700 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-700 transition-colors shadow-sm font-bold text-xs">
+      <i class="fa-solid fa-arrow-left text-[11px]"></i>
+      <span>Back to Home</span>
     </a>
-    <div class="flex items-center gap-3">
-      <button type="button" onclick="event.preventDefault(); event.stopPropagation(); event.stopImmediatePropagation(); if(window.themeController) window.themeController.toggleRTL(); return false;" class="rtl-toggle-btn w-9 h-9 flex items-center justify-center bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-200 border border-slate-200 dark:border-slate-700 rounded-xl hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors" title="Toggle RTL/LTR" aria-label="Toggle RTL/LTR"><i class="fa-solid fa-globe text-base"></i></button>
-      <button type="button" onclick="event.preventDefault(); event.stopPropagation(); event.stopImmediatePropagation(); if(window.themeController) window.themeController.toggleDarkMode(); return false;" class="theme-toggle-btn text-sm p-1.5"><i class="fa-solid fa-moon"></i></button>
-    </div>
+    <div></div>
   </header>
 
   <!-- FORM CARD -->
-  <main class="max-w-md mx-auto w-full px-4 py-4 sm:py-6">
-    <div class="bg-white dark:bg-slate-800 rounded-3xl border border-slate-200 dark:border-slate-700 p-6 sm:p-7 shadow-xl space-y-5">
+  <main class="max-w-md mx-auto w-full px-4 py-2 sm:py-3">
+    <div class="bg-white dark:bg-slate-800 rounded-3xl border border-slate-200 dark:border-slate-700 p-5 sm:p-6 shadow-xl space-y-4">
       
-      <div class="text-center space-y-1">
-        <h1 id="login-heading" class="text-2xl font-extrabold text-slate-900 dark:text-white">User Login</h1>
-        <p id="login-subheading" class="text-xs text-slate-500 dark:text-slate-400">Login to access your saved grocery lists, orders, and VIP member perks.</p>
+      <!-- Card Top Header Controls -->
+      <div class="flex items-center justify-between pb-2.5 border-b border-slate-100 dark:border-slate-700/60">
+        <div class="flex items-center gap-2">
+          <div class="w-6 h-6 bg-green-600 text-white rounded-lg flex items-center justify-center font-extrabold text-[11px] shadow-sm">
+            <i class="fa-solid fa-basket-shopping"></i>
+          </div>
+          <span class="font-extrabold text-xs text-slate-900 dark:text-white">Fresh<span class="text-green-600">Basket</span></span>
+        </div>
+        <div class="flex items-center gap-1.5">
+          <button type="button" onclick="event.preventDefault(); event.stopPropagation(); event.stopImmediatePropagation(); if(window.themeController) window.themeController.toggleDarkMode(); return false;" class="theme-toggle-btn w-7 h-7 flex items-center justify-center bg-slate-100 dark:bg-slate-700/60 text-slate-700 dark:text-slate-200 border border-slate-200 dark:border-slate-600 rounded-lg hover:bg-slate-200 dark:hover:bg-slate-600 transition-colors" title="Toggle Light/Dark Theme" aria-label="Toggle Light/Dark Theme">
+            <i class="fa-solid fa-moon text-[11px]"></i>
+          </button>
+          <button type="button" onclick="event.preventDefault(); event.stopPropagation(); event.stopImmediatePropagation(); if(window.themeController) window.themeController.toggleRTL(); return false;" class="rtl-toggle-btn w-7 h-7 flex items-center justify-center bg-slate-100 dark:bg-slate-700/60 text-slate-700 dark:text-slate-200 border border-slate-200 dark:border-slate-600 rounded-lg hover:bg-slate-200 dark:hover:bg-slate-600 transition-colors" title="Toggle RTL/LTR" aria-label="Toggle RTL/LTR">
+            <i class="fa-solid fa-right-left text-[11px]"></i>
+          </button>
+        </div>
+      </div>
+
+      <div class="text-center space-y-0.5">
+        <h1 id="login-heading" class="text-xl font-extrabold text-slate-900 dark:text-white">User Login</h1>
+        <p id="login-subheading" class="text-[11px] text-slate-500 dark:text-slate-400">Login to access your saved grocery lists, orders, and VIP member perks.</p>
       </div>
 
       <!-- User Account & Admin Staff Role Tabs -->
-      <div class="flex rounded-2xl bg-slate-100 dark:bg-slate-900 p-1 border border-slate-200 dark:border-slate-700">
-        <button id="tab-user" type="button" onclick="switchLoginTab('user')" class="flex-1 py-3 text-xs font-bold rounded-xl transition-all bg-green-600 text-white shadow-md flex items-center justify-center gap-2">
-          <i class="fa-solid fa-user"></i> User Account
+      <div class="flex rounded-xl bg-slate-100 dark:bg-slate-900 p-1 border border-slate-200 dark:border-slate-700">
+        <button id="tab-user" type="button" onclick="switchLoginTab('user')" class="flex-1 py-2 text-xs font-bold rounded-lg transition-all bg-green-600 text-white shadow-md flex items-center justify-center gap-1.5">
+          <i class="fa-solid fa-user text-[11px]"></i> User Account
         </button>
-        <button id="tab-admin" type="button" onclick="switchLoginTab('admin')" class="flex-1 py-3 text-xs font-bold rounded-xl transition-all text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white flex items-center justify-center gap-2">
-          <i class="fa-solid fa-user-gear"></i> Admin Staff
+        <button id="tab-admin" type="button" onclick="switchLoginTab('admin')" class="flex-1 py-2 text-xs font-bold rounded-lg transition-all text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white flex items-center justify-center gap-1.5">
+          <i class="fa-solid fa-user-gear text-[11px]"></i> Admin Staff
         </button>
       </div>
 
-      <form id="login-form" class="space-y-4" onsubmit="handleLoginSubmit(event)">
+      <form id="login-form" class="space-y-3" onsubmit="handleLoginSubmit(event)">
         <div>
-          <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">Email Address</label>
+          <label class="block text-[11px] font-bold text-slate-700 dark:text-slate-300 mb-0.5">Email Address</label>
           <input id="login-email" type="email" placeholder="customer@freshbasket.com" required
-            class="w-full p-3 bg-slate-100 dark:bg-slate-900 border-none rounded-xl text-sm dark:text-white focus:ring-2 focus:ring-green-500" />
+            class="w-full py-2 px-3 bg-slate-100 dark:bg-slate-900 border-none rounded-xl text-xs dark:text-white focus:ring-2 focus:ring-green-500" />
         </div>
 
         <div>
-          <div class="flex items-center justify-between mb-1">
-            <label class="block text-xs font-bold text-slate-700 dark:text-slate-300">Password</label>
-            <a href="forgot-password.html" class="text-xs text-green-600 font-bold hover:underline">Forgot password?</a>
+          <div class="flex items-center justify-between mb-0.5">
+            <label class="block text-[11px] font-bold text-slate-700 dark:text-slate-300">Password</label>
+            <a href="forgot-password.html" class="text-[11px] text-green-600 font-bold hover:underline">Forgot password?</a>
           </div>
           <input id="login-password" type="password" placeholder="••••••••" required
-            class="w-full p-3 bg-slate-100 dark:bg-slate-900 border-none rounded-xl text-sm dark:text-white focus:ring-2 focus:ring-green-500" />
+            class="w-full py-2 px-3 bg-slate-100 dark:bg-slate-900 border-none rounded-xl text-xs dark:text-white focus:ring-2 focus:ring-green-500" />
         </div>
 
-        <div class="flex items-center justify-between text-xs">
-          <label class="flex items-center gap-2 cursor-pointer text-slate-600 dark:text-slate-400">
+        <div class="flex items-center justify-between text-[11px]">
+          <label class="flex items-center gap-1.5 cursor-pointer text-slate-600 dark:text-slate-400">
             <input type="checkbox" checked class="rounded accent-green-600" />
             <span>Remember me</span>
           </label>
         </div>
 
-        <div class="space-y-2.5 pt-1">
-          <button id="login-submit-btn" type="submit" class="btn-primary w-full py-3.5 text-sm font-bold shadow-lg shadow-green-600/30">
+        <div class="space-y-2 pt-0.5">
+          <button id="login-submit-btn" type="submit" class="btn-primary w-full py-2.5 text-xs font-bold shadow-md shadow-green-600/25">
             Login
           </button>
 
-          <a id="go-dashboard-btn" href="../user/index.html" class="flex items-center justify-center gap-2 w-full py-3 text-sm font-bold bg-slate-100 dark:bg-slate-700/60 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-800 dark:text-slate-100 rounded-xl transition-all border border-slate-200 dark:border-slate-600 shadow-sm">
-            <i class="fa-solid fa-gauge-high text-xs"></i>
+          <a id="go-dashboard-btn" href="../user/index.html" class="flex items-center justify-center gap-1.5 w-full py-2 text-xs font-bold bg-slate-100 dark:bg-slate-700/60 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-800 dark:text-slate-100 rounded-xl transition-all border border-slate-200 dark:border-slate-600 shadow-sm">
+            <i class="fa-solid fa-gauge-high text-[11px]"></i>
             <span id="go-dashboard-text">Go to Dashboard</span>
           </a>
         </div>
       </form>
 
-      <div id="register-footer-prompt" class="relative text-center border-t border-slate-200 dark:border-slate-700 pt-4">
-        <span class="text-xs text-slate-400">Don't have an account? <a href="register.html" class="text-green-600 font-bold hover:underline">Sign up now</a></span>
+      <div id="register-footer-prompt" class="relative text-center border-t border-slate-100 dark:border-slate-700/60 pt-3">
+        <span class="text-[11px] text-slate-400">Don't have an account? <a href="register.html" class="text-green-600 font-bold hover:underline">Sign up now</a></span>
       </div>
     </div>
   </main>
 
-  <footer class="py-6 text-center text-xs text-slate-500 dark:text-slate-400 space-y-1">
+  <footer class="py-3 text-center text-xs text-slate-500 dark:text-slate-400 space-y-0.5">
     <p>© 2026 FreshBasket Supermarket Inc.</p>
-    <div class="text-[11px] flex items-center justify-center gap-2">
+    <div class="text-[10px] flex items-center justify-center gap-1.5">
       <span>Developed by</span>
       <span class="font-semibold text-slate-700 dark:text-slate-200">Abhivorn Technologies Pvt Ltd</span>
     </div>
@@ -119,23 +132,23 @@
       const goDashboardText = document.getElementById('go-dashboard-text');
 
       if (role === 'admin') {
-        adminBtn.className = 'flex-1 py-2.5 text-xs font-bold rounded-xl transition-all bg-amber-500 text-slate-950 shadow-md flex items-center justify-center gap-1.5';
-        userBtn.className = 'flex-1 py-2.5 text-xs font-bold rounded-xl transition-all text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white flex items-center justify-center gap-1.5';
+        adminBtn.className = 'flex-1 py-2 text-xs font-bold rounded-lg transition-all bg-amber-500 text-slate-950 shadow-md flex items-center justify-center gap-1.5';
+        userBtn.className = 'flex-1 py-2 text-xs font-bold rounded-lg transition-all text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white flex items-center justify-center gap-1.5';
         heading.textContent = 'Admin Portal Login';
         subheading.textContent = 'Login to access inventory, orders, customer management, and analytics.';
         if (emailInput) emailInput.placeholder = 'admin@freshbasket.com';
         submitBtn.textContent = 'Login';
-        submitBtn.className = 'btn-accent w-full py-3.5 text-sm font-bold shadow-lg shadow-amber-500/20';
+        submitBtn.className = 'btn-accent w-full py-2.5 text-xs font-bold shadow-md shadow-amber-500/20';
         if (goDashboardBtn) goDashboardBtn.href = '../admin/index.html';
         if (goDashboardText) goDashboardText.textContent = 'Go to Admin Dashboard';
       } else {
-        userBtn.className = 'flex-1 py-2.5 text-xs font-bold rounded-xl transition-all bg-green-600 text-white shadow-md flex items-center justify-center gap-1.5';
-        adminBtn.className = 'flex-1 py-2.5 text-xs font-bold rounded-xl transition-all text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white flex items-center justify-center gap-1.5';
+        userBtn.className = 'flex-1 py-2 text-xs font-bold rounded-lg transition-all bg-green-600 text-white shadow-md flex items-center justify-center gap-1.5';
+        adminBtn.className = 'flex-1 py-2 text-xs font-bold rounded-lg transition-all text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white flex items-center justify-center gap-1.5';
         heading.textContent = 'User Login';
         subheading.textContent = 'Login to access your saved grocery lists, orders, and VIP member perks.';
         if (emailInput) emailInput.placeholder = 'customer@freshbasket.com';
         submitBtn.textContent = 'Login';
-        submitBtn.className = 'btn-primary w-full py-3.5 text-sm font-bold shadow-lg shadow-green-600/30';
+        submitBtn.className = 'btn-primary w-full py-2.5 text-xs font-bold shadow-md shadow-green-600/30';
         if (goDashboardBtn) goDashboardBtn.href = '../user/index.html';
         if (goDashboardText) goDashboardText.textContent = 'Go to User Dashboard';
       }

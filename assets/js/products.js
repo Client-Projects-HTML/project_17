@@ -65,45 +65,45 @@ class ProductCatalogController {
   renderProductCard(p) {
     const isFav = window.wishlistManager ? window.wishlistManager.hasItem(p.id) : false;
     const safeName = (p.name || '').replace(/"/g, '&quot;');
-    const fallbackImg = 'https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&w=600&q=80';
+    const hasImage = Boolean(p.image && p.image.trim());
     
     if (this.viewMode === 'list') {
       return `
-        <div class="product-card flex flex-col sm:flex-row items-center p-4 gap-6 cursor-pointer bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 shadow-sm hover:border-green-500 transition-all" onclick="if(!event.target.closest('.add-to-cart-btn') && !event.target.closest('.wishlist-toggle-btn')) window.location.href='product.html?id=${p.id}'">
-          <div class="product-img-wrapper w-full sm:w-48 h-48 rounded-xl flex-shrink-0 relative overflow-hidden">
-            <a href="product.html?id=${p.id}" class="block w-full h-full">
-              <img src="${p.image}" alt="${safeName}" loading="lazy" onerror="this.onerror=null; this.src='${fallbackImg}';" class="w-full h-full object-cover" />
+        <div class="product-card product-card-list flex flex-row items-center p-3 sm:p-4 gap-3 sm:gap-5 cursor-pointer bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 shadow-sm hover:border-green-500 transition-all overflow-hidden" onclick="if(!event.target.closest('.add-to-cart-btn') && !event.target.closest('.wishlist-toggle-btn')) window.location.href='product.html?id=${p.id}'">
+          ${hasImage ? `
+          <div class="product-img-wrapper w-28 h-28 sm:w-36 sm:h-36 rounded-xl flex-shrink-0 relative overflow-hidden bg-slate-100 dark:bg-slate-900">
+            <a href="product.html?id=${p.id}" class="absolute inset-0 w-full h-full block overflow-hidden">
+              <img src="${p.image}" alt="${safeName}" loading="lazy" class="w-full h-full object-cover object-center" />
             </a>
-            ${p.discount ? `<span class="absolute top-2 left-2 badge-discount">-${p.discount}% OFF</span>` : ''}
+            ${p.discount ? `<span class="absolute top-2 left-2 badge-discount text-[10px] sm:text-xs px-1.5 py-0.5 z-10">-${p.discount}% OFF</span>` : ''}
           </div>
-          <div class="flex-1 min-w-0">
-            <div class="flex items-center gap-2 mb-1">
-              <span class="text-xs font-semibold text-green-700 dark:text-green-400 bg-green-50 dark:bg-green-950/40 px-2 py-0.5 rounded">${p.category}</span>
-              ${p.tags && p.tags.includes('Organic') ? '<span class="badge-organic">Organic</span>' : ''}
-            </div>
-            <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-1 hover:text-green-600 transition-colors">
-              <a href="product.html?id=${p.id}">${p.name}</a>
-            </h3>
-            <p class="text-xs text-slate-500 dark:text-slate-400 mb-3">${p.weight} • ${p.brand}</p>
-            <p class="text-sm text-slate-600 dark:text-slate-300 mb-4 line-clamp-2">${p.description || ''}</p>
-            <div class="flex items-center gap-1 text-amber-400 text-xs mb-4">
-              <i class="fa-solid fa-star"></i>
-              <span class="font-bold text-slate-800 dark:text-white">${p.rating}</span>
-              <span class="text-slate-400">(${p.reviewCount} reviews)</span>
-            </div>
-            <div class="flex items-center justify-between gap-4">
-              <div>
-                <span class="text-2xl font-extrabold text-green-600 dark:text-green-400">$${p.price.toFixed(2)}</span>
-                ${p.originalPrice ? `<span class="text-sm text-slate-400 line-through ml-2">$${p.originalPrice.toFixed(2)}</span>` : ''}
-              </div>
-              <div class="flex items-center gap-2">
-                <button data-product-id="${p.id}" class="wishlist-toggle-btn w-10 h-10 border border-slate-200 dark:border-slate-700 rounded-xl flex items-center justify-center hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors">
-                  <i class="${isFav ? 'fa-solid fa-heart text-red-500' : 'fa-regular fa-heart text-slate-600 dark:text-slate-400'}"></i>
-                </button>
-                <button class="add-to-cart-btn btn-primary" data-product-id="${p.id}">
-                  <i class="fa-solid fa-basket-shopping"></i> Add to Cart
+          ` : ''}
+          <div class="flex-1 min-w-0 py-0.5 flex flex-col justify-between self-stretch">
+            <div>
+              <div class="flex items-center justify-between gap-2 mb-1">
+                <div class="flex items-center gap-1.5 flex-wrap">
+                  <span class="text-[10px] sm:text-xs font-semibold text-green-700 dark:text-green-400 bg-green-50 dark:bg-green-950/40 px-2 py-0.5 rounded">${p.category}</span>
+                  ${!hasImage && p.discount ? `<span class="badge-discount text-[10px] sm:text-xs px-1.5 py-0.5">-${p.discount}% OFF</span>` : ''}
+                  ${p.tags && p.tags.includes('Organic') ? '<span class="badge-organic text-[10px] sm:text-xs px-1.5 py-0.5">Organic</span>' : ''}
+                </div>
+                <button data-product-id="${p.id}" class="wishlist-toggle-btn w-8 h-8 sm:w-9 sm:h-9 border border-slate-200 dark:border-slate-700 rounded-full flex items-center justify-center hover:bg-slate-100 dark:hover:bg-slate-700 transition-colors flex-shrink-0">
+                  <i class="${isFav ? 'fa-solid fa-heart text-red-500' : 'fa-regular fa-heart text-slate-500 dark:text-slate-400'} text-xs sm:text-sm"></i>
                 </button>
               </div>
+              <h3 class="text-sm sm:text-base font-bold text-slate-900 dark:text-white mb-0.5 hover:text-green-600 transition-colors line-clamp-1">
+                <a href="product.html?id=${p.id}">${p.name}</a>
+              </h3>
+              <p class="text-[11px] sm:text-xs text-slate-500 dark:text-slate-400 mb-1.5">${p.weight} • ${p.brand}</p>
+              ${p.description ? `<p class="text-xs text-slate-600 dark:text-slate-300 mb-2 line-clamp-1 hidden sm:block">${p.description}</p>` : ''}
+            </div>
+            <div class="flex items-center justify-between gap-1.5 pt-1 border-t border-slate-100 dark:border-slate-700/60 mt-auto min-w-0">
+              <div class="flex items-baseline gap-1 min-w-0 flex-shrink">
+                <span class="text-xs sm:text-sm font-bold text-green-600 dark:text-green-400 whitespace-nowrap">$${p.price.toFixed(2)}</span>
+                ${p.originalPrice ? `<span class="text-[10px] text-slate-400 line-through whitespace-nowrap">$${p.originalPrice.toFixed(2)}</span>` : ''}
+              </div>
+              <button class="add-to-cart-btn btn-primary text-[11px] px-2 py-1 min-h-0 flex-shrink-0" data-product-id="${p.id}">
+                <i class="fa-solid fa-basket-shopping text-[10px]"></i> <span class="ml-0.5 font-bold">Add</span>
+              </button>
             </div>
           </div>
         </div>
@@ -111,39 +111,61 @@ class ProductCatalogController {
     }
 
     return `
-      <div class="product-card flex flex-col justify-between cursor-pointer bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 shadow-sm hover:border-green-500 transition-all overflow-hidden" onclick="if(!event.target.closest('.add-to-cart-btn') && !event.target.closest('.wishlist-toggle-btn')) window.location.href='product.html?id=${p.id}'">
+      <div class="product-card flex flex-col justify-between cursor-pointer bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 shadow-sm hover:border-green-500 transition-all overflow-hidden ${hasImage ? '' : 'p-4 sm:p-5'}" onclick="if(!event.target.closest('.add-to-cart-btn') && !event.target.closest('.wishlist-toggle-btn')) window.location.href='product.html?id=${p.id}'">
         <div>
-          <div class="product-img-wrapper cursor-pointer relative">
-            <a href="product.html?id=${p.id}" class="block w-full h-48 overflow-hidden">
-              <img src="${p.image}" alt="${safeName}" loading="lazy" onerror="this.onerror=null; this.src='${fallbackImg}';" class="w-full h-full object-cover" />
+          ${hasImage ? `
+          <div class="product-img-wrapper cursor-pointer relative w-full aspect-square overflow-hidden bg-slate-50 dark:bg-slate-900">
+            <a href="product.html?id=${p.id}" class="absolute inset-0 w-full h-full block overflow-hidden">
+              <img src="${p.image}" alt="${safeName}" loading="lazy" class="w-full h-full object-cover object-center" />
             </a>
-            ${p.discount ? `<span class="absolute top-3 left-3 badge-discount">-${p.discount}% OFF</span>` : ''}
-            <button data-product-id="${p.id}" class="wishlist-toggle-btn absolute top-3 right-3 w-9 h-9 bg-white/90 dark:bg-slate-900/90 rounded-full flex items-center justify-center shadow-md hover:scale-110 transition-transform">
-              <i class="${isFav ? 'fa-solid fa-heart text-red-500' : 'fa-regular fa-heart text-slate-600 dark:text-slate-400'}"></i>
+            ${p.discount ? `<span class="absolute top-2.5 left-2.5 badge-discount z-10 text-xs px-2 py-0.5">-${p.discount}% OFF</span>` : ''}
+            <button data-product-id="${p.id}" class="wishlist-toggle-btn absolute top-2.5 right-2.5 w-8 h-8 sm:w-9 sm:h-9 bg-white/90 dark:bg-slate-900/90 rounded-full flex items-center justify-center shadow-md hover:scale-110 transition-transform z-10">
+              <i class="${isFav ? 'fa-solid fa-heart text-red-500' : 'fa-regular fa-heart text-slate-600 dark:text-slate-400'} text-xs sm:text-sm"></i>
             </button>
           </div>
-          <div class="p-4">
+          <div class="p-3 sm:p-4">
             <div class="flex items-center justify-between gap-1 mb-1">
-              <span class="text-xs font-medium text-slate-400 dark:text-slate-500 uppercase truncate">${p.brand}</span>
-              <div class="flex items-center gap-1 text-xs text-amber-400">
-                <i class="fa-solid fa-star"></i>
+              <span class="text-[10px] sm:text-xs font-semibold text-slate-400 dark:text-slate-500 uppercase truncate">${p.brand}</span>
+              <div class="flex items-center gap-1 text-[11px] sm:text-xs text-amber-400">
+                <i class="fa-solid fa-star text-[10px] sm:text-xs"></i>
                 <span class="font-bold text-slate-700 dark:text-slate-300">${p.rating}</span>
               </div>
             </div>
-            <h3 class="font-bold text-slate-900 dark:text-white text-base leading-snug mb-1 line-clamp-2 hover:text-green-600 transition-colors">
+            <h3 class="font-bold text-slate-900 dark:text-white text-sm sm:text-base leading-snug mb-1 line-clamp-2 hover:text-green-600 transition-colors">
               <a href="product.html?id=${p.id}">${p.name}</a>
             </h3>
-            <p class="text-xs text-slate-500 dark:text-slate-400 mb-3">${p.weight}</p>
+            <p class="text-[11px] sm:text-xs text-slate-500 dark:text-slate-400 mb-2">${p.weight}</p>
           </div>
-        </div>
-        <div class="p-4 pt-0 border-t border-slate-100 dark:border-slate-800/80 mt-auto">
-          <div class="flex items-center justify-between pt-3">
-            <div>
-              <span class="text-lg font-extrabold text-green-600 dark:text-green-400">$${p.price.toFixed(2)}</span>
-              ${p.originalPrice ? `<span class="text-xs text-slate-400 line-through ml-1.5">$${p.originalPrice.toFixed(2)}</span>` : ''}
+          ` : `
+          <div>
+            <div class="flex items-center justify-between gap-1 mb-2">
+              <span class="text-[10px] sm:text-xs font-semibold text-slate-400 dark:text-slate-500 uppercase truncate">${p.brand}</span>
+              <div class="flex items-center gap-2">
+                ${p.discount ? `<span class="badge-discount text-[10px] sm:text-xs px-2 py-0.5">-${p.discount}% OFF</span>` : ''}
+                <div class="flex items-center gap-1 text-[11px] sm:text-xs text-amber-400">
+                  <i class="fa-solid fa-star text-[10px] sm:text-xs"></i>
+                  <span class="font-bold text-slate-700 dark:text-slate-300">${p.rating}</span>
+                </div>
+                <button data-product-id="${p.id}" class="wishlist-toggle-btn w-7 h-7 sm:w-8 sm:h-8 bg-slate-100 dark:bg-slate-700/60 rounded-full flex items-center justify-center hover:scale-110 transition-transform">
+                  <i class="${isFav ? 'fa-solid fa-heart text-red-500' : 'fa-regular fa-heart text-slate-600 dark:text-slate-400'} text-xs"></i>
+                </button>
+              </div>
             </div>
-            <button class="add-to-cart-btn btn-primary text-xs px-3.5 py-2 min-h-0" data-product-id="${p.id}">
-              <i class="fa-solid fa-plus mr-1"></i> Add
+            <h3 class="font-bold text-slate-900 dark:text-white text-sm sm:text-base leading-snug mb-1 line-clamp-2 hover:text-green-600 transition-colors">
+              <a href="product.html?id=${p.id}">${p.name}</a>
+            </h3>
+            <p class="text-[11px] sm:text-xs text-slate-500 dark:text-slate-400 mb-3">${p.weight}</p>
+          </div>
+          `}
+        </div>
+        <div class="${hasImage ? 'p-3 sm:p-4 pt-0 border-t border-slate-100 dark:border-slate-800/80' : 'pt-3 border-t border-slate-100 dark:border-slate-800/80'} mt-auto">
+          <div class="flex items-center justify-between pt-2">
+            <div class="flex items-baseline gap-1">
+              <span class="text-xs sm:text-sm font-bold text-green-600 dark:text-green-400">$${p.price.toFixed(2)}</span>
+              ${p.originalPrice ? `<span class="text-[10px] text-slate-400 line-through">$${p.originalPrice.toFixed(2)}</span>` : ''}
+            </div>
+            <button class="add-to-cart-btn btn-primary text-xs px-2.5 py-1 min-h-0" data-product-id="${p.id}">
+              <i class="fa-solid fa-plus mr-0.5 text-[10px]"></i> Add
             </button>
           </div>
         </div>

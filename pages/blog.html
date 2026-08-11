@@ -38,7 +38,7 @@
 <body class="bg-slate-50 dark:bg-slate-900 text-slate-900 dark:text-slate-100 transition-colors duration-200">
 
   <!-- COMBINED FIXED HEADER (TOP UTILITY BAR + MAIN NAVBAR) -->
-  <header class="fixed top-0 left-0 right-0 z-50 w-full shadow-sm bg-white dark:bg-slate-900 transition-colors duration-200">
+  <header class="fixed top-0 left-0 right-0 z-[1000] w-full shadow-sm bg-white dark:bg-slate-900 transition-colors duration-200">
     
     <!-- TOP UTILITY BAR -->
     <div class="bg-slate-900 text-slate-300 text-xs py-2 border-b border-slate-800">
@@ -106,7 +106,6 @@
                 </div>
                 <div>
                   <span class="font-extrabold text-xl tracking-tight text-slate-900 dark:text-white">Fresh<span class="text-green-600">Basket</span></span>
-                  <span class="block text-[10px] uppercase font-bold tracking-widest text-slate-400 -mt-1">Supermarket</span>
                 </div>
               </a>
             </div>
@@ -155,17 +154,13 @@
               <a href="deals.html" class="hover:text-amber-600 dark:hover:text-amber-400 transition-colors">Deals</a>
               <!-- Blog -->
               <a href="blog.html" class="text-green-600 dark:text-green-400 font-bold transition-colors">Blog</a>
+              <!-- Contact -->
+              <a href="contact.html" class="hover:text-green-600 dark:hover:text-green-400 transition-colors">Contact</a>
             </nav>
 
             <!-- RIGHT ACTION CONTROLS (RIGHT) -->
-            <div class="flex items-center justify-end gap-3 flex-1">
-              <!-- Highlighted Login Button (Moved Before RTL Button) -->
-              <a href="login.html" id="nav-login-btn" class="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-500 hover:to-emerald-500 text-white font-bold text-xs sm:text-sm rounded-xl shadow-md shadow-green-600/25 hover:shadow-lg hover:shadow-green-600/40 hover:-translate-y-0.5 active:translate-y-0 transition-all duration-200 group/btn">
-                <i class="fa-solid fa-right-to-bracket text-xs group-hover/btn:scale-110 transition-transform"></i>
-                <span>Login</span>
-              </a>
-
-              <!-- Theme Toggle -->
+            <div class="flex items-center justify-end gap-2.5 sm:gap-3.5 flex-1">
+              <!-- RTL Button -->
               <button type="button" onclick="event.preventDefault(); event.stopPropagation(); event.stopImmediatePropagation(); if(window.themeController) window.themeController.toggleRTL(); return false;" class="rtl-toggle-btn w-9 h-9 flex items-center justify-center bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-200 border border-slate-200 dark:border-slate-700 rounded-xl hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors" title="Toggle RTL/LTR" aria-label="Toggle RTL/LTR">
                 <i class="fa-solid fa-globe text-base"></i>
               </button>
@@ -178,6 +173,12 @@
                 <i class="fa-solid fa-basket-shopping text-lg"></i>
                 <span class="cart-count-badge absolute -top-1.5 -right-1.5 w-5 h-5 bg-green-600 text-white rounded-full text-[11px] font-extrabold flex items-center justify-center border-2 border-white dark:border-slate-900 shadow">0</span>
               </button>
+
+              <!-- Login Button -->
+              <a href="login.html" class="inline-flex items-center gap-1.5 px-3.5 py-2 bg-green-600 hover:bg-green-700 text-white font-bold text-xs rounded-xl shadow-md shadow-green-600/20 hover:shadow-lg transition-all" title="Login / Account">
+                <i class="fa-solid fa-right-to-bracket text-xs"></i>
+                <span>Login</span>
+              </a>
             </div>
 
           </div>
@@ -224,6 +225,7 @@
       <a href="categories.html" class="block py-2 text-slate-700 dark:text-slate-200 hover:text-green-600">Categories</a>
       <a href="deals.html" class="block py-2 text-slate-700 dark:text-slate-200 hover:text-green-600">Deals</a>
       <a href="blog.html" class="block py-2 text-green-600 dark:text-green-400 font-bold">Blog</a>
+      <a href="contact.html" class="block py-2 text-slate-700 dark:text-slate-200 hover:text-green-600">Contact</a>
     </div>
 
     <!-- Pinned Mobile Login Footer -->
@@ -334,7 +336,7 @@
             <li><a href="order-tracking.html" class="text-slate-600 dark:text-slate-400 hover:text-green-600 dark:hover:text-white transition-colors">Live Order Tracking</a></li>
             <li><a href="orders.html" class="text-slate-600 dark:text-slate-400 hover:text-green-600 dark:hover:text-white transition-colors">Order History</a></li>
             <li><a href="404.html" class="text-slate-600 dark:text-slate-400 hover:text-green-600 dark:hover:text-white transition-colors">Returns & Refunds</a></li>
-            <li><a href="coming-soon.html" class="text-slate-600 dark:text-slate-400 hover:text-green-600 dark:hover:text-white transition-colors">Terms of Service</a></li>
+            <li><a href="coming-soon.html" class="text-slate-600 dark:text-slate-400 hover:text-green-600 dark:hover:text-white transition-colors">Store Policies & Terms</a></li>
           </ul>
         </div>
 
@@ -362,9 +364,17 @@
         </div>
         <h3 class="font-bold text-lg text-slate-900 dark:text-white">Your Cart</h3>
       </div>
-      <button id="cart-drawer-close" class="p-2 text-slate-400 hover:text-slate-600 dark:hover:text-white" aria-label="Close Cart">
-        <i class="fa-solid fa-xmark text-lg"></i>
-      </button>
+      <div class="flex items-center gap-2">
+        <button type="button" onclick="event.preventDefault(); event.stopPropagation(); event.stopImmediatePropagation(); if(window.themeController) window.themeController.toggleRTL(); return false;" class="rtl-toggle-btn w-8 h-8 flex items-center justify-center bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-200 border border-slate-200 dark:border-slate-700 rounded-lg hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors" title="Toggle RTL/LTR" aria-label="Toggle RTL/LTR">
+          <i class="fa-solid fa-globe text-sm"></i>
+        </button>
+        <button type="button" onclick="event.preventDefault(); event.stopPropagation(); event.stopImmediatePropagation(); if(window.themeController) window.themeController.toggleDarkMode(); return false;" class="theme-toggle-btn w-8 h-8 flex items-center justify-center bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-200 border border-slate-200 dark:border-slate-700 rounded-lg hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors" title="Toggle Light/Dark Theme" aria-label="Toggle Light/Dark Theme">
+          <i class="fa-solid fa-moon text-sm"></i>
+        </button>
+        <button id="cart-drawer-close" class="w-8 h-8 flex items-center justify-center bg-slate-100 dark:bg-slate-800 text-slate-400 hover:text-slate-600 dark:hover:text-white border border-slate-200 dark:border-slate-700 rounded-lg hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors" aria-label="Close Cart">
+          <i class="fa-solid fa-xmark text-sm"></i>
+        </button>
+      </div>
     </div>
 
     <!-- Free Delivery Progress Bar -->

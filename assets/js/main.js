@@ -3,6 +3,16 @@
  * Coordinates global UI components: header search autocomplete, zip code delivery checker, mobile drawers, modals, toast alerts.
  */
 
+// Global Image Error Fallback Handler
+document.addEventListener('error', function(e) {
+  if (e.target && e.target.tagName === 'IMG') {
+    if (!e.target.dataset.fallbackApplied) {
+      e.target.dataset.fallbackApplied = 'true';
+      e.target.src = 'https://images.unsplash.com/photo-1467003909585-2f8a72700288?auto=format&fit=crop&w=600&q=80';
+    }
+  }
+}, true);
+
 // Global Toast Notification Engine
 window.showToast = function(message, type = 'success') {
   let container = document.getElementById('toast-container');
@@ -320,7 +330,7 @@ class AppMain {
         } else {
           dropdown.innerHTML = matches.map(p => `
             <a href="${window.location.pathname.includes('/pages/') ? '' : 'pages/'}product.html?id=${p.id}" class="flex items-center gap-3 p-3 hover:bg-slate-50 dark:hover:bg-slate-700/50 transition-colors border-b border-slate-100 dark:border-slate-700/50 last:border-none">
-              <img src="${p.image}" alt="${p.name}" class="w-10 h-10 object-cover rounded-lg" />
+              ${p.image ? `<img src="${p.image}" alt="${p.name}" class="w-10 h-10 object-cover rounded-lg" />` : ''}
               <div class="flex-1 min-w-0">
                 <div class="font-bold text-sm text-slate-900 dark:text-white truncate">${p.name}</div>
                 <div class="text-xs text-slate-500 dark:text-slate-400">${p.category} • ${p.weight}</div>

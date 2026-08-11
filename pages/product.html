@@ -41,7 +41,7 @@
 <body class="bg-slate-50 dark:bg-slate-900 text-slate-900 dark:text-slate-100 transition-colors duration-200">
 
   <!-- COMBINED FIXED HEADER (TOP UTILITY BAR + MAIN NAVBAR) -->
-  <header class="fixed top-0 left-0 right-0 z-50 w-full shadow-sm bg-white dark:bg-slate-900 transition-colors duration-200">
+  <header class="fixed top-0 left-0 right-0 z-[1000] w-full shadow-sm bg-white dark:bg-slate-900 transition-colors duration-200">
     
     <!-- TOP UTILITY BAR -->
     <div class="bg-slate-900 text-slate-300 text-xs py-2 border-b border-slate-800">
@@ -109,7 +109,6 @@
                 </div>
                 <div>
                   <span class="font-extrabold text-xl tracking-tight text-slate-900 dark:text-white">Fresh<span class="text-green-600">Basket</span></span>
-                  <span class="block text-[10px] uppercase font-bold tracking-widest text-slate-400 -mt-1">Supermarket</span>
                 </div>
               </a>
             </div>
@@ -154,16 +153,11 @@
               <a href="categories.html" class="hover:text-green-600 dark:hover:text-green-400 transition-colors">Categories</a>
               <a href="deals.html" class="hover:text-amber-600 dark:hover:text-amber-400 transition-colors">Deals</a>
               <a href="blog.html" class="hover:text-green-600 dark:hover:text-green-400 transition-colors">Blog</a>
+              <a href="contact.html" class="hover:text-green-600 dark:hover:text-green-400 transition-colors">Contact</a>
             </nav>
 
             <!-- RIGHT ACTION CONTROLS (RIGHT) -->
-            <div class="flex items-center justify-end gap-3 flex-1">
-              <!-- Highlighted Login Button (Moved Before RTL Button) -->
-              <a href="login.html" id="nav-login-btn" class="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-500 hover:to-emerald-500 text-white font-bold text-xs sm:text-sm rounded-xl shadow-md shadow-green-600/25 hover:shadow-lg hover:shadow-green-600/40 hover:-translate-y-0.5 active:translate-y-0 transition-all duration-200 group/btn">
-                <i class="fa-solid fa-right-to-bracket text-xs group-hover/btn:scale-110 transition-transform"></i>
-                <span>Login</span>
-              </a>
-
+            <div class="flex items-center justify-end gap-2.5 sm:gap-3.5 flex-1">
               <button type="button" onclick="event.preventDefault(); event.stopPropagation(); event.stopImmediatePropagation(); if(window.themeController) window.themeController.toggleRTL(); return false;" class="rtl-toggle-btn w-9 h-9 flex items-center justify-center bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-200 border border-slate-200 dark:border-slate-700 rounded-xl hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors" title="Toggle RTL/LTR" aria-label="Toggle RTL/LTR">
                 <i class="fa-solid fa-globe text-base"></i>
               </button>
@@ -177,6 +171,12 @@
                 <i class="fa-solid fa-basket-shopping text-lg"></i>
                 <span class="cart-count-badge absolute -top-1.5 -right-1.5 w-5 h-5 bg-green-600 text-white rounded-full text-[11px] font-extrabold flex items-center justify-center border-2 border-white dark:border-slate-900 shadow">0</span>
               </button>
+
+              <!-- Login Button -->
+              <a href="login.html" class="inline-flex items-center gap-1.5 px-3.5 py-2 bg-green-600 hover:bg-green-700 text-white font-bold text-xs rounded-xl shadow-md shadow-green-600/20 hover:shadow-lg transition-all" title="Login / Account">
+                <i class="fa-solid fa-right-to-bracket text-xs"></i>
+                <span>Login</span>
+              </a>
             </div>
 
           </div>
@@ -224,6 +224,7 @@
       <a href="categories.html" class="block py-2 text-slate-700 dark:text-slate-200 hover:text-green-600">Categories</a>
       <a href="deals.html" class="block py-2 text-slate-700 dark:text-slate-200 hover:text-green-600">Deals</a>
       <a href="blog.html" class="block py-2 text-slate-700 dark:text-slate-200 hover:text-green-600">Blog</a>
+      <a href="contact.html" class="block py-2 text-slate-700 dark:text-slate-200 hover:text-green-600">Contact</a>
     </div>
 
     <!-- Pinned Mobile Login Footer -->
@@ -285,19 +286,22 @@
         </p>
 
         <!-- Actions -->
-        <div class="flex items-center gap-4 pt-4">
-          <div class="inline-flex items-center border border-slate-300 dark:border-slate-600 rounded-xl bg-slate-50 dark:bg-slate-900">
-            <button onclick="let v = document.getElementById('qty-input'); v.value = Math.max(1, parseInt(v.value)-1);" class="w-10 h-10 flex items-center justify-center text-slate-600 dark:text-slate-300 font-bold">-</button>
-            <input type="text" id="qty-input" value="1" readonly class="w-12 text-center bg-transparent font-bold text-sm dark:text-white" />
-            <button onclick="let v = document.getElementById('qty-input'); v.value = parseInt(v.value)+1;" class="w-10 h-10 flex items-center justify-center text-slate-600 dark:text-slate-300 font-bold">+</button>
+        <div class="flex items-center gap-3 pt-4 flex-wrap sm:flex-nowrap">
+          <!-- Quantity Selector (Compact Small Size) -->
+          <div class="inline-flex items-center border border-slate-300 dark:border-slate-600 rounded-xl bg-slate-50 dark:bg-slate-900 flex-shrink-0">
+            <button onclick="let v = document.getElementById('qty-input'); v.value = Math.max(1, parseInt(v.value)-1);" class="w-8 h-8 flex items-center justify-center text-slate-600 dark:text-slate-300 font-bold hover:bg-slate-200 dark:hover:bg-slate-800 rounded-l-xl transition-colors text-sm">-</button>
+            <input type="text" id="qty-input" value="1" readonly class="w-7 text-center bg-transparent font-bold text-xs sm:text-sm dark:text-white" />
+            <button onclick="let v = document.getElementById('qty-input'); v.value = parseInt(v.value)+1;" class="w-8 h-8 flex items-center justify-center text-slate-600 dark:text-slate-300 font-bold hover:bg-slate-200 dark:hover:bg-slate-800 rounded-r-xl transition-colors text-sm">+</button>
           </div>
 
-          <button id="add-to-cart-action-btn" class="btn-primary flex-1 py-3.5 text-sm font-bold shadow-lg shadow-green-600/30">
-            <i class="fa-solid fa-basket-shopping mr-2"></i> Add to Cart
+          <!-- Add to Cart Action Button -->
+          <button id="add-to-cart-action-btn" class="btn-primary flex-1 py-2.5 px-4 text-xs sm:text-sm font-bold shadow-md shadow-green-600/25 whitespace-nowrap justify-center min-h-[36px]">
+            <i class="fa-solid fa-basket-shopping mr-1.5"></i> Add to Cart
           </button>
 
-          <button id="wishlist-action-btn" class="w-12 h-12 border border-slate-200 dark:border-slate-700 rounded-xl flex items-center justify-center text-slate-600 dark:text-slate-400 hover:text-red-500">
-            <i class="fa-regular fa-heart text-xl"></i>
+          <!-- Wishlist Button -->
+          <button id="wishlist-action-btn" class="w-9 h-9 border border-slate-200 dark:border-slate-700 rounded-xl flex items-center justify-center text-slate-600 dark:text-slate-400 hover:text-red-500 flex-shrink-0" aria-label="Add to Wishlist">
+            <i class="fa-regular fa-heart text-base"></i>
           </button>
         </div>
 
@@ -395,7 +399,7 @@
             <li><a href="order-tracking.html" class="text-slate-600 dark:text-slate-400 hover:text-green-600 dark:hover:text-white transition-colors">Live Order Tracking</a></li>
             <li><a href="orders.html" class="text-slate-600 dark:text-slate-400 hover:text-green-600 dark:hover:text-white transition-colors">Order History</a></li>
             <li><a href="404.html" class="text-slate-600 dark:text-slate-400 hover:text-green-600 dark:hover:text-white transition-colors">Returns & Refunds</a></li>
-            <li><a href="coming-soon.html" class="text-slate-600 dark:text-slate-400 hover:text-green-600 dark:hover:text-white transition-colors">Terms of Service</a></li>
+            <li><a href="coming-soon.html" class="text-slate-600 dark:text-slate-400 hover:text-green-600 dark:hover:text-white transition-colors">Store Policies & Terms</a></li>
           </ul>
         </div>
 
@@ -405,11 +409,6 @@
         <p>© 2026 FreshBasket Supermarket Inc. All rights reserved.</p>
         <div class="flex items-center gap-1.5 font-medium">
           <span>Developed by</span>
-          <span class="font-extrabold text-green-700 dark:text-green-400">Abhivorn Technologies Pvt.Ltd.</span>
-        </div>
-      </div>
-    </div>
-  </footer>
           <span class="font-extrabold text-green-700 dark:text-green-400">Abhivorn Technologies Pvt.Ltd.</span>
         </div>
       </div>
@@ -426,9 +425,17 @@
         </div>
         <h3 class="font-bold text-lg text-slate-900 dark:text-white">Your Cart</h3>
       </div>
-      <button id="cart-drawer-close" class="p-2 text-slate-400 hover:text-slate-600 dark:hover:text-white" aria-label="Close Cart">
-        <i class="fa-solid fa-xmark text-lg"></i>
-      </button>
+      <div class="flex items-center gap-2">
+        <button type="button" onclick="event.preventDefault(); event.stopPropagation(); event.stopImmediatePropagation(); if(window.themeController) window.themeController.toggleRTL(); return false;" class="rtl-toggle-btn w-8 h-8 flex items-center justify-center bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-200 border border-slate-200 dark:border-slate-700 rounded-lg hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors" title="Toggle RTL/LTR" aria-label="Toggle RTL/LTR">
+          <i class="fa-solid fa-globe text-sm"></i>
+        </button>
+        <button type="button" onclick="event.preventDefault(); event.stopPropagation(); event.stopImmediatePropagation(); if(window.themeController) window.themeController.toggleDarkMode(); return false;" class="theme-toggle-btn w-8 h-8 flex items-center justify-center bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-200 border border-slate-200 dark:border-slate-700 rounded-lg hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors" title="Toggle Light/Dark Theme" aria-label="Toggle Light/Dark Theme">
+          <i class="fa-solid fa-moon text-sm"></i>
+        </button>
+        <button id="cart-drawer-close" class="w-8 h-8 flex items-center justify-center bg-slate-100 dark:bg-slate-800 text-slate-400 hover:text-slate-600 dark:hover:text-white border border-slate-200 dark:border-slate-700 rounded-lg hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors" aria-label="Close Cart">
+          <i class="fa-solid fa-xmark text-sm"></i>
+        </button>
+      </div>
     </div>
     <div class="bg-slate-50 dark:bg-slate-800/80 p-4 border-b border-slate-200 dark:border-slate-700">
       <p id="cart-free-shipping-text" class="text-xs text-slate-600 dark:text-slate-300 mb-2">Calculating shipping free delivery...</p>
@@ -476,12 +483,20 @@
 
       // Update Product Main Info
       const mainImg = document.getElementById('main-product-img');
-      mainImg.onerror = function() {
-        this.onerror = null;
-        this.src = 'https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&w=600&q=80';
-      };
-      mainImg.src = product.image;
-      mainImg.alt = product.name;
+      const galleryCol = mainImg ? mainImg.closest('.lg\\:col-span-6') : null;
+      if (mainImg) {
+        if (product.image && product.image.trim()) {
+          mainImg.src = product.image;
+          mainImg.alt = product.name;
+        } else if (galleryCol) {
+          galleryCol.classList.add('hidden');
+          const infoCol = galleryCol.nextElementSibling;
+          if (infoCol) {
+            infoCol.classList.remove('lg:col-span-6');
+            infoCol.classList.add('lg:col-span-12');
+          }
+        }
+      }
       
       const discountBadge = document.getElementById('product-discount-badge');
       if (product.discount) {
@@ -554,10 +569,11 @@
       const itemsToDisplay = related.length >= 4 ? related : window.productsData.filter(p => p.id !== product.id).slice(0, 4);
 
       relatedContainer.innerHTML = itemsToDisplay.map(p => `
-        <div class="product-card flex flex-col justify-between">
+        <div class="product-card flex flex-col justify-between cursor-pointer ${p.image ? '' : 'p-4 sm:p-5'}" onclick="if(!event.target.closest('button')) window.location.href='product.html?id=${p.id}'">
           <div>
-            <div class="product-img-wrapper cursor-pointer" onclick="window.location.href='product.html?id=${p.id}'">
-              <img src="${p.image}" alt="${p.name}" loading="lazy" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&w=600&q=80';" />
+            ${p.image ? `
+            <div class="product-img-wrapper cursor-pointer">
+              <img src="${p.image}" alt="${p.name}" loading="lazy" />
               ${p.discount ? `<span class="absolute top-3 left-3 badge-discount">-${p.discount}% OFF</span>` : ''}
             </div>
             <div class="p-4">
@@ -567,8 +583,20 @@
               </h3>
               <p class="text-xs text-slate-500 mb-3">${p.weight}</p>
             </div>
+            ` : `
+            <div>
+              <div class="flex items-center justify-between gap-1 mb-1">
+                <span class="text-xs font-semibold text-slate-400 uppercase">${p.brand}</span>
+                ${p.discount ? `<span class="badge-discount text-xs px-2 py-0.5">-${p.discount}% OFF</span>` : ''}
+              </div>
+              <h3 class="font-bold text-slate-900 dark:text-white text-base mt-1 mb-1 hover:text-green-600 transition-colors">
+                <a href="product.html?id=${p.id}">${p.name}</a>
+              </h3>
+              <p class="text-xs text-slate-500 mb-3">${p.weight}</p>
+            </div>
+            `}
           </div>
-          <div class="p-4 pt-0 border-t border-slate-100 dark:border-slate-800 mt-auto flex items-center justify-between pt-3">
+          <div class="${p.image ? 'p-4 pt-0' : 'pt-3'} border-t border-slate-100 dark:border-slate-800 mt-auto flex items-center justify-between pt-3">
             <span class="text-lg font-extrabold text-green-600">$${p.price.toFixed(2)}</span>
             <button onclick="if(window.cartManager) window.cartManager.addItem(window.productsData.find(x => x.id === '${p.id}'), 1)" class="btn-primary text-xs px-3.5 py-2 min-h-0">+ Add</button>
           </div>

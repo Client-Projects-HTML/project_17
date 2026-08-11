@@ -7,56 +7,116 @@
   <link rel="icon" type="image/svg+xml" href="../assets/images/favicon.svg" />
   <link rel="shortcut icon" href="../favicon.svg" />
   <link rel="apple-touch-icon" href="../assets/images/favicon.svg" />
+  <meta name="description" content="Exciting new supermarket feature coming soon to FreshBasket!" />
+  
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
-    tailwind.config = { darkMode: 'class', theme: { extend: { colors: { brand: { 600: '#16a34a' } } } } }
+    tailwind.config = {
+      darkMode: 'class',
+      theme: { extend: { colors: { brand: { 600: '#16a34a', 700: '#15803d' } } } }
+    }
+  </script>
+  <script>
+    (function() {
+      const savedTheme = localStorage.getItem('freshbasket_theme');
+      const systemPrefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+      if (savedTheme === 'dark' || (!savedTheme && systemPrefersDark)) {
+        document.documentElement.classList.add('dark');
+      } else {
+        document.documentElement.classList.remove('dark');
+      }
+      const savedRTL = localStorage.getItem('freshbasket_rtl');
+      if (savedRTL === 'true') {
+        document.documentElement.setAttribute('dir', 'rtl');
+        document.documentElement.setAttribute('lang', 'ar');
+      }
+    })();
   </script>
   <link rel="stylesheet" href="../assets/css/style.css" />
   <link rel="stylesheet" href="../assets/css/dark-mode.css" />
   <link rel="stylesheet" href="../assets/css/rtl.css" />
 </head>
-<body class="bg-slate-900 text-white min-h-screen flex items-center justify-center p-4">
+<body class="bg-slate-50 dark:bg-slate-900 text-slate-900 dark:text-slate-100 min-h-screen flex items-center justify-center p-4 sm:p-6 transition-colors duration-200">
 
-  <div class="max-w-lg w-full text-center space-y-8">
-    <div class="w-24 h-24 bg-green-500/20 text-green-400 rounded-3xl border border-green-500/30 flex items-center justify-center mx-auto text-4xl shadow-2xl shadow-green-600/30">
-      <i class="fa-solid fa-rocket"></i>
-    </div>
+  <!-- MAIN CARD CONTAINER -->
+  <div class="max-w-lg w-full bg-white dark:bg-slate-800/90 rounded-3xl border border-slate-200 dark:border-slate-700/80 p-6 sm:p-8 shadow-2xl space-y-6">
 
-    <div class="space-y-3">
-      <span class="text-xs font-extrabold text-green-400 uppercase tracking-widest bg-green-500/20 px-3.5 py-1 rounded-full border border-green-500/30">New Feature</span>
-      <h1 class="text-3xl sm:text-4xl font-extrabold">Coming Soon</h1>
-      <p class="text-sm text-slate-400">Our team is building this new feature for your neighborhood supermarket. Stay tuned for exciting updates!</p>
-    </div>
+    <!-- 1. CARD TOP HEADER ROW -->
+    <div class="flex items-center justify-between pb-5 border-b border-slate-100 dark:border-slate-700/60">
+      <!-- Brand Logo -->
+      <a href="../index.html" class="flex items-center gap-2.5 group">
+        <div class="w-10 h-10 bg-green-600 text-white rounded-2xl flex items-center justify-center font-extrabold text-lg shadow-md shadow-green-600/30 group-hover:scale-105 transition-transform">
+          <i class="fa-solid fa-basket-shopping"></i>
+        </div>
+        <span class="font-extrabold text-xl tracking-tight text-slate-900 dark:text-white">Fresh<span class="text-green-600">Basket</span></span>
+      </a>
 
-    <!-- Countdown Timer Placeholder -->
-    <div class="grid grid-cols-4 gap-4 text-center">
-      <div class="bg-slate-800 p-4 rounded-2xl border border-slate-700">
-        <span class="text-2xl font-extrabold text-green-400">14</span>
-        <span class="text-[10px] text-slate-400 block uppercase">Days</span>
-      </div>
-      <div class="bg-slate-800 p-4 rounded-2xl border border-slate-700">
-        <span class="text-2xl font-extrabold text-green-400">08</span>
-        <span class="text-[10px] text-slate-400 block uppercase">Hours</span>
-      </div>
-      <div class="bg-slate-800 p-4 rounded-2xl border border-slate-700">
-        <span class="text-2xl font-extrabold text-green-400">45</span>
-        <span class="text-[10px] text-slate-400 block uppercase">Mins</span>
-      </div>
-      <div class="bg-slate-800 p-4 rounded-2xl border border-slate-700">
-        <span class="text-2xl font-extrabold text-green-400">12</span>
-        <span class="text-[10px] text-slate-400 block uppercase">Secs</span>
+      <!-- Right Action Controls (Theme & RTL Buttons) -->
+      <div class="flex items-center gap-2">
+        <button type="button" onclick="event.preventDefault(); event.stopPropagation(); event.stopImmediatePropagation(); if(window.themeController) window.themeController.toggleDarkMode(); return false;" class="theme-toggle-btn w-9 h-9 flex items-center justify-center bg-slate-100 dark:bg-slate-700/60 text-slate-700 dark:text-slate-200 border border-slate-200 dark:border-slate-600 rounded-xl hover:bg-slate-200 dark:hover:bg-slate-600 transition-colors" title="Toggle Light/Dark Theme" aria-label="Toggle Light/Dark Theme">
+          <i class="fa-solid fa-moon text-sm"></i>
+        </button>
+        <button type="button" onclick="event.preventDefault(); event.stopPropagation(); event.stopImmediatePropagation(); if(window.themeController) window.themeController.toggleRTL(); return false;" class="rtl-toggle-btn w-9 h-9 flex items-center justify-center bg-slate-100 dark:bg-slate-700/60 text-slate-700 dark:text-slate-200 border border-slate-200 dark:border-slate-600 rounded-xl hover:bg-slate-200 dark:hover:bg-slate-600 transition-colors" title="Toggle RTL/LTR" aria-label="Toggle RTL/LTR">
+          <i class="fa-solid fa-right-left text-sm"></i>
+        </button>
       </div>
     </div>
 
-    <div>
-      <a href="../index.html" class="btn-primary inline-flex px-8 py-3.5 text-sm font-bold shadow-lg shadow-green-600/40">
-        Back to Home
+    <!-- 2. CARD CENTER ICON & BADGE -->
+    <div class="text-center pt-2 space-y-4">
+      <div class="w-20 h-20 bg-green-500/10 dark:bg-green-500/20 text-green-600 dark:text-green-400 rounded-3xl border border-green-500/20 flex items-center justify-center mx-auto text-3xl shadow-xl shadow-green-600/10">
+        <i class="fa-solid fa-rocket"></i>
+      </div>
+
+      <div class="space-y-2">
+        <span class="text-xs font-extrabold text-green-600 dark:text-green-400 uppercase tracking-widest">New Feature</span>
+        <h1 class="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white tracking-tight leading-tight">Something Exciting is Coming Soon!</h1>
+        <p class="text-xs sm:text-sm text-slate-500 dark:text-slate-400 leading-relaxed max-w-sm mx-auto">
+          Our team is building this new feature for your neighborhood supermarket. Stay tuned for exciting updates!
+        </p>
+      </div>
+    </div>
+
+    <!-- 3. COUNTDOWN TIMER -->
+    <div class="grid grid-cols-4 gap-2.5 sm:gap-3 text-center">
+      <div class="bg-slate-100 dark:bg-slate-900/80 p-3 rounded-2xl border border-slate-200 dark:border-slate-700/70">
+        <span class="text-xl sm:text-2xl font-extrabold text-green-600 dark:text-green-400">14</span>
+        <span class="text-[10px] text-slate-400 dark:text-slate-500 block uppercase font-bold tracking-wider mt-0.5">Days</span>
+      </div>
+      <div class="bg-slate-100 dark:bg-slate-900/80 p-3 rounded-2xl border border-slate-200 dark:border-slate-700/70">
+        <span class="text-xl sm:text-2xl font-extrabold text-green-600 dark:text-green-400">08</span>
+        <span class="text-[10px] text-slate-400 dark:text-slate-500 block uppercase font-bold tracking-wider mt-0.5">Hours</span>
+      </div>
+      <div class="bg-slate-100 dark:bg-slate-900/80 p-3 rounded-2xl border border-slate-200 dark:border-slate-700/70">
+        <span class="text-xl sm:text-2xl font-extrabold text-green-600 dark:text-green-400">45</span>
+        <span class="text-[10px] text-slate-400 dark:text-slate-500 block uppercase font-bold tracking-wider mt-0.5">Mins</span>
+      </div>
+      <div class="bg-slate-100 dark:bg-slate-900/80 p-3 rounded-2xl border border-slate-200 dark:border-slate-700/70">
+        <span class="text-xl sm:text-2xl font-extrabold text-green-600 dark:text-green-400">12</span>
+        <span class="text-[10px] text-slate-400 dark:text-slate-500 block uppercase font-bold tracking-wider mt-0.5">Secs</span>
+      </div>
+    </div>
+
+    <!-- 4. ACTION BUTTON -->
+    <div class="pt-2">
+      <a href="../index.html" class="btn-primary w-full py-3.5 px-5 text-sm font-bold rounded-xl shadow-lg shadow-green-600/30 inline-flex items-center justify-center gap-2">
+        <i class="fa-solid fa-arrow-left text-xs"></i>
+        <span>Back to Home</span>
       </a>
     </div>
+
+    <!-- 5. CARD FOOTER CREDITS -->
+    <div class="pt-4 border-t border-slate-100 dark:border-slate-700/60 text-center">
+      <p class="text-xs text-slate-500 dark:text-slate-400 font-medium">
+        Developed by <span class="font-extrabold text-slate-800 dark:text-slate-200">Abhivorn Technologies Pvt. Ltd.</span>
+      </p>
+    </div>
+
   </div>
 
   <script src="../assets/js/theme.js"></script>

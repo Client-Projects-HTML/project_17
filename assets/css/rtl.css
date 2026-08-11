@@ -106,3 +106,10 @@
   }
 }
 
+/* RTL Mobile S & M Spacing Adjustments */
+@media (max-width: 424px) {
+  [dir="rtl"] .flex.lg\:hidden .flex-shrink-0 {
+    margin-right: auto !important;
+    margin-left: 0 !important;
+  }
+}

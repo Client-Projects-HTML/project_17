@@ -97,7 +97,7 @@
     main content</a>
 
   <!-- COMBINED FIXED HEADER (TOP UTILITY BAR + MAIN NAVBAR) -->
-  <header class="fixed top-0 left-0 right-0 z-50 w-full shadow-sm bg-white dark:bg-slate-900 transition-colors duration-200">
+  <header class="fixed top-0 left-0 right-0 z-[1000] w-full shadow-sm bg-white dark:bg-slate-900 transition-colors duration-200">
     
     <!-- TOP UTILITY BAR -->
     <div class="bg-slate-900 text-slate-300 text-xs py-2 border-b border-slate-800">
@@ -127,34 +127,34 @@
         <div class="flex items-center justify-between h-20 gap-4">
 
           <!-- Mobile Header Bar (Strict Single Row) -->
-          <div class="flex lg:hidden items-center justify-between w-full h-16 py-1 gap-2">
+          <div class="flex lg:hidden items-center justify-between w-full h-16 py-1 gap-1 xs:gap-2">
             <!-- Mobile Left: Logo -->
-            <div class="flex items-center gap-2 min-w-0">
-              <a href="index.html" class="flex items-center gap-1.5 min-w-0">
-                <div class="w-8 h-8 bg-green-600 text-white rounded-xl flex items-center justify-center font-extrabold text-base shadow-md shadow-green-600/30 flex-shrink-0">
+            <div class="flex items-center gap-1.5 xs:gap-2 flex-shrink-0 min-w-max">
+              <a href="index.html" class="flex items-center gap-1.5 flex-shrink-0 min-w-max">
+                <div class="w-7.5 h-7.5 xs:w-8 xs:h-8 bg-green-600 text-white rounded-xl flex items-center justify-center font-extrabold text-sm xs:text-base shadow-md shadow-green-600/30 flex-shrink-0">
                   <i class="fa-solid fa-basket-shopping"></i>
                 </div>
-                <span class="font-extrabold text-base tracking-tight text-slate-900 dark:text-white truncate">Fresh<span class="text-green-600">Basket</span></span>
+                <span class="font-extrabold text-sm xs:text-base tracking-tight text-slate-900 dark:text-white whitespace-nowrap">Fresh<span class="text-green-600">Basket</span></span>
               </a>
             </div>
 
             <!-- Mobile Right Controls (Cart, RTL, Theme, Hamburger) -->
-            <div class="flex items-center gap-1.5 flex-shrink-0">
-              <button type="button" class="cart-drawer-trigger relative w-9 h-9 flex items-center justify-center" aria-label="Shopping Cart">
-                <i class="fa-solid fa-basket-shopping text-base"></i>
+            <div class="flex items-center gap-1 xs:gap-1.5 flex-shrink-0">
+              <button type="button" class="cart-drawer-trigger relative w-8 h-8 xs:w-9 xs:h-9 flex items-center justify-center" aria-label="Shopping Cart">
+                <i class="fa-solid fa-basket-shopping text-sm xs:text-base"></i>
                 <span class="cart-count-badge absolute -top-1 -right-1 w-4 h-4 bg-green-600 text-white rounded-full text-[10px] font-extrabold flex items-center justify-center">0</span>
               </button>
-              <button type="button" onclick="event.preventDefault(); event.stopPropagation(); event.stopImmediatePropagation(); if(window.themeController) window.themeController.toggleRTL(); return false;" class="rtl-toggle-btn w-9 h-9 flex items-center justify-center" title="Toggle RTL/LTR" aria-label="Toggle RTL/LTR">
-                <i class="fa-solid fa-globe text-base"></i>
+              <button type="button" onclick="event.preventDefault(); event.stopPropagation(); event.stopImmediatePropagation(); if(window.themeController) window.themeController.toggleRTL(); return false;" class="rtl-toggle-btn w-8 h-8 xs:w-9 xs:h-9 flex items-center justify-center" title="Toggle RTL/LTR" aria-label="Toggle RTL/LTR">
+                <i class="fa-solid fa-globe text-sm xs:text-base"></i>
               </button>
-              <button type="button" onclick="event.preventDefault(); event.stopPropagation(); event.stopImmediatePropagation(); if(window.themeController) window.themeController.toggleDarkMode(); return false;" class="theme-toggle-btn w-9 h-9 flex items-center justify-center" title="Toggle Light/Dark Theme" aria-label="Toggle Light/Dark Theme">
-                <i class="fa-solid fa-moon text-base"></i>
+              <button type="button" onclick="event.preventDefault(); event.stopPropagation(); event.stopImmediatePropagation(); if(window.themeController) window.themeController.toggleDarkMode(); return false;" class="theme-toggle-btn w-8 h-8 xs:w-9 xs:h-9 flex items-center justify-center" title="Toggle Light/Dark Theme" aria-label="Toggle Light/Dark Theme">
+                <i class="fa-solid fa-moon text-sm xs:text-base"></i>
               </button>
               <!-- Hamburger Toggle (Positioned Right) -->
               <button id="mobile-menu-toggle" type="button" onclick="if(window.toggleMobileMenu) window.toggleMobileMenu(); return false;"
-                class="w-9 h-9 flex items-center justify-center rounded-xl text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors flex-shrink-0"
+                class="w-8 h-8 xs:w-9 xs:h-9 flex items-center justify-center rounded-xl text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors flex-shrink-0"
                 aria-label="Open Navigation">
-                <i class="fa-solid fa-bars text-lg"></i>
+                <i class="fa-solid fa-bars text-base xs:text-lg"></i>
               </button>
             </div>
           </div>
@@ -170,7 +170,6 @@
                 </div>
                 <div>
                   <span class="font-extrabold text-xl tracking-tight text-slate-900 dark:text-white">Fresh<span class="text-green-600">Basket</span></span>
-                  <span class="block text-[10px] uppercase font-bold tracking-widest text-slate-400 -mt-1">Supermarket</span>
                 </div>
               </a>
             </div>
@@ -220,31 +219,33 @@
               <a href="pages/deals.html" class="hover:text-amber-600 dark:hover:text-amber-400 transition-colors">Deals</a>
               <!-- 6. Blog -->
               <a href="pages/blog.html" class="hover:text-green-600 dark:hover:text-green-400 transition-colors">Blog</a>
+              <!-- 7. Contact -->
+              <a href="pages/contact.html" class="hover:text-green-600 dark:hover:text-green-400 transition-colors">Contact</a>
             </nav>
 
             <!-- RIGHT ACTION CONTROLS (RIGHT) -->
-            <div class="flex items-center justify-end gap-3 flex-1">
-              <!-- Highlighted Login Button (Moved Before RTL Button) -->
-              <a href="pages/login.html" id="nav-login-btn" class="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-500 hover:to-emerald-500 text-white font-bold text-xs sm:text-sm rounded-xl shadow-md shadow-green-600/25 hover:shadow-lg hover:shadow-green-600/40 hover:-translate-y-0.5 active:translate-y-0 transition-all duration-200 group/btn">
-                <i class="fa-solid fa-right-to-bracket text-xs group-hover/btn:scale-110 transition-transform"></i>
-                <span>Login</span>
-              </a>
-
+            <div class="flex items-center justify-end gap-2.5 sm:gap-3.5 flex-1">
               <!-- RTL Button -->
-              <button type="button" onclick="event.preventDefault(); event.stopPropagation(); event.stopImmediatePropagation(); if(window.themeController) window.themeController.toggleRTL(); return false;" class="rtl-toggle-btn w-9 h-9 flex items-center justify-center" title="Toggle RTL/LTR" aria-label="Toggle RTL/LTR">
-                <i class="fa-solid fa-globe text-base"></i>
+              <button type="button" onclick="event.preventDefault(); event.stopPropagation(); event.stopImmediatePropagation(); if(window.themeController) window.themeController.toggleRTL(); return false;" class="rtl-toggle-btn w-9 h-9 flex items-center justify-center rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-200 hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors" title="Toggle RTL/LTR" aria-label="Toggle RTL/LTR">
+                <i class="fa-solid fa-globe text-sm sm:text-base"></i>
               </button>
 
               <!-- Theme Button -->
-              <button type="button" onclick="event.preventDefault(); event.stopPropagation(); event.stopImmediatePropagation(); if(window.themeController) window.themeController.toggleDarkMode(); return false;" class="theme-toggle-btn w-9 h-9 flex items-center justify-center" title="Toggle Light/Dark Theme" aria-label="Toggle Light/Dark Theme">
-                <i class="fa-solid fa-moon text-base"></i>
+              <button type="button" onclick="event.preventDefault(); event.stopPropagation(); event.stopImmediatePropagation(); if(window.themeController) window.themeController.toggleDarkMode(); return false;" class="theme-toggle-btn w-9 h-9 flex items-center justify-center rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-200 hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors" title="Toggle Light/Dark Theme" aria-label="Toggle Light/Dark Theme">
+                <i class="fa-solid fa-moon text-sm sm:text-base"></i>
               </button>
 
               <!-- Cart Icon -->
-              <button type="button" class="cart-drawer-trigger relative p-2 flex items-center justify-center" aria-label="Shopping Cart">
+              <button type="button" class="cart-drawer-trigger relative p-2 flex items-center justify-center text-slate-800 dark:text-white" aria-label="Shopping Cart">
                 <i class="fa-solid fa-basket-shopping text-lg"></i>
                 <span class="cart-count-badge absolute -top-1 -right-1 w-5 h-5 bg-green-600 text-white rounded-full text-[11px] font-extrabold flex items-center justify-center shadow">0</span>
               </button>
+
+              <!-- Login Button -->
+              <a href="pages/login.html" class="inline-flex items-center gap-1.5 px-3.5 py-2 bg-green-600 hover:bg-green-700 text-white font-bold text-xs rounded-xl shadow-md shadow-green-600/20 hover:shadow-lg transition-all" title="Login / Account">
+                <i class="fa-solid fa-right-to-bracket text-xs"></i>
+                <span>Login</span>
+              </a>
             </div>
 
           </div>
@@ -255,8 +256,8 @@
   </header>
 
   <!-- MOBILE NAVIGATION DRAWER (OPENS FROM RIGHT) -->
-  <div id="mobile-menu-overlay" onclick="if(window.toggleMobileMenu) window.toggleMobileMenu(); return false;" class="hidden fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 transition-opacity lg:hidden"></div>
-  <div id="mobile-menu-drawer" class="fixed top-0 right-0 w-4/5 max-w-xs h-full bg-white dark:bg-slate-900 z-50 shadow-2xl transform translate-x-full transition-transform duration-300 flex flex-col lg:hidden">
+  <div id="mobile-menu-overlay" onclick="if(window.toggleMobileMenu) window.toggleMobileMenu(); return false;" class="hidden fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-[2000] transition-opacity lg:hidden"></div>
+  <div id="mobile-menu-drawer" class="fixed top-0 right-0 w-4/5 max-w-xs h-full bg-white dark:bg-slate-900 z-[2010] shadow-2xl transform translate-x-full transition-transform duration-300 flex flex-col lg:hidden">
     <div class="p-5 border-b border-slate-200 dark:border-slate-800 flex items-center justify-between">
       <a href="index.html" class="flex items-center gap-2">
         <div class="w-9 h-9 bg-green-600 text-white rounded-xl flex items-center justify-center font-extrabold text-lg">
@@ -292,6 +293,7 @@
       <a href="pages/categories.html" class="block py-2 text-slate-700 dark:text-slate-200 hover:text-green-600">Categories</a>
       <a href="pages/deals.html" class="block py-2 text-slate-700 dark:text-slate-200 hover:text-green-600">Deals</a>
       <a href="pages/blog.html" class="block py-2 text-slate-700 dark:text-slate-200 hover:text-green-600">Blog</a>
+      <a href="pages/contact.html" class="block py-2 text-slate-700 dark:text-slate-200 hover:text-green-600">Contact</a>
     </div>
 
     <!-- Pinned Mobile Login Footer -->
@@ -457,7 +459,7 @@
 
         <a href="pages/shop.html?category=pantry" class="category-card group bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700/80 rounded-3xl p-5 text-center shadow-sm hover:shadow-xl hover:border-blue-500/50 transition-all duration-300 transform hover:-translate-y-1 block">
           <div class="w-20 h-20 mx-auto mb-3.5 relative">
-            <img src="https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?auto=format&fit=crop&w=300&q=80" alt="Pantry Staples" class="w-full h-full object-cover rounded-2xl shadow-md group-hover:scale-105 transition-transform duration-300 border-2 border-blue-500/20" />
+            <img src="https://images.unsplash.com/photo-1586201375761-83865001e31c?auto=format&fit=crop&w=300&q=80" alt="Pantry Staples" class="w-full h-full object-cover rounded-2xl shadow-md group-hover:scale-105 transition-transform duration-300 border-2 border-blue-500/20" />
             <span class="absolute -bottom-1 -right-1 w-7 h-7 bg-blue-600 text-white rounded-xl flex items-center justify-center text-xs shadow-md">
               <i class="fa-solid fa-box-archive"></i>
             </span>
@@ -488,8 +490,7 @@
           <!-- Featured Deal Cards -->
           <div class="product-card cursor-pointer" onclick="if(!event.target.closest('.add-to-cart-btn')) window.location.href='pages/product.html?id=prod-1'">
             <div class="product-img-wrapper">
-              <img src="https://images.unsplash.com/photo-1571771894821-ce9b6c11b08e?auto=format&fit=crop&w=600&q=80"
-                alt="Bananas" loading="lazy" />
+              <img src="https://images.unsplash.com/photo-1571771894821-ce9b6c11b08e?auto=format&fit=crop&w=600&q=80" alt="Bananas" loading="lazy" />
               <span class="absolute top-3 left-3 badge-discount">-20% OFF</span>
             </div>
             <div class="p-4">
@@ -499,20 +500,18 @@
               </h3>
               <p class="text-xs text-slate-500 mb-3">1 bunch (approx. 3 lbs)</p>
               <div class="flex items-center justify-between">
-                <div>
-                  <span class="text-lg font-extrabold text-green-600">$1.99</span>
-                  <span class="text-xs text-slate-400 line-through ml-1.5">$2.49</span>
+                <div class="flex items-baseline gap-1">
+                  <span class="text-xs sm:text-sm font-bold text-green-600">$1.99</span>
+                  <span class="text-[10px] text-slate-400 line-through">$2.49</span>
                 </div>
-                <button class="add-to-cart-btn btn-primary text-xs px-3.5 py-2 min-h-0" data-product-id="prod-1">+
-                  Add</button>
+                <button class="add-to-cart-btn btn-primary text-xs px-2.5 py-1 min-h-0" data-product-id="prod-1"><i class="fa-solid fa-plus mr-0.5 text-[10px]"></i> Add</button>
               </div>
             </div>
           </div>
 
           <div class="product-card cursor-pointer" onclick="if(!event.target.closest('.add-to-cart-btn')) window.location.href='pages/product.html?id=prod-11'">
             <div class="product-img-wrapper">
-              <img src="https://images.unsplash.com/photo-1604503468506-a8da13d82791?auto=format&fit=crop&w=600&q=80"
-                alt="Chicken Breasts" loading="lazy" />
+              <img src="https://images.unsplash.com/photo-1604503468506-a8da13d82791?auto=format&fit=crop&w=600&q=80" alt="Chicken Breasts" loading="lazy" />
               <span class="absolute top-3 left-3 badge-discount">-18% OFF</span>
             </div>
             <div class="p-4">
@@ -522,20 +521,18 @@
               </h3>
               <p class="text-xs text-slate-500 mb-3">2 lbs fresh tray pack</p>
               <div class="flex items-center justify-between">
-                <div>
-                  <span class="text-lg font-extrabold text-green-600">$8.99</span>
-                  <span class="text-xs text-slate-400 line-through ml-1.5">$10.99</span>
+                <div class="flex items-baseline gap-1">
+                  <span class="text-xs sm:text-sm font-bold text-green-600">$8.99</span>
+                  <span class="text-[10px] text-slate-400 line-through">$10.99</span>
                 </div>
-                <button class="add-to-cart-btn btn-primary text-xs px-3.5 py-2 min-h-0" data-product-id="prod-11">+
-                  Add</button>
+                <button class="add-to-cart-btn btn-primary text-xs px-2.5 py-1 min-h-0" data-product-id="prod-11"><i class="fa-solid fa-plus mr-0.5 text-[10px]"></i> Add</button>
               </div>
             </div>
           </div>
 
           <div class="product-card cursor-pointer" onclick="if(!event.target.closest('.add-to-cart-btn')) window.location.href='pages/product.html?id=prod-12'">
             <div class="product-img-wrapper">
-              <img src="https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?auto=format&fit=crop&w=600&q=80"
-                alt="Atlantic Salmon" loading="lazy" />
+              <img src="https://images.unsplash.com/photo-1467003909585-2f8a72700288?auto=format&fit=crop&w=600&q=80" alt="Atlantic Salmon" loading="lazy" />
               <span class="absolute top-3 left-3 badge-discount">-16% OFF</span>
             </div>
             <div class="p-4">
@@ -545,20 +542,18 @@
               </h3>
               <p class="text-xs text-slate-500 mb-3">1 lb fresh fillet</p>
               <div class="flex items-center justify-between">
-                <div>
-                  <span class="text-lg font-extrabold text-green-600">$12.99</span>
-                  <span class="text-xs text-slate-400 line-through ml-1.5">$15.49</span>
+                <div class="flex items-baseline gap-1">
+                  <span class="text-xs sm:text-sm font-bold text-green-600">$12.99</span>
+                  <span class="text-[10px] text-slate-400 line-through">$15.49</span>
                 </div>
-                <button class="add-to-cart-btn btn-primary text-xs px-3.5 py-2 min-h-0" data-product-id="prod-12">+
-                  Add</button>
+                <button class="add-to-cart-btn btn-primary text-xs px-2.5 py-1 min-h-0" data-product-id="prod-12"><i class="fa-solid fa-plus mr-0.5 text-[10px]"></i> Add</button>
               </div>
             </div>
           </div>
 
           <div class="product-card cursor-pointer" onclick="if(!event.target.closest('.add-to-cart-btn')) window.location.href='pages/product.html?id=prod-17'">
             <div class="product-img-wrapper">
-              <img src="https://images.unsplash.com/photo-1474979266404-7eaacbcd87c5?auto=format&fit=crop&w=600&q=80"
-                alt="Olive Oil" loading="lazy" />
+              <img src="https://images.unsplash.com/photo-1474979266404-7eaacbcd87c5?auto=format&fit=crop&w=600&q=80" alt="Olive Oil" loading="lazy" />
               <span class="absolute top-3 left-3 badge-discount">-20% OFF</span>
             </div>
             <div class="p-4">
@@ -568,12 +563,11 @@
               </h3>
               <p class="text-xs text-slate-500 mb-3">16.9 fl oz (500ml)</p>
               <div class="flex items-center justify-between">
-                <div>
-                  <span class="text-lg font-extrabold text-green-600">$9.99</span>
-                  <span class="text-xs text-slate-400 line-through ml-1.5">$12.49</span>
+                <div class="flex items-baseline gap-1">
+                  <span class="text-xs sm:text-sm font-bold text-green-600">$9.99</span>
+                  <span class="text-[10px] text-slate-400 line-through">$12.49</span>
                 </div>
-                <button class="add-to-cart-btn btn-primary text-xs px-3.5 py-2 min-h-0" data-product-id="prod-17">+
-                  Add</button>
+                <button class="add-to-cart-btn btn-primary text-xs px-2.5 py-1 min-h-0" data-product-id="prod-17"><i class="fa-solid fa-plus mr-0.5 text-[10px]"></i> Add</button>
               </div>
             </div>
           </div>
@@ -688,7 +682,7 @@
                 <div id="delivery-map" class="h-64 sm:h-72 w-full z-0 bg-slate-900"></div>
 
                 <!-- Live GPS Badge Overlay -->
-                <div class="absolute bottom-3 left-3 bg-white/95 dark:bg-slate-900/95 backdrop-blur-md px-3.5 py-2 rounded-full text-xs font-semibold text-slate-800 dark:text-slate-200 shadow-lg border border-slate-200 dark:border-slate-700/80 z-[400] flex items-center gap-2.5">
+                <div class="absolute bottom-3 left-3 bg-white/95 dark:bg-slate-900/95 backdrop-blur-md px-3.5 py-2 rounded-full text-xs font-semibold text-slate-800 dark:text-slate-200 shadow-lg border border-slate-200 dark:border-slate-700/80 z-10 flex items-center gap-2.5">
                   <span class="relative flex h-2.5 w-2.5">
                     <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
                     <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-green-500"></span>
@@ -697,7 +691,7 @@
                 </div>
 
                 <!-- Map Info Banner Overlay -->
-                <div class="absolute top-3 left-3 right-3 bg-white/95 dark:bg-slate-900/95 backdrop-blur-md px-3.5 py-2 rounded-xl text-xs font-medium text-slate-700 dark:text-slate-200 shadow-md border border-slate-200/80 dark:border-slate-700/80 z-[400] flex items-center justify-between pointer-events-none">
+                <div class="absolute top-3 left-3 right-3 bg-white/95 dark:bg-slate-900/95 backdrop-blur-md px-3.5 py-2 rounded-xl text-xs font-medium text-slate-700 dark:text-slate-200 shadow-md border border-slate-200/80 dark:border-slate-700/80 z-10 flex items-center justify-between pointer-events-none">
                   <div class="flex items-center gap-2 min-w-0 pr-2">
                     <i class="fa-solid fa-compass text-green-500 shrink-0 animate-pulse"></i>
                     <span id="map-status-text" class="truncate font-semibold text-[11px] sm:text-xs text-slate-900 dark:text-white">Serving Downtown, Midtown & Surrounding Neighborhoods</span>
@@ -871,7 +865,7 @@
             <li><a href="pages/order-tracking.html" class="text-slate-600 dark:text-slate-400 hover:text-green-600 dark:hover:text-white transition-colors">Live Order Tracking</a></li>
             <li><a href="pages/orders.html" class="text-slate-600 dark:text-slate-400 hover:text-green-600 dark:hover:text-white transition-colors">Order History</a></li>
             <li><a href="pages/404.html" class="text-slate-600 dark:text-slate-400 hover:text-green-600 dark:hover:text-white transition-colors">Returns & Refunds</a></li>
-            <li><a href="pages/coming-soon.html" class="text-slate-600 dark:text-slate-400 hover:text-green-600 dark:hover:text-white transition-colors">Terms of Service</a></li>
+            <li><a href="pages/coming-soon.html" class="text-slate-600 dark:text-slate-400 hover:text-green-600 dark:hover:text-white transition-colors">Store Policies & Terms</a></li>
           </ul>
         </div>
 
@@ -889,10 +883,10 @@
   </footer>
 
   <!-- CART DRAWER SLIDE-OVER -->
-  <div id="cart-drawer-overlay" class="hidden fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-[60] transition-opacity">
+  <div id="cart-drawer-overlay" class="hidden fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-[2000] transition-opacity">
   </div>
   <div id="cart-drawer"
-    class="fixed top-0 right-0 w-full max-w-md h-full bg-white dark:bg-slate-900 z-[60] shadow-2xl transform translate-x-full transition-transform duration-300 flex flex-col">
+    class="fixed top-0 right-0 w-full max-w-md h-full bg-white dark:bg-slate-900 z-[2010] shadow-2xl transform translate-x-full transition-transform duration-300 flex flex-col">
     <div class="p-6 border-b border-slate-200 dark:border-slate-800 flex items-center justify-between">
       <div class="flex items-center gap-2">
         <div
@@ -901,9 +895,17 @@
         </div>
         <h3 class="font-bold text-lg text-slate-900 dark:text-white">Your Cart</h3>
       </div>
-      <button id="cart-drawer-close" class="p-2 text-slate-400 hover:text-slate-600 dark:hover:text-white">
-        <i class="fa-solid fa-xmark text-lg"></i>
-      </button>
+      <div class="flex items-center gap-2">
+        <button type="button" onclick="event.preventDefault(); event.stopPropagation(); event.stopImmediatePropagation(); if(window.themeController) window.themeController.toggleRTL(); return false;" class="rtl-toggle-btn w-8 h-8 flex items-center justify-center bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-200 border border-slate-200 dark:border-slate-700 rounded-lg hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors" title="Toggle RTL/LTR" aria-label="Toggle RTL/LTR">
+          <i class="fa-solid fa-globe text-sm"></i>
+        </button>
+        <button type="button" onclick="event.preventDefault(); event.stopPropagation(); event.stopImmediatePropagation(); if(window.themeController) window.themeController.toggleDarkMode(); return false;" class="theme-toggle-btn w-8 h-8 flex items-center justify-center bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-200 border border-slate-200 dark:border-slate-700 rounded-lg hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors" title="Toggle Light/Dark Theme" aria-label="Toggle Light/Dark Theme">
+          <i class="fa-solid fa-moon text-sm"></i>
+        </button>
+        <button id="cart-drawer-close" class="w-8 h-8 flex items-center justify-center bg-slate-100 dark:bg-slate-800 text-slate-400 hover:text-slate-600 dark:hover:text-white border border-slate-200 dark:border-slate-700 rounded-lg hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors" aria-label="Close Cart">
+          <i class="fa-solid fa-xmark text-sm"></i>
+        </button>
+      </div>
     </div>
 
     <!-- Free Delivery Progress Bar -->

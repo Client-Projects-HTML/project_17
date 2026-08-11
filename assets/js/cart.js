@@ -207,7 +207,7 @@ class CartManager {
     } else {
       drawerContainer.innerHTML = this.items.map(item => `
         <div class="flex items-center justify-between gap-3 p-3 bg-slate-50 dark:bg-slate-800/50 rounded-xl border border-slate-200 dark:border-slate-700">
-          <img src="${item.image}" alt="${item.name}" class="w-14 h-14 object-cover rounded-lg flex-shrink-0" />
+          ${item.image ? `<img src="${item.image}" alt="${item.name}" class="w-14 h-14 object-cover rounded-lg flex-shrink-0" />` : ''}
           <div class="flex-1 min-w-0">
             <h5 class="text-sm font-bold text-slate-900 dark:text-white truncate">${item.name}</h5>
             <p class="text-xs text-slate-500 dark:text-slate-400 mb-2">${item.weight}</p>
@@ -260,7 +260,7 @@ class CartManager {
         <tr class="border-b border-slate-200 dark:border-slate-700 hover:bg-slate-50/50 dark:hover:bg-slate-800/50 transition-colors">
           <td class="py-4 pl-4" data-label="Product">
             <div class="flex items-center gap-4">
-              <img src="${item.image}" alt="${item.name}" class="w-16 h-16 object-cover rounded-xl border border-slate-200 dark:border-slate-700" />
+              ${item.image ? `<img src="${item.image}" alt="${item.name}" class="w-16 h-16 object-cover rounded-xl border border-slate-200 dark:border-slate-700" />` : ''}
               <div>
                 <h4 class="font-bold text-slate-900 dark:text-white text-base">${item.name}</h4>
                 <p class="text-xs text-slate-500 dark:text-slate-400">${item.weight}</p>
