@@ -246,126 +246,230 @@
 
 
 
-  <!-- SHOP MAIN CONTAINER -->
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
-    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
-      
-      <!-- SIDEBAR FILTERS -->
-      <aside class="lg:col-span-3 space-y-6">
-        <div class="bg-white dark:bg-slate-800 p-6 rounded-2xl border border-slate-200 dark:border-slate-700 space-y-6 shadow-sm">
-          <div class="flex items-center justify-between pb-4 border-b border-slate-100 dark:border-slate-700">
-            <h3 class="font-bold text-slate-900 dark:text-white text-base">Filter Groceries</h3>
-            <button onclick="productCatalog.resetFilters()" class="text-xs text-green-600 font-bold hover:underline">Reset All</button>
-          </div>
-
-          <!-- Price Range Filter -->
-          <div>
-            <div class="flex justify-between items-center text-sm font-semibold mb-2 text-slate-800 dark:text-slate-200">
-              <span>Max Price</span>
-              <span id="filter-price-val" class="text-green-600 font-bold">$100</span>
-            </div>
-            <input type="range" id="filter-price-range" min="1" max="100" value="100" step="1" class="w-full accent-green-600" />
-          </div>
-
-          <!-- Categories List -->
-          <div>
-            <h4 class="font-bold text-sm text-slate-900 dark:text-white mb-3">Categories</h4>
-            <div class="space-y-2 text-xs">
-              <label class="flex items-center justify-between cursor-pointer text-slate-600 dark:text-slate-300">
-                <div class="flex items-center gap-2">
-                  <input type="radio" name="cat-filter" value="all" onclick="productCatalog.currentCategory = 'all'; productCatalog.renderCatalog();" checked class="accent-green-600" />
-                  <span>All Categories</span>
-                </div>
-              </label>
-              <label class="flex items-center justify-between cursor-pointer text-slate-600 dark:text-slate-300">
-                <div class="flex items-center gap-2">
-                  <input type="radio" name="cat-filter" value="fruits-veggies" onclick="productCatalog.currentCategory = 'fruits-veggies'; productCatalog.renderCatalog();" class="accent-green-600" />
-                  <span>Fruits & Vegetables</span>
-                </div>
-              </label>
-              <label class="flex items-center justify-between cursor-pointer text-slate-600 dark:text-slate-300">
-                <div class="flex items-center gap-2">
-                  <input type="radio" name="cat-filter" value="dairy-eggs" onclick="productCatalog.currentCategory = 'dairy-eggs'; productCatalog.renderCatalog();" class="accent-green-600" />
-                  <span>Dairy & Eggs</span>
-                </div>
-              </label>
-              <label class="flex items-center justify-between cursor-pointer text-slate-600 dark:text-slate-300">
-                <div class="flex items-center gap-2">
-                  <input type="radio" name="cat-filter" value="meat-seafood" onclick="productCatalog.currentCategory = 'meat-seafood'; productCatalog.renderCatalog();" class="accent-green-600" />
-                  <span>Meat & Seafood</span>
-                </div>
-              </label>
-              <label class="flex items-center justify-between cursor-pointer text-slate-600 dark:text-slate-300">
-                <div class="flex items-center gap-2">
-                  <input type="radio" name="cat-filter" value="bakery" onclick="productCatalog.currentCategory = 'bakery'; productCatalog.renderCatalog();" class="accent-green-600" />
-                  <span>Bakery</span>
-                </div>
-              </label>
-              <label class="flex items-center justify-between cursor-pointer text-slate-600 dark:text-slate-300">
-                <div class="flex items-center gap-2">
-                  <input type="radio" name="cat-filter" value="pantry" onclick="productCatalog.currentCategory = 'pantry'; productCatalog.renderCatalog();" class="accent-green-600" />
-                  <span>Pantry Staples</span>
-                </div>
-              </label>
-              <label class="flex items-center justify-between cursor-pointer text-slate-600 dark:text-slate-300">
-                <div class="flex items-center gap-2">
-                  <input type="radio" name="cat-filter" value="beverages" onclick="productCatalog.currentCategory = 'beverages'; productCatalog.renderCatalog();" class="accent-green-600" />
-                  <span>Beverages</span>
-                </div>
-              </label>
-              <label class="flex items-center justify-between cursor-pointer text-slate-600 dark:text-slate-300">
-                <div class="flex items-center gap-2">
-                  <input type="radio" name="cat-filter" value="snacks" onclick="productCatalog.currentCategory = 'snacks'; productCatalog.renderCatalog();" class="accent-green-600" />
-                  <span>Snacks & Sweets</span>
-                </div>
-              </label>
-              <label class="flex items-center justify-between cursor-pointer text-slate-600 dark:text-slate-300">
-                <div class="flex items-center gap-2">
-                  <input type="radio" name="cat-filter" value="frozen" onclick="productCatalog.currentCategory = 'frozen'; productCatalog.renderCatalog();" class="accent-green-600" />
-                  <span>Frozen Foods</span>
-                </div>
-              </label>
-            </div>
-          </div>
-
-          <!-- Dietary Preference -->
-          <div>
-            <h4 class="font-bold text-sm text-slate-900 dark:text-white mb-3">Dietary Preferences</h4>
-            <div class="space-y-2 text-xs">
-              <label class="flex items-center gap-2 text-slate-600 dark:text-slate-300 cursor-pointer">
-                <input type="checkbox" data-dietary="organic" onchange="productCatalog.toggleDietary('organic')" class="rounded accent-green-600" />
-                <span>100% Organic</span>
-              </label>
-              <label class="flex items-center gap-2 text-slate-600 dark:text-slate-300 cursor-pointer">
-                <input type="checkbox" data-dietary="gluten-free" onchange="productCatalog.toggleDietary('gluten-free')" class="rounded accent-green-600" />
-                <span>Gluten-Free</span>
-              </label>
-              <label class="flex items-center gap-2 text-slate-600 dark:text-slate-300 cursor-pointer">
-                <input type="checkbox" data-dietary="vegan" onchange="productCatalog.toggleDietary('vegan')" class="rounded accent-green-600" />
-                <span>Vegan / Plant-Based</span>
-              </label>
-              <label class="flex items-center gap-2 text-slate-600 dark:text-slate-300 cursor-pointer">
-                <input type="checkbox" data-dietary="keto" onchange="productCatalog.toggleDietary('keto')" class="rounded accent-green-600" />
-                <span>Keto Friendly</span>
-              </label>
-            </div>
-          </div>
+  <!-- PRODUCT FILTERS OFF-CANVAS DRAWER -->
+  <div id="filter-drawer-overlay" onclick="productCatalog.closeFilterDrawer()" class="hidden fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-[2000] transition-opacity"></div>
+  
+  <div id="filter-drawer" class="fixed top-0 left-0 w-full max-w-xs sm:max-w-sm h-full bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-100 z-[2010] shadow-2xl transform -translate-x-full transition-transform duration-300 ease-in-out flex flex-col border-r border-slate-200 dark:border-slate-800">
+    <!-- Drawer Header -->
+    <div class="p-5 border-b border-slate-200 dark:border-slate-800 flex items-center justify-between bg-slate-50 dark:bg-slate-900/90">
+      <div class="flex items-center gap-2.5">
+        <div class="w-9 h-9 bg-green-100 dark:bg-green-950/50 text-green-600 dark:text-green-400 rounded-xl flex items-center justify-center font-bold text-base shadow-sm">
+          <i class="fa-solid fa-filter"></i>
         </div>
-      </aside>
+        <h3 class="font-extrabold text-lg text-slate-900 dark:text-white tracking-tight">Product Filters</h3>
+      </div>
+      <button id="filter-drawer-close" onclick="productCatalog.closeFilterDrawer()" class="w-8 h-8 flex items-center justify-center rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-400 hover:text-slate-600 dark:hover:text-white border border-slate-200 dark:border-slate-700 hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors" aria-label="Close Filters">
+        <i class="fa-solid fa-xmark text-base"></i>
+      </button>
+    </div>
 
+    <!-- Drawer Scrollable Content -->
+    <div class="flex-1 overflow-y-auto p-5 space-y-6 text-sm text-slate-700 dark:text-slate-200 custom-drawer-scrollbar">
+      
+      <!-- Accordion Section 1: Categories -->
+      <div class="space-y-3">
+        <div class="flex items-center justify-between font-bold text-slate-900 dark:text-white text-sm border-b border-slate-200 dark:border-slate-800 pb-2 cursor-pointer select-none" onclick="productCatalog.toggleFilterSection('drawer-cat-section')">
+          <span class="flex items-center gap-2">Categories</span>
+          <i id="drawer-cat-section-chevron" class="fa-solid fa-chevron-down text-xs text-slate-400 transition-transform"></i>
+        </div>
+        <div id="drawer-cat-section" class="space-y-2.5 pl-1 text-xs">
+          <label class="flex items-center justify-between cursor-pointer hover:text-green-600 dark:hover:text-green-400 transition-colors">
+            <div class="flex items-center gap-2.5">
+              <input type="checkbox" name="filter-cat" value="fruits-veggies" onchange="productCatalog.onCategoryChange()" class="w-4 h-4 rounded accent-green-600 bg-slate-100 dark:bg-slate-800 border-slate-300 dark:border-slate-700" />
+              <span>Fruits & Vegetables</span>
+            </div>
+          </label>
+          <label class="flex items-center justify-between cursor-pointer hover:text-green-600 dark:hover:text-green-400 transition-colors">
+            <div class="flex items-center gap-2.5">
+              <input type="checkbox" name="filter-cat" value="dairy-eggs" onchange="productCatalog.onCategoryChange()" class="w-4 h-4 rounded accent-green-600 bg-slate-100 dark:bg-slate-800 border-slate-300 dark:border-slate-700" />
+              <span>Dairy & Eggs</span>
+            </div>
+          </label>
+          <label class="flex items-center justify-between cursor-pointer hover:text-green-600 dark:hover:text-green-400 transition-colors">
+            <div class="flex items-center gap-2.5">
+              <input type="checkbox" name="filter-cat" value="meat-seafood" onchange="productCatalog.onCategoryChange()" class="w-4 h-4 rounded accent-green-600 bg-slate-100 dark:bg-slate-800 border-slate-300 dark:border-slate-700" />
+              <span>Meat & Seafood</span>
+            </div>
+          </label>
+          <label class="flex items-center justify-between cursor-pointer hover:text-green-600 dark:hover:text-green-400 transition-colors">
+            <div class="flex items-center gap-2.5">
+              <input type="checkbox" name="filter-cat" value="bakery" onchange="productCatalog.onCategoryChange()" class="w-4 h-4 rounded accent-green-600 bg-slate-100 dark:bg-slate-800 border-slate-300 dark:border-slate-700" />
+              <span>Bakery & Bread</span>
+            </div>
+          </label>
+          <label class="flex items-center justify-between cursor-pointer hover:text-green-600 dark:hover:text-green-400 transition-colors">
+            <div class="flex items-center gap-2.5">
+              <input type="checkbox" name="filter-cat" value="pantry" onchange="productCatalog.onCategoryChange()" class="w-4 h-4 rounded accent-green-600 bg-slate-100 dark:bg-slate-800 border-slate-300 dark:border-slate-700" />
+              <span>Pantry Staples</span>
+            </div>
+          </label>
+          <label class="flex items-center justify-between cursor-pointer hover:text-green-600 dark:hover:text-green-400 transition-colors">
+            <div class="flex items-center gap-2.5">
+              <input type="checkbox" name="filter-cat" value="beverages" onchange="productCatalog.onCategoryChange()" class="w-4 h-4 rounded accent-green-600 bg-slate-100 dark:bg-slate-800 border-slate-300 dark:border-slate-700" />
+              <span>Beverages</span>
+            </div>
+          </label>
+          <label class="flex items-center justify-between cursor-pointer hover:text-green-600 dark:hover:text-green-400 transition-colors">
+            <div class="flex items-center gap-2.5">
+              <input type="checkbox" name="filter-cat" value="snacks" onchange="productCatalog.onCategoryChange()" class="w-4 h-4 rounded accent-green-600 bg-slate-100 dark:bg-slate-800 border-slate-300 dark:border-slate-700" />
+              <span>Snacks & Sweets</span>
+            </div>
+          </label>
+          <label class="flex items-center justify-between cursor-pointer hover:text-green-600 dark:hover:text-green-400 transition-colors">
+            <div class="flex items-center gap-2.5">
+              <input type="checkbox" name="filter-cat" value="frozen" onchange="productCatalog.onCategoryChange()" class="w-4 h-4 rounded accent-green-600 bg-slate-100 dark:bg-slate-800 border-slate-300 dark:border-slate-700" />
+              <span>Frozen Foods</span>
+            </div>
+          </label>
+        </div>
+      </div>
+
+      <!-- Accordion Section 2: Product Type -->
+      <div class="space-y-3">
+        <div class="flex items-center justify-between font-bold text-slate-900 dark:text-white text-sm border-b border-slate-200 dark:border-slate-800 pb-2 cursor-pointer select-none" onclick="productCatalog.toggleFilterSection('drawer-type-section')">
+          <span>Product Type</span>
+          <i id="drawer-type-section-chevron" class="fa-solid fa-chevron-down text-xs text-slate-400 transition-transform"></i>
+        </div>
+        <div id="drawer-type-section" class="space-y-2.5 pl-1 text-xs">
+          <label class="flex items-center justify-between cursor-pointer hover:text-green-600 dark:hover:text-green-400 transition-colors">
+            <div class="flex items-center gap-2.5">
+              <input type="radio" name="product-type-radio" value="all" onchange="productCatalog.onTypeChange('all')" checked class="w-4 h-4 accent-green-600 bg-slate-100 dark:bg-slate-800 border-slate-300 dark:border-slate-700" />
+              <span>All Products</span>
+            </div>
+          </label>
+          <label class="flex items-center justify-between cursor-pointer hover:text-green-600 dark:hover:text-green-400 transition-colors">
+            <div class="flex items-center gap-2.5">
+              <input type="radio" name="product-type-radio" value="organic" onchange="productCatalog.onTypeChange('organic')" class="w-4 h-4 accent-green-600 bg-slate-100 dark:bg-slate-800 border-slate-300 dark:border-slate-700" />
+              <span>100% Organic</span>
+            </div>
+          </label>
+          <label class="flex items-center justify-between cursor-pointer hover:text-green-600 dark:hover:text-green-400 transition-colors">
+            <div class="flex items-center gap-2.5">
+              <input type="radio" name="product-type-radio" value="deals" onchange="productCatalog.onTypeChange('deals')" class="w-4 h-4 accent-green-600 bg-slate-100 dark:bg-slate-800 border-slate-300 dark:border-slate-700" />
+              <span>On Sale / Deals</span>
+            </div>
+          </label>
+          <label class="flex items-center justify-between cursor-pointer hover:text-green-600 dark:hover:text-green-400 transition-colors">
+            <div class="flex items-center gap-2.5">
+              <input type="radio" name="product-type-radio" value="gluten-free" onchange="productCatalog.onTypeChange('gluten-free')" class="w-4 h-4 accent-green-600 bg-slate-100 dark:bg-slate-800 border-slate-300 dark:border-slate-700" />
+              <span>Gluten-Free</span>
+            </div>
+          </label>
+          <label class="flex items-center justify-between cursor-pointer hover:text-green-600 dark:hover:text-green-400 transition-colors">
+            <div class="flex items-center gap-2.5">
+              <input type="radio" name="product-type-radio" value="vegan" onchange="productCatalog.onTypeChange('vegan')" class="w-4 h-4 accent-green-600 bg-slate-100 dark:bg-slate-800 border-slate-300 dark:border-slate-700" />
+              <span>Vegan / Plant-Based</span>
+            </div>
+          </label>
+        </div>
+      </div>
+
+      <!-- Section 3: Max Price Slider -->
+      <div class="space-y-3">
+        <div class="flex justify-between items-center text-xs font-bold text-slate-900 dark:text-white">
+          <span>Max Price</span>
+          <span class="filter-price-val-display text-green-600 dark:text-green-400 font-extrabold text-sm">$100</span>
+        </div>
+        <input type="range" min="1" max="100" value="100" step="1" oninput="productCatalog.onPriceInput(this.value)" class="filter-price-range-input w-full accent-green-600 dark:accent-green-500 h-1.5 bg-slate-200 dark:bg-slate-800 rounded-lg cursor-pointer" />
+      </div>
+
+      <!-- Accordion Section 4: Top Brands -->
+      <div class="space-y-3">
+        <div class="flex items-center justify-between font-bold text-slate-900 dark:text-white text-sm border-b border-slate-200 dark:border-slate-800 pb-2 cursor-pointer select-none" onclick="productCatalog.toggleFilterSection('drawer-brand-section')">
+          <span>Top Brands</span>
+          <i id="drawer-brand-section-chevron" class="fa-solid fa-chevron-down text-xs text-slate-400 transition-transform"></i>
+        </div>
+        <div id="drawer-brand-section" class="space-y-2.5 pl-1 text-xs max-h-44 overflow-y-auto pr-1 custom-drawer-scrollbar">
+          <label class="flex items-center gap-2.5 cursor-pointer hover:text-green-600 dark:hover:text-green-400 transition-colors">
+            <input type="checkbox" name="filter-brand" value="FreshFarm Organic" onchange="productCatalog.onBrandChange()" class="w-4 h-4 rounded accent-green-600 bg-slate-100 dark:bg-slate-800 border-slate-300 dark:border-slate-700" />
+            <span>FreshFarm Organic</span>
+          </label>
+          <label class="flex items-center gap-2.5 cursor-pointer hover:text-green-600 dark:hover:text-green-400 transition-colors">
+            <input type="checkbox" name="filter-brand" value="Orchard Select" onchange="productCatalog.onBrandChange()" class="w-4 h-4 rounded accent-green-600 bg-slate-100 dark:bg-slate-800 border-slate-300 dark:border-slate-700" />
+            <span>Orchard Select</span>
+          </label>
+          <label class="flex items-center gap-2.5 cursor-pointer hover:text-green-600 dark:hover:text-green-400 transition-colors">
+            <input type="checkbox" name="filter-brand" value="GreenLeaf Farm" onchange="productCatalog.onBrandChange()" class="w-4 h-4 rounded accent-green-600 bg-slate-100 dark:bg-slate-800 border-slate-300 dark:border-slate-700" />
+            <span>GreenLeaf Farm</span>
+          </label>
+          <label class="flex items-center gap-2.5 cursor-pointer hover:text-green-600 dark:hover:text-green-400 transition-colors">
+            <input type="checkbox" name="filter-brand" value="DairyFresh" onchange="productCatalog.onBrandChange()" class="w-4 h-4 rounded accent-green-600 bg-slate-100 dark:bg-slate-800 border-slate-300 dark:border-slate-700" />
+            <span>DairyFresh</span>
+          </label>
+          <label class="flex items-center gap-2.5 cursor-pointer hover:text-green-600 dark:hover:text-green-400 transition-colors">
+            <input type="checkbox" name="filter-brand" value="BakeryDelight" onchange="productCatalog.onBrandChange()" class="w-4 h-4 rounded accent-green-600 bg-slate-100 dark:bg-slate-800 border-slate-300 dark:border-slate-700" />
+            <span>BakeryDelight</span>
+          </label>
+          <label class="flex items-center gap-2.5 cursor-pointer hover:text-green-600 dark:hover:text-green-400 transition-colors">
+            <input type="checkbox" name="filter-brand" value="SunGrown" onchange="productCatalog.onBrandChange()" class="w-4 h-4 rounded accent-green-600 bg-slate-100 dark:bg-slate-800 border-slate-300 dark:border-slate-700" />
+            <span>SunGrown</span>
+          </label>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Drawer Footer -->
+    <div class="p-4 border-t border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900 flex items-center justify-between gap-3 mt-auto">
+      <button onclick="productCatalog.resetFilters()" class="w-1/2 flex items-center justify-center gap-2 py-2.5 px-4 bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 font-bold rounded-xl text-xs sm:text-sm border border-slate-200 dark:border-slate-700 transition-all active:scale-95 cursor-pointer">
+        <i class="fa-solid fa-rotate-left text-xs"></i>
+        <span>Reset</span>
+      </button>
+      <button onclick="productCatalog.applyDrawerFilters()" class="w-1/2 flex items-center justify-center gap-2 py-2.5 px-4 bg-green-600 hover:bg-green-700 text-white font-bold rounded-xl text-xs sm:text-sm shadow-md shadow-green-600/20 transition-all active:scale-95 cursor-pointer">
+        <i class="fa-solid fa-check text-xs"></i>
+        <span>Apply</span>
+      </button>
+    </div>
+  </div>
+
+
+
+  <!-- SHOP HEADER BANNER -->
+  <div class="bg-gradient-to-r from-slate-900 via-slate-800 to-slate-900 text-white pt-28 pb-12 transition-colors duration-200 border-b border-slate-800">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="max-w-3xl">
+        <span class="inline-flex items-center gap-1.5 px-3 py-1 bg-green-500/20 border border-green-500/30 text-green-400 rounded-full text-xs font-bold uppercase tracking-wider mb-3">
+          <i class="fa-solid fa-leaf text-green-400"></i> Supermarket Catalog
+        </span>
+        <h1 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-white mb-3">
+          Shop & Catalog
+        </h1>
+        <p class="text-sm sm:text-base text-slate-300 font-medium leading-relaxed">
+          Explore fresh organic produce, daily dairy essentials, bakery goods, pantry staples, and beverages with express delivery straight to your doorstep.
+        </p>
+      </div>
+    </div>
+  </div>
+
+
+
+  <!-- SHOP MAIN CONTAINER -->
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-10">
+    <div class="w-full">
+      
       <!-- PRODUCT GRID & SORT CONTROLS -->
-      <main class="lg:col-span-9 space-y-6">
-        <!-- Top Toolbar -->
-        <div class="bg-white dark:bg-slate-800 p-3.5 sm:p-4 rounded-2xl border border-slate-200 dark:border-slate-700 flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 sm:gap-4 shadow-sm">
-          <div class="flex items-center justify-between">
-            <span id="shop-product-count" class="text-xs sm:text-sm font-bold text-slate-700 dark:text-slate-200">Loading products...</span>
-          </div>
+      <main class="w-full space-y-6">
+        
+        <!-- TOP TOOLBAR CONTAINER -->
+        <div class="bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 p-3 sm:p-4 rounded-2xl border border-slate-200 dark:border-slate-700/80 flex flex-col sm:flex-row items-center justify-between gap-3 shadow-sm">
           
-          <div class="flex items-center justify-between sm:justify-end gap-2 sm:gap-4 w-full sm:w-auto">
-            <div class="flex items-center gap-1.5 sm:gap-2 text-xs sm:text-sm flex-1 sm:flex-initial min-w-0">
-              <span class="text-slate-500 font-semibold flex-shrink-0">Sort By:</span>
-              <select id="shop-sort-select" class="w-full sm:w-auto px-2.5 sm:px-3 py-1.5 bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-700/80 rounded-xl text-xs sm:text-sm font-semibold dark:text-white focus:outline-none focus:ring-2 focus:ring-green-500 truncate">
-                <option value="popular">Most Popular</option>
+          <!-- Left: Product Filters Button -->
+          <button id="open-filter-drawer-btn" onclick="productCatalog.openFilterDrawer()" class="w-full sm:w-auto flex items-center justify-center gap-2 px-4 py-2 bg-green-50 dark:bg-green-950/40 hover:bg-green-100 dark:hover:bg-green-900/60 border border-green-200 dark:border-green-800/60 text-green-700 dark:text-green-400 font-bold text-xs sm:text-sm rounded-xl transition-all shadow-sm group cursor-pointer">
+            <i class="fa-solid fa-filter text-green-600 dark:text-green-400 group-hover:scale-110 transition-transform"></i>
+            <span>Product Filters</span>
+          </button>
+          
+          <!-- Middle: Showing X items -->
+          <div class="text-center font-bold text-xs sm:text-sm text-slate-700 dark:text-slate-200 py-1">
+            <span id="shop-product-count">Showing 6 items</span>
+          </div>
+
+          <!-- Right: Sort By & View Toggles -->
+          <div class="flex items-center justify-between sm:justify-end gap-3 w-full sm:w-auto">
+            <div class="flex items-center gap-2 text-xs sm:text-sm flex-1 sm:flex-initial">
+              <span class="text-slate-500 dark:text-slate-400 font-semibold flex-shrink-0">Sort By:</span>
+              <select id="shop-sort-select" class="w-full sm:w-auto px-3 py-1.5 bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-700/80 rounded-xl text-xs sm:text-sm font-semibold dark:text-white focus:outline-none focus:ring-2 focus:ring-green-500 cursor-pointer">
+                <option value="popular">Featured</option>
                 <option value="price-low">Price: Low to High</option>
                 <option value="price-high">Price: High to Low</option>
                 <option value="rating">Customer Rating</option>
@@ -373,11 +477,12 @@
               </select>
             </div>
 
-            <div class="flex items-center gap-1 bg-slate-100 dark:bg-slate-900 p-1 rounded-xl flex-shrink-0">
-              <button id="view-grid-btn" class="w-8 h-8 sm:w-9 sm:h-9 flex items-center justify-center rounded-lg bg-green-600 text-white" aria-label="Grid View" title="Grid View"><i class="fa-solid fa-table-cells text-xs sm:text-sm"></i></button>
-              <button id="view-list-btn" class="w-8 h-8 sm:w-9 sm:h-9 flex items-center justify-center rounded-lg text-slate-500" aria-label="List View" title="List View"><i class="fa-solid fa-list text-xs sm:text-sm"></i></button>
+            <div class="flex items-center gap-1 bg-slate-100 dark:bg-slate-900 p-1 rounded-xl flex-shrink-0 border border-slate-200 dark:border-slate-700/60">
+              <button id="view-grid-btn" class="w-8 h-8 flex items-center justify-center rounded-lg bg-green-600 text-white shadow-sm" aria-label="Grid View" title="Grid View"><i class="fa-solid fa-table-cells text-xs"></i></button>
+              <button id="view-list-btn" class="w-8 h-8 flex items-center justify-center rounded-lg text-slate-400 hover:text-slate-600 dark:hover:text-white" aria-label="List View" title="List View"><i class="fa-solid fa-list text-xs"></i></button>
             </div>
           </div>
+
         </div>
 
         <!-- Rendered Product Grid -->

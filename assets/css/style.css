@@ -54,7 +54,7 @@ body {
 
 /* Header Utilities */
 .header-glass {
-  background: rgba(255, 255, 255, 0.95);
+  background: #ffffff;
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
 }
@@ -1205,6 +1205,97 @@ html.dark .leaflet-control-zoom a {
 .modal-container {
   z-index: 2010 !important;
 }
+
+/* ===== Admin & User Sidebar Scrollable Layout ===== */
+#admin-sidebar,
+#user-sidebar {
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: space-between !important;
+  max-height: 100vh !important;
+  height: 100vh !important;
+  overflow: hidden !important;
+}
+
+#admin-sidebar > div:first-child,
+#user-sidebar > div:first-child {
+  flex: 1 1 0% !important;
+  overflow-y: auto !important;
+  min-height: 0 !important;
+  scrollbar-width: thin;
+  scrollbar-color: #cbd5e1 transparent;
+}
+
+#admin-sidebar > div:last-child,
+#user-sidebar > div:last-child {
+  flex-shrink: 0 !important;
+}
+
+/* Sidebar Custom Scrollbar Styling */
+.sidebar-scroll {
+  overflow-y: auto !important;
+  scrollbar-width: thin;
+  scrollbar-color: #cbd5e1 transparent;
+}
+
+.sidebar-scroll::-webkit-scrollbar,
+#admin-sidebar > div:first-child::-webkit-scrollbar,
+#user-sidebar > div:first-child::-webkit-scrollbar {
+  width: 6px;
+}
+
+.sidebar-scroll::-webkit-scrollbar-track,
+#admin-sidebar > div:first-child::-webkit-scrollbar-track,
+#user-sidebar > div:first-child::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.sidebar-scroll::-webkit-scrollbar-thumb,
+#admin-sidebar > div:first-child::-webkit-scrollbar-thumb,
+#user-sidebar > div:first-child::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 9999px;
+}
+
+.sidebar-scroll::-webkit-scrollbar-thumb:hover,
+#admin-sidebar > div:first-child::-webkit-scrollbar-thumb:hover,
+#user-sidebar > div:first-child::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
+
+/* ===== Product Filters Drawer System Styling ===== */
+#filter-drawer-overlay {
+  z-index: 2000 !important;
+}
+
+#filter-drawer {
+  z-index: 2010 !important;
+}
+
+.custom-drawer-scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: #16a34a transparent;
+}
+
+.custom-drawer-scrollbar::-webkit-scrollbar {
+  width: 5px;
+}
+
+.custom-drawer-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.custom-drawer-scrollbar::-webkit-scrollbar-thumb {
+  background: #16a34a;
+  border-radius: 9999px;
+}
+
+.custom-drawer-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: #15803d;
+}
+
+
+
 
 
 

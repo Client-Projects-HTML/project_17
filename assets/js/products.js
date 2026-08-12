@@ -1,17 +1,16 @@
 /**
  * FreshBasket Product Listing & Filtering Controller
- * Renders product grid, sidebar filters, sorting, search, grid/list view toggling.
+ * Renders product grid, offcanvas filter drawer, dark sidebar filters, sorting, search, grid/list view toggling.
  */
 
 class ProductCatalogController {
   constructor() {
-    this.currentCategory = 'all';
+    this.selectedCategories = [];
+    this.selectedType = 'all';
     this.currentSearch = '';
     this.currentSort = 'popular';
     this.currentMaxPrice = 100;
     this.selectedBrands = [];
-    this.selectedDietary = [];
-    this.selectedRating = 0;
     this.viewMode = 'grid';
     this.init();
   }
@@ -26,40 +25,258 @@ class ProductCatalogController {
   parseURLParams() {
     const params = new URLSearchParams(window.location.search);
     if (params.has('category')) {
-      this.currentCategory = params.get('category');
+      const cat = params.get('category');
+      if (cat && cat !== 'all') {
+        this.selectedCategories = [cat];
+      }
     }
     if (params.has('search')) {
       this.currentSearch = params.get('search');
     }
     if (params.has('deal')) {
-      this.currentCategory = 'deals';
+      this.selectedType = 'deals';
     }
   }
 
+  // Toggle Offcanvas Filter Drawer (Image 1)
+  openFilterDrawer() {
+    const overlay = document.getElementById('filter-drawer-overlay');
+    const drawer = document.getElementById('filter-drawer');
+    if (overlay) overlay.classList.remove('hidden');
+    if (drawer) {
+      drawer.classList.remove('-translate-x-full');
+      drawer.classList.add('translate-x-0');
+    }
+    document.body.style.overflow = 'hidden';
+  }
+
+  closeFilterDrawer() {
+    const overlay = document.getElementById('filter-drawer-overlay');
+    const drawer = document.getElementById('filter-drawer');
+    if (drawer) {
+      drawer.classList.remove('translate-x-0');
+      drawer.classList.add('-translate-x-full');
+    }
+    if (overlay) overlay.classList.add('hidden');
+    document.body.style.overflow = '';
+  }
+
+  // Toggle Accordion Filter Section inside Drawer / Sidebar
+  toggleFilterSection(sectionId) {
+    const section = document.getElementById(sectionId);
+    const chevron = document.getElementById(`${sectionId}-chevron`);
+    if (section) {
+      section.classList.toggle('hidden');
+    }
+    if (chevron) {
+      chevron.classList.toggle('rotate-180');
+    }
+  }
+
+  // Category Checkboxes Handler
+  onCategoryChange() {
+    const catCheckboxes = document.querySelectorAll('input[name="filter-cat"]:checked');
+    this.selectedCategories = Array.from(catCheckboxes).map(cb => cb.value);
+    this.renderCatalog();
+  }
+
+  // Product Type / Preference Radios Handler
+  onTypeChange(typeVal) {
+    this.selectedType = typeVal;
+    // Sync all product type radio buttons
+    const radios = document.querySelectorAll('input[name="product-type-radio"]');
+    radios.forEach(radio => {
+      radio.checked = (radio.value === typeVal);
+    });
+    this.renderCatalog();
+  }
+
+  // Max Price Slider Handler
+  onPriceInput(val) {
+    this.currentMaxPrice = parseFloat(val);
+    const priceValEls = document.querySelectorAll('.filter-price-val-display');
+    priceValEls.forEach(el => {
+      el.innerText = `$${this.currentMaxPrice}`;
+    });
+    const priceSliders = document.querySelectorAll('.filter-price-range-input');
+    priceSliders.forEach(slider => {
+      slider.value = this.currentMaxPrice;
+    });
+    this.renderCatalog();
+  }
+
+  // Brand Checkboxes Handler
+  onBrandChange() {
+    const brandCheckboxes = document.querySelectorAll('input[name="filter-brand"]:checked');
+    this.selectedBrands = Array.from(brandCheckboxes).map(cb => cb.value);
+    this.renderCatalog();
+  }
+
+  // Apply button inside Drawer
+  applyDrawerFilters() {
+    this.renderCatalog();
+    this.closeFilterDrawer();
+  }
+
+  // Reset all filters
+  resetFilters() {
+    this.selectedCategories = [];
+    this.selectedType = 'all';
+    this.currentSearch = '';
+    this.currentMaxPrice = 100;
+    this.selectedBrands = [];
+    this.currentSort = 'popular';
+
+    // Reset Checkboxes
+    const checkboxes = document.querySelectorAll('input[name="filter-cat"], input[name="filter-brand"]');
+    checkboxes.forEach(cb => { cb.checked = false; });
+
+    // Reset Radio
+    const radios = document.querySelectorAll('input[name="product-type-radio"]');
+    radios.forEach(radio => {
+      radio.checked = (radio.value === 'all');
+    });
+
+    // Reset Price Sliders & Display Text
+    const priceSliders = document.querySelectorAll('.filter-price-range-input');
+    priceSliders.forEach(slider => { slider.value = 100; });
+
+    const priceValEls = document.querySelectorAll('.filter-price-val-display');
+    priceValEls.forEach(el => { el.innerText = '$100'; });
+
+    // Reset Sort select
+    const sortSelect = document.getElementById('shop-sort-select');
+    if (sortSelect) sortSelect.value = 'popular';
+
+    this.renderCatalog();
+  }
+
   syncUIWithFilters() {
-    // Sync Category Radio
-    const catRadios = document.querySelectorAll('input[name="cat-filter"]');
-    catRadios.forEach(radio => {
-      const val = radio.value;
-      if (val === this.currentCategory || (radio.getAttribute('onclick') && radio.getAttribute('onclick').includes(`'${this.currentCategory}'`))) {
-        radio.checked = true;
-      } else {
-        radio.checked = false;
-      }
+    // Check categories
+    const catCheckboxes = document.querySelectorAll('input[name="filter-cat"]');
+    catCheckboxes.forEach(cb => {
+      cb.checked = this.selectedCategories.includes(cb.value);
     });
 
-    // Sync Price Range
-    const priceRange = document.getElementById('filter-price-range');
-    const priceVal = document.getElementById('filter-price-val');
-    if (priceRange) priceRange.value = this.currentMaxPrice;
-    if (priceVal) priceVal.innerText = `$${this.currentMaxPrice}`;
-
-    // Sync Dietary Checkboxes
-    const dietaryInputs = document.querySelectorAll('input[data-dietary]');
-    dietaryInputs.forEach(input => {
-      const val = input.getAttribute('data-dietary');
-      input.checked = this.selectedDietary.includes(val);
+    // Check product type
+    const radios = document.querySelectorAll('input[name="product-type-radio"]');
+    radios.forEach(radio => {
+      radio.checked = (radio.value === this.selectedType);
     });
+
+    // Price sliders
+    const priceSliders = document.querySelectorAll('.filter-price-range-input');
+    priceSliders.forEach(slider => { slider.value = this.currentMaxPrice; });
+    const priceValEls = document.querySelectorAll('.filter-price-val-display');
+    priceValEls.forEach(el => { el.innerText = `$${this.currentMaxPrice}`; });
+
+    // Check brands
+    const brandCheckboxes = document.querySelectorAll('input[name="filter-brand"]');
+    brandCheckboxes.forEach(cb => {
+      cb.checked = this.selectedBrands.includes(cb.value);
+    });
+  }
+
+  getFilteredProducts() {
+    if (!window.productsData) return [];
+    let list = [...window.productsData];
+
+    // 1. Categories Filter (Supports multi-select or single URL param)
+    if (this.selectedCategories && this.selectedCategories.length > 0) {
+      list = list.filter(p => {
+        const pCatId = (p.categoryId || '').toLowerCase().trim();
+        const pCat = (p.category || '').toLowerCase().trim();
+
+        return this.selectedCategories.some(catKey => {
+          const targetCat = catKey.toLowerCase().trim();
+          if (pCatId === targetCat || pCat === targetCat) return true;
+
+          if (targetCat === 'fruits-veggies' || targetCat === 'fruits' || targetCat === 'vegetables') {
+            return pCatId === 'fruits-veggies' || pCat.includes('fruit') || pCat.includes('vegetable');
+          }
+          if (targetCat === 'dairy-eggs' || targetCat === 'dairy' || targetCat === 'eggs') {
+            return pCatId === 'dairy-eggs' || pCat.includes('dairy') || pCat.includes('egg');
+          }
+          if (targetCat === 'meat-seafood' || targetCat === 'meat' || targetCat === 'seafood') {
+            return pCatId === 'meat-seafood' || pCat.includes('meat') || pCat.includes('seafood');
+          }
+          if (targetCat === 'bakery') {
+            return pCatId === 'bakery' || pCat.includes('bakery') || pCat.includes('bread');
+          }
+          if (targetCat === 'pantry') {
+            return pCatId === 'pantry' || pCat.includes('pantry') || pCat.includes('staple');
+          }
+          if (targetCat === 'beverages') {
+            return pCatId === 'beverages' || pCat.includes('beverage') || pCat.includes('drink');
+          }
+          if (targetCat === 'snacks') {
+            return pCatId === 'snacks' || pCat.includes('snack') || pCat.includes('sweet');
+          }
+          if (targetCat === 'frozen') {
+            return pCatId === 'frozen' || pCat.includes('frozen');
+          }
+
+          return pCat.replace(/[^a-z0-9]/g, '-').includes(targetCat);
+        });
+      });
+    }
+
+    // 2. Product Type / Preference Filter (Prescription Type equivalent)
+    if (this.selectedType && this.selectedType !== 'all') {
+      const typeKey = this.selectedType.toLowerCase();
+      list = list.filter(p => {
+        const itemDiet = (p.dietary || []).map(d => d.toLowerCase());
+        const itemTags = (p.tags || []).map(t => t.toLowerCase());
+        const itemName = (p.name || '').toLowerCase();
+
+        if (typeKey === 'organic') {
+          return itemDiet.some(d => d.includes('organic')) || itemTags.some(t => t.includes('organic')) || itemName.includes('organic');
+        }
+        if (typeKey === 'deals') {
+          return p.isWeeklyDeal || (p.discount && p.discount > 0);
+        }
+        if (typeKey === 'gluten-free') {
+          return itemDiet.some(d => d.includes('gluten')) || itemTags.some(t => t.includes('gluten')) || itemName.includes('gluten');
+        }
+        if (typeKey === 'vegan') {
+          return itemDiet.some(d => d.includes('vegan') || d.includes('plant')) || itemTags.some(t => t.includes('vegan')) || itemName.includes('vegan');
+        }
+        return true;
+      });
+    }
+
+    // 3. Search query filter
+    if (this.currentSearch) {
+      const q = this.currentSearch.toLowerCase();
+      list = list.filter(p => 
+        (p.name || '').toLowerCase().includes(q) || 
+        (p.brand || '').toLowerCase().includes(q) || 
+        (p.category || '').toLowerCase().includes(q)
+      );
+    }
+
+    // 4. Max price filter
+    if (this.currentMaxPrice) {
+      list = list.filter(p => p.price <= this.currentMaxPrice);
+    }
+
+    // 5. Brand filter
+    if (this.selectedBrands && this.selectedBrands.length > 0) {
+      list = list.filter(p => this.selectedBrands.includes(p.brand));
+    }
+
+    // 6. Sort order
+    if (this.currentSort === 'price-low') {
+      list.sort((a, b) => a.price - b.price);
+    } else if (this.currentSort === 'price-high') {
+      list.sort((a, b) => b.price - a.price);
+    } else if (this.currentSort === 'rating') {
+      list.sort((a, b) => b.rating - a.rating);
+    } else if (this.currentSort === 'newest') {
+      list.sort((a, b) => (b.id || '').localeCompare(a.id || ''));
+    }
+
+    return list;
   }
 
   renderProductCard(p) {
@@ -69,7 +286,7 @@ class ProductCatalogController {
     
     if (this.viewMode === 'list') {
       return `
-        <div class="product-card product-card-list flex flex-row items-center p-3 sm:p-4 gap-3 sm:gap-5 cursor-pointer bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 shadow-sm hover:border-green-500 transition-all overflow-hidden" onclick="if(!event.target.closest('.add-to-cart-btn') && !event.target.closest('.wishlist-toggle-btn')) window.location.href='product.html?id=${p.id}'">
+        <div class="product-card product-card-list flex flex-row items-center p-3 sm:p-4 gap-3 sm:gap-5 cursor-pointer bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 shadow-sm hover:border-emerald-500 transition-all overflow-hidden" onclick="if(!event.target.closest('.add-to-cart-btn') && !event.target.closest('.wishlist-toggle-btn')) window.location.href='product.html?id=${p.id}'">
           ${hasImage ? `
           <div class="product-img-wrapper w-28 h-28 sm:w-36 sm:h-36 rounded-xl flex-shrink-0 relative overflow-hidden bg-slate-100 dark:bg-slate-900">
             <a href="product.html?id=${p.id}" class="absolute inset-0 w-full h-full block overflow-hidden">
@@ -82,7 +299,7 @@ class ProductCatalogController {
             <div>
               <div class="flex items-center justify-between gap-2 mb-1">
                 <div class="flex items-center gap-1.5 flex-wrap">
-                  <span class="text-[10px] sm:text-xs font-semibold text-green-700 dark:text-green-400 bg-green-50 dark:bg-green-950/40 px-2 py-0.5 rounded">${p.category}</span>
+                  <span class="text-[10px] sm:text-xs font-semibold text-emerald-700 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-950/40 px-2 py-0.5 rounded">${p.category}</span>
                   ${!hasImage && p.discount ? `<span class="badge-discount text-[10px] sm:text-xs px-1.5 py-0.5">-${p.discount}% OFF</span>` : ''}
                   ${p.tags && p.tags.includes('Organic') ? '<span class="badge-organic text-[10px] sm:text-xs px-1.5 py-0.5">Organic</span>' : ''}
                 </div>
@@ -90,7 +307,7 @@ class ProductCatalogController {
                   <i class="${isFav ? 'fa-solid fa-heart text-red-500' : 'fa-regular fa-heart text-slate-500 dark:text-slate-400'} text-xs sm:text-sm"></i>
                 </button>
               </div>
-              <h3 class="text-sm sm:text-base font-bold text-slate-900 dark:text-white mb-0.5 hover:text-green-600 transition-colors line-clamp-1">
+              <h3 class="text-sm sm:text-base font-bold text-slate-900 dark:text-white mb-0.5 hover:text-emerald-600 transition-colors line-clamp-1">
                 <a href="product.html?id=${p.id}">${p.name}</a>
               </h3>
               <p class="text-[11px] sm:text-xs text-slate-500 dark:text-slate-400 mb-1.5">${p.weight} • ${p.brand}</p>
@@ -98,7 +315,7 @@ class ProductCatalogController {
             </div>
             <div class="flex items-center justify-between gap-1.5 pt-1 border-t border-slate-100 dark:border-slate-700/60 mt-auto min-w-0">
               <div class="flex items-baseline gap-1 min-w-0 flex-shrink">
-                <span class="text-xs sm:text-sm font-bold text-green-600 dark:text-green-400 whitespace-nowrap">$${p.price.toFixed(2)}</span>
+                <span class="text-xs sm:text-sm font-bold text-emerald-600 dark:text-emerald-400 whitespace-nowrap">$${p.price.toFixed(2)}</span>
                 ${p.originalPrice ? `<span class="text-[10px] text-slate-400 line-through whitespace-nowrap">$${p.originalPrice.toFixed(2)}</span>` : ''}
               </div>
               <button class="add-to-cart-btn btn-primary text-[11px] px-2 py-1 min-h-0 flex-shrink-0" data-product-id="${p.id}">
@@ -111,7 +328,7 @@ class ProductCatalogController {
     }
 
     return `
-      <div class="product-card flex flex-col justify-between cursor-pointer bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 shadow-sm hover:border-green-500 transition-all overflow-hidden ${hasImage ? '' : 'p-4 sm:p-5'}" onclick="if(!event.target.closest('.add-to-cart-btn') && !event.target.closest('.wishlist-toggle-btn')) window.location.href='product.html?id=${p.id}'">
+      <div class="product-card flex flex-col justify-between cursor-pointer bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 shadow-sm hover:border-emerald-500 transition-all overflow-hidden ${hasImage ? '' : 'p-4 sm:p-5'}" onclick="if(!event.target.closest('.add-to-cart-btn') && !event.target.closest('.wishlist-toggle-btn')) window.location.href='product.html?id=${p.id}'">
         <div>
           ${hasImage ? `
           <div class="product-img-wrapper cursor-pointer relative w-full aspect-square overflow-hidden bg-slate-50 dark:bg-slate-900">
@@ -131,7 +348,7 @@ class ProductCatalogController {
                 <span class="font-bold text-slate-700 dark:text-slate-300">${p.rating}</span>
               </div>
             </div>
-            <h3 class="font-bold text-slate-900 dark:text-white text-sm sm:text-base leading-snug mb-1 line-clamp-2 hover:text-green-600 transition-colors">
+            <h3 class="font-bold text-slate-900 dark:text-white text-sm sm:text-base leading-snug mb-1 line-clamp-2 hover:text-emerald-600 transition-colors">
               <a href="product.html?id=${p.id}">${p.name}</a>
             </h3>
             <p class="text-[11px] sm:text-xs text-slate-500 dark:text-slate-400 mb-2">${p.weight}</p>
@@ -151,7 +368,7 @@ class ProductCatalogController {
                 </button>
               </div>
             </div>
-            <h3 class="font-bold text-slate-900 dark:text-white text-sm sm:text-base leading-snug mb-1 line-clamp-2 hover:text-green-600 transition-colors">
+            <h3 class="font-bold text-slate-900 dark:text-white text-sm sm:text-base leading-snug mb-1 line-clamp-2 hover:text-emerald-600 transition-colors">
               <a href="product.html?id=${p.id}">${p.name}</a>
             </h3>
             <p class="text-[11px] sm:text-xs text-slate-500 dark:text-slate-400 mb-3">${p.weight}</p>
@@ -161,7 +378,7 @@ class ProductCatalogController {
         <div class="${hasImage ? 'p-3 sm:p-4 pt-0 border-t border-slate-100 dark:border-slate-800/80' : 'pt-3 border-t border-slate-100 dark:border-slate-800/80'} mt-auto">
           <div class="flex items-center justify-between pt-2">
             <div class="flex items-baseline gap-1">
-              <span class="text-xs sm:text-sm font-bold text-green-600 dark:text-green-400">$${p.price.toFixed(2)}</span>
+              <span class="text-xs sm:text-sm font-bold text-emerald-600 dark:text-emerald-400">$${p.price.toFixed(2)}</span>
               ${p.originalPrice ? `<span class="text-[10px] text-slate-400 line-through">$${p.originalPrice.toFixed(2)}</span>` : ''}
             </div>
             <button class="add-to-cart-btn btn-primary text-xs px-2.5 py-1 min-h-0" data-product-id="${p.id}">
@@ -173,134 +390,17 @@ class ProductCatalogController {
     `;
   }
 
-  getFilteredProducts() {
-    if (!window.productsData) return [];
-    let list = [...window.productsData];
-
-    // Category filter - STRICT MATCHING
-    if (this.currentCategory && this.currentCategory !== 'all') {
-      if (this.currentCategory === 'deals') {
-        list = list.filter(p => p.isWeeklyDeal);
-      } else {
-        const targetCat = this.currentCategory.toLowerCase().trim();
-        list = list.filter(p => {
-          const pCatId = (p.categoryId || '').toLowerCase().trim();
-          const pCat = (p.category || '').toLowerCase().trim();
-
-          // Direct categoryId / category match
-          if (pCatId === targetCat || pCat === targetCat) return true;
-
-          // Fruits & Vegetables
-          if (targetCat === 'fruits-veggies' || targetCat === 'fruits' || targetCat === 'vegetables' || targetCat === 'produce') {
-            return pCatId === 'fruits-veggies' || pCat.includes('fruit') || pCat.includes('vegetable');
-          }
-          // Dairy & Eggs
-          if (targetCat === 'dairy-eggs' || targetCat === 'dairy' || targetCat === 'eggs') {
-            return pCatId === 'dairy-eggs' || pCat.includes('dairy') || pCat.includes('egg');
-          }
-          // Meat & Seafood
-          if (targetCat === 'meat-seafood' || targetCat === 'meat' || targetCat === 'seafood') {
-            return pCatId === 'meat-seafood' || pCat.includes('meat') || pCat.includes('seafood') || pCat.includes('fish');
-          }
-          // Bakery
-          if (targetCat === 'bakery' || targetCat === 'bread') {
-            return pCatId === 'bakery' || pCat.includes('bakery') || pCat.includes('bread');
-          }
-          // Pantry Staples
-          if (targetCat === 'pantry' || targetCat === 'pantry-staples' || targetCat === 'groceries' || targetCat === 'oil' || targetCat === 'honey') {
-            return pCatId === 'pantry' || pCat.includes('pantry') || pCat.includes('staple');
-          }
-          // Beverages
-          if (targetCat === 'beverages' || targetCat === 'drinks') {
-            return pCatId === 'beverages' || pCat.includes('beverage') || pCat.includes('drink');
-          }
-          // Snacks & Sweets
-          if (targetCat === 'snacks' || targetCat === 'sweets') {
-            return pCatId === 'snacks' || pCat.includes('snack') || pCat.includes('sweet');
-          }
-          // Frozen Foods
-          if (targetCat === 'frozen') {
-            return pCatId === 'frozen' || pCat.includes('frozen');
-          }
-
-          return pCat.replace(/[^a-z0-9]/g, '-').includes(targetCat);
-        });
-      }
-    }
-
-    // Search query filter
-    if (this.currentSearch) {
-      const q = this.currentSearch.toLowerCase();
-      list = list.filter(p => (p.name || '').toLowerCase().includes(q) || (p.brand || '').toLowerCase().includes(q) || (p.category || '').toLowerCase().includes(q));
-    }
-
-    // Max price filter
-    if (this.currentMaxPrice) {
-      list = list.filter(p => p.price <= this.currentMaxPrice);
-    }
-
-    // Brand filter
-    if (this.selectedBrands && this.selectedBrands.length > 0) {
-      list = list.filter(p => this.selectedBrands.includes(p.brand));
-    }
-
-    // Dietary filter
-    if (this.selectedDietary && this.selectedDietary.length > 0) {
-      list = list.filter(p => {
-        const itemDiet = (p.dietary || []).map(d => d.toLowerCase());
-        const itemTags = (p.tags || []).map(t => t.toLowerCase());
-        const itemName = (p.name || '').toLowerCase();
-        
-        return this.selectedDietary.every(selectedKey => {
-          const key = selectedKey.toLowerCase();
-          if (key.includes('organic')) {
-            return itemDiet.some(d => d.includes('organic')) || itemTags.some(t => t.includes('organic')) || itemName.includes('organic');
-          }
-          if (key.includes('gluten')) {
-            return itemDiet.some(d => d.includes('gluten')) || itemTags.some(t => t.includes('gluten')) || itemName.includes('gluten');
-          }
-          if (key.includes('vegan')) {
-            return itemDiet.some(d => d.includes('vegan') || d.includes('plant')) || itemTags.some(t => t.includes('vegan')) || itemName.includes('vegan');
-          }
-          if (key.includes('keto')) {
-            return itemDiet.some(d => d.includes('keto')) || itemTags.some(t => t.includes('keto')) || itemName.includes('keto');
-          }
-          return itemDiet.some(d => d.includes(key)) || itemTags.some(t => t.includes(key));
-        });
-      });
-    }
-
-    // Sort order
-    if (this.currentSort === 'price-low') {
-      list.sort((a, b) => a.price - b.price);
-    } else if (this.currentSort === 'price-high') {
-      list.sort((a, b) => b.price - a.price);
-    } else if (this.currentSort === 'rating') {
-      list.sort((a, b) => b.rating - a.rating);
-    } else if (this.currentSort === 'newest') {
-      list.sort((a, b) => (b.id || '').localeCompare(a.id || ''));
-    }
-
-    return list;
-  }
-
-  toggleDietary(key) {
-    const idx = this.selectedDietary.indexOf(key);
-    if (idx > -1) {
-      this.selectedDietary.splice(idx, 1);
-    } else {
-      this.selectedDietary.push(key);
-    }
-    this.renderCatalog();
-  }
-
   renderCatalog() {
     const grid = document.getElementById('shop-product-grid');
     const countEl = document.getElementById('shop-product-count');
     if (!grid) return;
 
     const filtered = this.getFilteredProducts();
-    if (countEl) countEl.innerText = `${filtered.length} products found`;
+    
+    // Update toolbar text strictly matching Image 2 ("Showing X items")
+    if (countEl) {
+      countEl.innerText = `Showing ${filtered.length} items`;
+    }
 
     if (filtered.length === 0) {
       grid.className = 'w-full py-16 text-center';
@@ -310,7 +410,7 @@ class ProductCatalogController {
             <i class="fa-solid fa-magnifying-glass"></i>
           </div>
           <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-1">No products match your filter</h3>
-          <p class="text-sm text-slate-500 dark:text-slate-400 mb-6">Try resetting your price range or adjusting selected category and dietary filters.</p>
+          <p class="text-sm text-slate-500 dark:text-slate-400 mb-6">Try adjusting your price range, selected categories, or product type filters.</p>
           <button onclick="productCatalog.resetFilters()" class="btn-secondary text-sm px-4 py-2 bg-slate-100 hover:bg-slate-200 dark:bg-slate-700 dark:hover:bg-slate-600 font-semibold rounded-xl transition-colors">Reset All Filters</button>
         </div>
       `;
@@ -318,48 +418,10 @@ class ProductCatalogController {
     }
 
     grid.className = this.viewMode === 'grid' 
-      ? 'grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-6'
+      ? 'grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6'
       : 'flex flex-col gap-4';
 
     grid.innerHTML = filtered.map(p => this.renderProductCard(p)).join('');
-  }
-
-  resetFilters() {
-    this.currentCategory = 'all';
-    this.currentSearch = '';
-    this.currentMaxPrice = 100;
-    this.selectedBrands = [];
-    this.selectedDietary = [];
-    this.selectedRating = 0;
-    this.currentSort = 'popular';
-    
-    // Reset Price Range Slider
-    const priceRange = document.getElementById('filter-price-range');
-    if (priceRange) priceRange.value = 100;
-    const priceVal = document.getElementById('filter-price-val');
-    if (priceVal) priceVal.innerText = '$100';
-
-    // Reset Category Radio Buttons
-    const catRadios = document.querySelectorAll('input[name="cat-filter"]');
-    catRadios.forEach(radio => {
-      if (radio.value === 'all' || (radio.getAttribute('onclick') && radio.getAttribute('onclick').includes("'all'"))) {
-        radio.checked = true;
-      } else {
-        radio.checked = false;
-      }
-    });
-
-    // Reset Dietary Checkboxes
-    const dietaryInputs = document.querySelectorAll('input[data-dietary]');
-    dietaryInputs.forEach(input => {
-      input.checked = false;
-    });
-
-    // Reset Sort dropdown select
-    const sortSelect = document.getElementById('shop-sort-select');
-    if (sortSelect) sortSelect.value = 'popular';
-
-    this.renderCatalog();
   }
 
   bindEvents() {
@@ -378,25 +440,14 @@ class ProductCatalogController {
     if (gridBtn && listBtn) {
       gridBtn.addEventListener('click', () => {
         this.viewMode = 'grid';
-        gridBtn.className = 'w-9 h-9 flex items-center justify-center rounded-lg bg-green-600 text-white';
-        listBtn.className = 'w-9 h-9 flex items-center justify-center rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-500';
+        gridBtn.className = 'w-8 h-8 flex items-center justify-center rounded-lg bg-green-600 text-white shadow-sm';
+        listBtn.className = 'w-8 h-8 flex items-center justify-center rounded-lg text-slate-400 hover:text-slate-600 dark:hover:text-white';
         this.renderCatalog();
       });
       listBtn.addEventListener('click', () => {
         this.viewMode = 'list';
-        listBtn.className = 'w-9 h-9 flex items-center justify-center rounded-lg bg-green-600 text-white';
-        gridBtn.className = 'w-9 h-9 flex items-center justify-center rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-500';
-        this.renderCatalog();
-      });
-    }
-
-    // Price range filter
-    const priceRange = document.getElementById('filter-price-range');
-    const priceVal = document.getElementById('filter-price-val');
-    if (priceRange && priceVal) {
-      priceRange.addEventListener('input', (e) => {
-        this.currentMaxPrice = parseFloat(e.target.value);
-        priceVal.innerText = `$${this.currentMaxPrice}`;
+        listBtn.className = 'w-8 h-8 flex items-center justify-center rounded-lg bg-green-600 text-white shadow-sm';
+        gridBtn.className = 'w-8 h-8 flex items-center justify-center rounded-lg text-slate-400 hover:text-slate-600 dark:hover:text-white';
         this.renderCatalog();
       });
     }

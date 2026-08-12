@@ -109,3 +109,23 @@ html.theme-transitioning * {
     transition: none !important;
   }
 }
+
+/* Dark Mode Sidebar Scrollbar */
+html.dark .sidebar-scroll,
+html.dark #admin-sidebar > div:first-child,
+html.dark #user-sidebar > div:first-child {
+  scrollbar-color: #334155 transparent;
+}
+
+html.dark .sidebar-scroll::-webkit-scrollbar-thumb,
+html.dark #admin-sidebar > div:first-child::-webkit-scrollbar-thumb,
+html.dark #user-sidebar > div:first-child::-webkit-scrollbar-thumb {
+  background: #334155;
+}
+
+html.dark .sidebar-scroll::-webkit-scrollbar-thumb:hover,
+html.dark #admin-sidebar > div:first-child::-webkit-scrollbar-thumb:hover,
+html.dark #user-sidebar > div:first-child::-webkit-scrollbar-thumb:hover {
+  background: #475569;
+}
+
